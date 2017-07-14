@@ -9,6 +9,7 @@ define(function (require) {
             list: require('tpl!templates/list.html'),
             localisator: require('tpl!templates/localisator.html')
         },
+        placeFinder: require('tpl!templates/placeFinder.html'),
         page: require('tpl!templates/page.html'),
         menuItem: require('tpl!templates/menuItem.html'),
         footer: require('tpl!templates/footer.html')
