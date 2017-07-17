@@ -1,3 +1,28 @@
 body{
     background-color: aliceblue;
 }
+
+.webcam-container{
+    width: 160px;
+    height: 80px;
+}
+
+.webcam-img{ 
+    width: 100%;
+}
+
+.list-container {
+    width: 100%;
+    background-color: lavenderblush;
+}
+
+.list-item{
+    list-style: none;
+    list-style-type: none;
+    height: 200px;
+    border: 1px solid black;
+}
+
+li {
+    list-style-type: none;
+}

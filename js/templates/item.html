@@ -1,0 +1,12 @@
+﻿<script id="list-tpl" type="x-template/underscore">
+    <ul>
+        <% _.each(items, function(item) { %>
+        <li style="list-style-type: none" class="list-item">
+            <div class="webcam-container">
+                <img class="webcam-img" style="width: 200px" src="<%- item.url %>" />
+            </div>
+        <p><%- item.title %></p>
+        </li>
+        <% }) %>
+    </ul>
+</script>

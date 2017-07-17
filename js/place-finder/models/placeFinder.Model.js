@@ -5,11 +5,8 @@ define([
 
     return Backbone.Model.extend({
         defaults: {
-            url: 'some url',
+            url: 'some url from model.js',
             active: false
-        },
-        toggle: function () {
-            this.save({ active: !this.get('active') });
         }
     })
 })

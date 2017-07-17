@@ -1,11 +1,14 @@
 define([
-	'marionette',
-	'models/nav.Model'
-], function (Mn, nav) {
-	'use strict';
-	var template = _.template('<li><%= title %><li>')
+    'marionette',
+    'underscore',
+    'text!templates/nav.html',
+	'nav/models/nav.Model'
+], function (Marionette, _, tpl, Model) {
+    'use strict';
 
-	return Mn.View.extend({
-		template: template
-	})
+    return Marionette.View.extend({
+        model: Model,
+        template: _.template(tpl, Model),
+        
+    });
 })

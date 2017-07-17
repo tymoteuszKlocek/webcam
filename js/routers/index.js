@@ -1,10 +1,19 @@
-define(['marionette'], function (marionette) {
+define([
+    'marionette',
+    'controllers/MainController'
+], function (Mn, MainController) {
     'use strict';
 
-    return marionette.AppRouter.extend({
+    var mainController = new MainController();
+
+    return Mn.AppRouter.extend({
+        controller: mainController,
         appRoutes: {
-            '*filter': 'setFilter'
+            '': 'showFinder',
+            'finder': 'showFinder',
+            'localisation': 'showLocalisation',
+            'list': 'showList',
+            //'*': 'showDefaultView'
         }
     });
-
 });

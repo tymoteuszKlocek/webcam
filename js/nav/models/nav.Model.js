@@ -1,15 +1,18 @@
 define([
-    'backbone',
-], function (Bb) {
+    'backbone'
+], function (Backbone) {
     'use strict';
 
-    return Bn.Model.extend({
+    return Backbone.Model.extend({
         defaults: {
             title: 'Page title',
-            content: 'Page content',
-            active: false,
-            name: '404'
-        }
-        
+            url: '#/url',
+            active: false
+        },
+        //toggle: function () {
+        //    this.save({ active: !this.get('active') });
+        //    //this.on({ 'click: clicked', this.render })
+        //}
+
     })
-})
+});

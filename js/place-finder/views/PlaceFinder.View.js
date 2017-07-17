@@ -1,10 +1,17 @@
 define([
-    'marionette'
-], function (Marionette) {
+    'marionette',
+    'text!templates/placeFinder.html',
+    'underscore',
+    'place-finder/models/placeFinder.Model'
+], function (Marionette, template, _, Model) {
     'use strict';
-    var myTemplate = _.template('<div>it works</div>');
-   
+
     return Marionette.View.extend({
-        template: myTemplate
+        template: _.template(template),
+        model: Model,
+        templateContext: {
+            url: 'url from context'
+        }
+        
     });
 })

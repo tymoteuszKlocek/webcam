@@ -42,11 +42,7 @@ require.config({
 
 require([
     'app',
-    'tpl',
-    'text',
-    'radio',
-    'jquery',
-    //'bootstrap'
+    //more...
 ], function (app) {
     'use strict';
     

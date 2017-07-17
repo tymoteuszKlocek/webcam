@@ -4,58 +4,58 @@ define([
     'backbone',
     'marionette',
     'place-finder/views/PlaceFinder.View',
-    'nav/views/nav.View'
-], function (Backbone, Marionette, PlaceFinder, Nav) {
-    'use strict';
+    'nav/views/nav.View',
+    'nav/collections/nav.Collection',
+    'nav/views/nav.CollectionView',
+    'page/views/pageView',
+    'routers/index'
+], function (
+    Backbone,
+    Marionette,
+    PlaceFinder,
+    Nav,
+    NavCollection,
+    NavCollectionView,
+    PageView,
+    Router) {
+        'use strict';
 
-    
+        var app = new Marionette.Application({
+            region: '#app-container',
 
-    var app = new Marionette.Application({
-        region: '#main',
-
-        onStart: function () {
-            this.showView(new Nav());
-        }
-    });
-
-    //app.pages = new Nav([
-    //    { title: 'Home', name: 'home', active: true },
-    //    { title: 'About', name: 'about' },
-    //    { title: 'Contact', name: 'contact' }
-    //]);
-    //var menu = new MenuView({ collection: app.pages });
-
-    //app.input = { url: 'input attack' };
-
-    var placeFinder = new PlaceFinder({ model: { url: 'input attack' } });
-
-    //app.addInitializer(function () {
-    //    console.log('app started');
-    //    //app.main.show(placeFinder);
-    //    //app.footer.show(new Footer());
-    //});
-
-    app.on("start", function (options) {
-        placeFinder.addRegions({
-            main: {
-                el: '#main',
-                replaceElement: true
+            onStart: function () {
+                var pageView = new PageView();
+                pageView.addRegions({
+                    nav: {
+                        el: '#nav',
+                        replaceElement: true
+                    },
+                    main: {
+                        el: '#main',
+                        replaceElement: true
+                    },
+                    dialog: '#dialog'
+                });
+                var placeFinder = new PlaceFinder();
+                var nav = new Nav();
+                var navCollection = new NavCollection();
+                var navCollectionView = new NavCollectionView();
+                var mainRegion = pageView.getRegion('main');
+                var navRegion = pageView.getRegion('nav');
+                var dialogRegion = pageView.getRegion('dialog');
+                mainRegion.show(placeFinder);
+                navRegion.show(navCollectionView);
+                this.showView(pageView);
+                var router = new Router();
             }
         });
-        console.log(placeFinder);
-        if (Backbone.history) {
-            Backbone.history.start();
-        }
+
+        app.on("before:start", function (options) {
+
+            if (Backbone.history) {
+                Backbone.history.start();
+            }
+        });
+
+        return window.app = app;
     });
-
-    //app.vent.on('menu:activate', function (activePageModel) {
-    //    menu.collection.findWhere({ active: true })
-    //        .set('active', false);
-    //    activePageModel.set('active', true);
-    //    menu.render();
-    //});
-
-    
-
-    return window.app = app;
-});
