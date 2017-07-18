@@ -17,8 +17,9 @@ To use app visit ... url ...
 To install app on your computer:
 ```
 1. Clone repo 
-2. Use: npm start
-3. ...
+2. install simple node server: ```$ npm install http-server -g```
+3. open app folder: ```cd webcam```
+4. use in command promtp: ```$ http-server```
 ```
 End with an example of getting some data out of the system or using it for a little demo
 

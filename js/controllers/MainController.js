@@ -1,5 +1,6 @@
 ﻿define([
     'marionette',
+    'radio',
     'app',
     'nav/views/nav.View',
     'nav/collections/nav.Collection',
@@ -11,7 +12,7 @@
     'list/views/itemCollection.View',
     'location-checker/views/map.View',
     'page/views/pageView'
-], function (Mn, App, Nav, NavCollection, NavCollectionView, PlaceFinderModel, PlaceFinderView, List, ListCollection, ListCollectionView, MapView, PageView) {
+], function (Mn,Radio, App, Nav, NavCollection, NavCollectionView, PlaceFinderModel, PlaceFinderView, List, ListCollection, ListCollectionView, MapView, PageView) {
     'use strict';
 
     return Mn.Object.extend({
@@ -47,8 +48,28 @@
             this.showPage();
         },
         showList: function () {
+            
+            var placeChannel = Radio.channel('place');//should be global?
+            console.log('showlist', placeChannel)
+            placeChennel.on('place:detected', function (data) {
+                console.log(data);
+            });
             var list = new List();
-            var listCollection = new ListCollection();
+            var listCollection = new ListCollection([
+                {
+                    title: 'Gallery 1',
+                    url: 'http://www.visages-trekking.com/sites/default/files/styles/flex_produit_custom_user_medium_1x/public/imagesVoyages/dunes_merzouga.jpg?itok=Kz0z_Wbu',
+                    active: true
+                },
+                {
+                    title: 'Galerry2',
+                    url: 'https://s-media-cache-ak0.pinimg.com/originals/6e/74/dc/6e74dc970931b5f355b7ccf992e0de29.jpg',
+                },
+                {
+                    title: 'Gallery3',
+                    url: 'https://media.mnn.com/assets/images/2015/08/forest-waterfall-thailand.jpg.838x0_q80.jpg'
+                }
+            ]);
             var listView = new ListCollectionView();
 
             this.regionManager.mainRegion.show(listView);
