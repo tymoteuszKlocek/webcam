@@ -49,10 +49,10 @@
         },
         showList: function () {
             
-            var placeChannel = Radio.channel('place');//should be global?
-            console.log('showlist', placeChannel)
-            placeChennel.on('place:detected', function (data) {
-                console.log(data);
+            var placeChannel = Backbone.Radio.channel('place');//should be global?
+            console.log('showlist', placeChannel);
+            placeChannel.on('place:detected', function (data) {
+                console.log('ok', data);
             });
             var list = new List();
             var listCollection = new ListCollection([
@@ -70,7 +70,7 @@
                     url: 'https://media.mnn.com/assets/images/2015/08/forest-waterfall-thailand.jpg.838x0_q80.jpg'
                 }
             ]);
-            var listView = new ListCollectionView();
+            var listView = new ListCollectionView(listCollection);
 
             this.regionManager.mainRegion.show(listView);
             this.showPage();

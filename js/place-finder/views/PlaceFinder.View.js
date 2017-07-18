@@ -11,7 +11,7 @@ define([
     var model = new Model();
     //console.log('storage', Storage);
 
-    var placeChannel = Radio.channel('place');
+    var placeChannel = Backbone.Radio.channel('place');
     return Marionette.View.extend({
         template: _.template(tpl),
         tagName: 'div',
