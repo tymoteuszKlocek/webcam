@@ -4,24 +4,14 @@
     'nav/views/nav.View',
     'nav/collections/nav.Collection',
     'nav/views/nav.CollectionView',
+    'place-finder/models/PlaceFinder.Model',
     'place-finder/views/PlaceFinder.View',
     'list/views/item.View',
     'list/collections/item.Collection',
     'list/views/itemCollection.View',
     'location-checker/views/map.View',
     'page/views/pageView'
-], function (
-    Mn,
-    App,
-    Nav,
-    NavCollection,
-    NavCollectionView,
-    PlaceFinder,
-    List,
-    ListCollection,
-    ListCollectionView,
-    MapView,
-    PageView) {
+], function (Mn, App, Nav, NavCollection, NavCollectionView, PlaceFinderModel, PlaceFinderView, List, ListCollection, ListCollectionView, MapView, PageView) {
     'use strict';
 
     return Mn.Object.extend({
@@ -46,18 +36,21 @@
         showLocalisation: function () {
             //TODO
             var mapView = new MapView();
+
             this.regionManager.mainRegion.show(mapView);
             this.showPage();
         },
         showFinder: function () {
-            var placeFinder = new PlaceFinder();
-            this.regionManager.mainRegion.show(placeFinder);
+            var placeFinderView = new PlaceFinderView({ model: new PlaceFinderModel() });
+
+            this.regionManager.mainRegion.show(placeFinderView);
             this.showPage();
         },
         showList: function () {
             var list = new List();
             var listCollection = new ListCollection();
             var listView = new ListCollectionView();
+
             this.regionManager.mainRegion.show(listView);
             this.showPage();
         },
@@ -65,9 +58,9 @@
             var nav = new Nav();
             var navCollection = new NavCollection();
             var navCollectionView = new NavCollectionView();
+
             this.regionManager.navRegion.show(navCollectionView)
             app.showView(this.pageView);
         }
     });
-    //return MainController;
 });

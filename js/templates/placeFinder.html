@@ -1,9 +1,13 @@
-<h3>Here you can write name of a city or country you are looking for.</h3>
-<h5><%= url %></h5>
+<div id="place-finder-tpl" type="text/template">
+    <h3>Here you can write name of a city or country you are looking for.</h3>
+    <!--<div class="error-unknown hide"><%- state %></div>-->
+    <h4><%- place %></h4>
+    <form>
+        <h3>Finde Place</h3>
+        <input name="place" type="text" placeholder="write neme of a city or country">
 
-<input placeholder="Write city or country name"/>
-<hr />
-
-<div class="webcam-container">
-    <img class="webcam-img" src="http://www.telegraph.co.uk/content/dam/Travel/Destinations/Middle%20East/Dubai/Dubai-xlarge.jpg">
+        <button type="submit" value="Find WebCams">Find</button>
+    </form>
+    <br />
+    <button id="cancel">cancel</button>
 </div>

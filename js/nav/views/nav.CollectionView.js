@@ -3,13 +3,14 @@
     'underscore',
     'text!templates/nav.html',
     'nav/collections/nav.Collection',
-    'nav/models/nav.Model'
-], function (Mn, _, tpl, Collection, Model) {
+    'nav/models/nav.Model',
+    //'backbone.localStorage'
+], function (Mn, _, tpl, Collection, Model, localStorage) {
     'use strict';
-
+    //console.log(localStorage);
     var collection = new Collection([
         {
-            title: 'Finder2',
+            title: 'Finder',
             url: '#/finder',
             active: true
         },
@@ -25,6 +26,6 @@
 
     return Mn.View.extend({
         collection: collection,
-        template: tpl
+        template: _.template(tpl)
     });
 });

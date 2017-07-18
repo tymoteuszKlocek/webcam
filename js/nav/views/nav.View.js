@@ -7,8 +7,7 @@ define([
     'use strict';
 
     return Marionette.View.extend({
-        model: Model,
-        template: _.template(tpl, Model),
+        template: _.template(tpl),
         
     });
 })
