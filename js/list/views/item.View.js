@@ -1,13 +1,10 @@
 ﻿define([
     'marionette',
-    'underscore',
-    'text!templates/item.html',
-    'list/models/item.Model'
-], function (Mn, _, tpl, Model) {
+    'templates',
+], function (Mn, tpl) {
     'use strict';
 
     return Mn.View.extend({
-        model: Model,
-        template: _.template(tpl, Model)
-    })
+        template: _.template(tpl.item)
+    });
 })

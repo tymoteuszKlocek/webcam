@@ -11,9 +11,9 @@ define(function (require) {
         //},
         placeFinder: require('tpl!templates/placeFinder.html'),
         nav: require('tpl!templates/nav.html'),
-        list: require('tpl!templates/list.html')
-        //page: require('tpl!templates/page.html'),
-        //menuItem: require('tpl!templates/menuItem.html'),
-        //footer: require('tpl!templates/footer.html')
+        list: require('tpl!templates/list.html'),
+        item: require('tpl!templates/item.html'),
+        webcam: require('tpl!templates/webcam.html'),
+        page: require('tpl!templates/page.html'),
     };
 });

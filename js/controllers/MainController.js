@@ -11,76 +11,76 @@
     'list/collections/item.Collection',
     'list/views/itemCollection.View',
     'location-checker/views/map.View',
-    'page/views/pageView'
-], function (Mn,Radio, App, Nav, NavCollection, NavCollectionView, PlaceFinderModel, PlaceFinderView, List, ListCollection, ListCollectionView, MapView, PageView) {
+    'page/views/pageView',
+    'webcam/views/webcam.View',
+    'webcam/models/webcam.Model'
+], function (Mn,Radio, App, Nav, NavCollection, NavCollectionView, PlaceFinderModel, PlaceFinderView, List, ListCollection, ListCollectionView, MapView, PageView,  WebcamView, WebcamModel) {
     'use strict';
 
     return Mn.Object.extend({
+
         initialize: function () {
+            var newItemChannel = Backbone.Radio.channel('newItem');
+            newItemChannel.on('newItem:added', function(){
+                console.log('change detected');
+                this.showList();
+            })
             this.pageView = new PageView();
             this.pageView.addRegions({
                 nav: {
                     el: '#nav',
                     replaceElement: true
                 },
+                finder: '#finder',
                 main: {
                     el: '#main',
                     replaceElement: true
                 },
                 dialog: '#dialog'
             });
-            this.regionManager = {};
-            this.regionManager.mainRegion = this.pageView.getRegion('main');
-            this.regionManager.navRegion = this.pageView.getRegion('nav');
-            this.regionManager.dialogRegion = this.pageView.getRegion('dialog');
+            this.region = this.pageView.getRegions();
+            // this.region.main = this.pageView.getRegion('main');
+            // this.region.finder = this.pageView.getRegion('finder');
+            // this.region.nav = this.pageView.getRegion('nav');
+            // this.region.dialog = this.pageView.getRegion('dialog');
         },
         showLocalisation: function () {
             //TODO
             var mapView = new MapView();
-
-            this.regionManager.mainRegion.show(mapView);
+            this.region.main.show(mapView);
+            this.showPage();
+        },
+        showList: function () {
+            var list = new List();
+            var collection = JSON.parse(localStorage.getItem("collection")) || [];
+            var listCollection = new ListCollection(collection);
+            var listView = new ListCollectionView({collection: listCollection});
+            this.region.main.show(listView);
             this.showPage();
         },
         showFinder: function () {
             var placeFinderView = new PlaceFinderView({ model: new PlaceFinderModel() });
-
-            this.regionManager.mainRegion.show(placeFinderView);
-            this.showPage();
+            // below some code to add childView, it doesn't work yet, why?
+            // placeFinderView.addRegions({
+            //     webcam: '#webcam'
+            // });
+            // var webcamRegion = placeFinderView.getRegion('webcam');
+            // var webcamModel = new WebcamModel();
+            // var webcamView = new WebcamView(webcamModel);
+            // console.log('1finderview webcamRegion', webcamRegion);
+            // webcamRegion.show(webcamView);
+            // console.log('finderview webcamRegion', webcamRegion);
+            this.region.finder.show(placeFinderView);
         },
-        showList: function () {
-            
-            var placeChannel = Backbone.Radio.channel('place');//should be global?
-            console.log('showlist', placeChannel);
-            placeChannel.on('place:detected', function (data) {
-                console.log('ok', data);
-            });
-            var list = new List();
-            var listCollection = new ListCollection([
-                {
-                    title: 'Gallery 1',
-                    url: 'http://www.visages-trekking.com/sites/default/files/styles/flex_produit_custom_user_medium_1x/public/imagesVoyages/dunes_merzouga.jpg?itok=Kz0z_Wbu',
-                    active: true
-                },
-                {
-                    title: 'Galerry2',
-                    url: 'https://s-media-cache-ak0.pinimg.com/originals/6e/74/dc/6e74dc970931b5f355b7ccf992e0de29.jpg',
-                },
-                {
-                    title: 'Gallery3',
-                    url: 'https://media.mnn.com/assets/images/2015/08/forest-waterfall-thailand.jpg.838x0_q80.jpg'
-                }
-            ]);
-            var listView = new ListCollectionView(listCollection);
-
-            this.regionManager.mainRegion.show(listView);
-            this.showPage();
-        },
-        showPage: function () {
+        showNav: function() {
             var nav = new Nav();
             var navCollection = new NavCollection();
             var navCollectionView = new NavCollectionView();
-
-            this.regionManager.navRegion.show(navCollectionView)
+            this.region.nav.show(navCollectionView);
+        },
+        showPage: function () {
+            this.showNav();
+            this.showFinder();
             app.showView(this.pageView);
         }
     });

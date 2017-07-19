@@ -1,16 +1,13 @@
 ﻿define([
     'marionette',
-    'underscore',
-    'text!templates/nav.html',
-    'nav/collections/nav.Collection',
-    'nav/models/nav.Model',
-    //'backbone.localStorage'
-], function (Mn, _, tpl, Collection, Model, localStorage) {
+    'templates',
+    'nav/collections/nav.Collection'
+], function (Mn, tpl, Collection) {
     'use strict';
-    //console.log(localStorage);
+
     var collection = new Collection([
         {
-            title: 'Finder',
+            title: 'Finder1',
             url: '#/finder',
             active: true
         },
@@ -23,9 +20,8 @@
             url: '#/list'
         }
     ]);
-
     return Mn.View.extend({
         collection: collection,
-        template: _.template(tpl)
+        template: _.template(tpl.nav)
     });
 });

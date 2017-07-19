@@ -1,10 +1,10 @@
 ﻿define([
     'marionette',
-    'text!templates/page.html'
+    'templates'
 ], function (Mn, tpl) {
     'use strict';
 
     return Mn.View.extend({
-        template: _.template(tpl)
+        template: _.template(tpl.page)
     });
 })

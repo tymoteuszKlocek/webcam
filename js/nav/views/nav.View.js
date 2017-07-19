@@ -1,13 +1,10 @@
 define([
     'marionette',
-    'underscore',
-    'text!templates/nav.html',
-	'nav/models/nav.Model'
-], function (Marionette, _, tpl, Model) {
+    'templates'
+], function (Marionette, tpl) {
     'use strict';
 
     return Marionette.View.extend({
-        template: _.template(tpl),
-        
+        template: _.template(tpl.nav)
     });
 })

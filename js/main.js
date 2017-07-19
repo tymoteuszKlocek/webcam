@@ -28,11 +28,10 @@ require.config({
             exports: 'Backbone.Marionette',
             deps: ['backbone', 'radio']
         },
-        //localStorage: {
-        //    //export: 'Backbone.Localstorage',
-        //    export: 'backbone.localstorage',
-        //    deps: ['backbone']
-        //}
+        localStorage: {
+           export: 'backbone.localstorage',
+           deps: ['backbone']
+        }
         //bootstrap: {
         //    deps: ['jquery']
         //}
