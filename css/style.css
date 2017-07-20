@@ -49,27 +49,45 @@ button {
     padding: 5px;
 }
 
-.webcam-container{
+.finder-input {
+    margin: 5px;
+}
+
+.webcam-container {
     width: 160px;
     height: 80px;
 }
 
-.webcam-img{ 
+.webcam-img { 
     width: 100%;
 }
 
-/* .list-container {
-    width: 100%;
-    background-color: lavenderblush;
-}
+/*  list  */
 
-.list-item{
+.list-item {
     list-style: none;
-    list-style-type: none;
-    height: 200px;
-    border: 1px solid black;
+    padding: 5px;
 }
 
-li {
-    list-style-type: none;
-} */
+/*  gallery  */
+
+.gallery-item {
+    list-style: none;
+    margin: 10px;
+    width: 80%;
+    background-color:#AAAADD;
+    display: block;
+    padding: 10px;
+}
+
+.gallery-item .webcam{
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+}
+
+.gallery-item .info {
+    display: inline-block;
+    padding: 10px;
+}

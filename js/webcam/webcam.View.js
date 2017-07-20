@@ -1,13 +1,13 @@
 define([
     'marionette',
-    'templates',
-    'webcam/models/webcam.Model'
+    'text!webcam/webcam.html',
+    'webcam/webcam.Model'
 ], function(Mn, tpl, Model) {
     'use strict';
 
     var model = new Model();
     return Mn.View.extend({
-        model: Model,
-        template: _.template(tpl.webcam, model)
+        model: model,
+        template: _.template(tpl)
     });
 })

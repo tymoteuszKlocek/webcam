@@ -9,8 +9,8 @@ define([
     return Mn.AppRouter.extend({
         controller: mainController,
         appRoutes: {
-            '': 'showFinder',
-            'finder': 'showFinder',
+            '': 'showList',
+            'gallery': 'showGallery',
             'localisation': 'showLocalisation',
             'list': 'showList',
             //'*': 'showDefaultView'

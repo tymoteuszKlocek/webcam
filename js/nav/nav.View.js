@@ -1,10 +1,10 @@
 define([
     'marionette',
-    'templates'
+    'text!nav/nav.html'
 ], function (Marionette, tpl) {
     'use strict';
 
     return Marionette.View.extend({
-        template: _.template(tpl.nav)
+        template: _.template(tpl)
     });
 })

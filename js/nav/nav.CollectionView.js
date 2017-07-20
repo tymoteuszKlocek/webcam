@@ -1,14 +1,14 @@
 ﻿define([
     'marionette',
-    'templates',
-    'nav/collections/nav.Collection'
+    'text!nav/nav.html',
+    'nav/nav.Collection'
 ], function (Mn, tpl, Collection) {
     'use strict';
-
+    
     var collection = new Collection([
         {
-            title: 'Finder1',
-            url: '#/finder',
+            title: 'Gallery',
+            url: '#/gallery',
             active: true
         },
         {
@@ -22,6 +22,6 @@
     ]);
     return Mn.View.extend({
         collection: collection,
-        template: _.template(tpl.nav)
+        template: _.template(tpl)
     });
 });

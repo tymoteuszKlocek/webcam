@@ -7,8 +7,7 @@ require.config({
         jquery: '../node_modules/jquery/dist/jquery',
         tpl: '../node_modules/requirejs-tpl/lib/tpl',
         text: '../node_modules/text/text',
-        templates: './templates',
-        localStorage: '../node_modules/backbone.localstorage/build/backbone.localStorage',
+        localStorage: '../node_modules/backbone.localstorage/src/localstorage',
         //bootstrap: 'lib/bootstrap.min'
     },
 
@@ -16,17 +15,9 @@ require.config({
         underscore: {
             exports: '_'
         },
-        backbone: {
-            exports: 'Backbone',
-            deps: ['jquery', 'underscore']
-        },
         radio: {
             exports: 'Backbone.Radio',
             deps: ['backbone']
-        },
-        marionette: {
-            exports: 'Backbone.Marionette',
-            deps: ['backbone', 'radio']
         },
         localStorage: {
            export: 'backbone.localstorage',

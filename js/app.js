@@ -1,63 +1,29 @@
 /*global define */
 
 define([
-  'backbone',
-  'marionette',
-  'place-finder/models/PlaceFinder.Model',
-  'place-finder/views/PlaceFinder.View',
-  'nav/views/nav.View',
-  'nav/collections/nav.Collection',
-  'nav/views/nav.CollectionView',
-  'page/views/pageView',
-  'routers/index'
-], function (
-  Backbone,
-  Marionette,
-  PlaceFinderModel,
-  PlaceFinderView,
-  Nav,
-  NavCollection,
-  NavCollectionView,
-  PageView,
-  Router) {
+    'backbone',
+    'marionette',
+    'app/appView',
+    'routers/index'
+], function (Backbone, Marionette, AppView, Router) {
     'use strict';
 
     var app = new Marionette.Application({
-      region: '#app-container',
+        region: '#app-container',
 
-      onStart: function () {
-        var pageView = new PageView();
-        pageView.addRegions({
-          nav: {
-            el: '#nav',
-            replaceElement: true
-          },
-          main: {
-            el: '#main',
-            replaceElement: true
-          },
-          dialog: '#dialog'
-        });
-        var placeFinderView = new PlaceFinderView({ model: new PlaceFinderModel() });
-        var nav = new Nav();
-        var navCollection = new NavCollection();
-        var navCollectionView = new NavCollectionView();
-        var mainRegion = pageView.getRegion('main');
-        var navRegion = pageView.getRegion('nav');
-        var dialogRegion = pageView.getRegion('dialog');
-        mainRegion.show(placeFinderView);
-        navRegion.show(navCollectionView);
-        this.showView(pageView);
-        var router = new Router();
-      }
+        onStart: function () {
+            var appView = new AppView();
+            this.showView(appView);
+            var router = new Router();
+        }
     });
 
     app.on("before:start", function (options) {
 
-      if (Backbone.history) {
-        Backbone.history.start();
-      }
+        if (Backbone.history) {
+            Backbone.history.start();
+        }
     });
 
     return window.app = app;
-  });
+});

@@ -1,10 +1,10 @@
 ﻿define([
     'backbone',
-    'nav/models/nav.Model'
-], function (Bb, Model) {
+    'nav/nav.Model'
+], function (Bb) {
     'use strict';
 
     return Bb.Collection.extend({
-        model: Model
+
     })
 })

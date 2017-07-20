@@ -1,13 +1,13 @@
 ﻿define([
 	'marionette',
-	'location-checker/models/map.Model',
-	'text!templates/map.html'
+	'location-checker/map.Model',
+	'text!location-checker/map.html'
 ], function (Mn, Model, tpl) {
 	'use strict';
-
+	var model = new Model();
 	return Mn.View.extend({
-		model: Model,
-		template: tpl, // _.template(tpl, Model);
+		
+		template: _.template(tpl, Model),
 		initialize: function () {
 			var map, infoWindow;
 			function initMap() {

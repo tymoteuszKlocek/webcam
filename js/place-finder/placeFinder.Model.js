@@ -5,8 +5,8 @@ define([
 
     return Backbone.Model.extend({
         defaults: {
-            place: 'some place',
-            state: 'some state',
+            country: 'some place',
+            category: 'some state',
             url: 'some url from model.js',
             active: false
         }
