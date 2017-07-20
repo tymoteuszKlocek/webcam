@@ -42,7 +42,7 @@
         },
         onRender: function () {
             this.showChildView('nav', new Nav());
-            this.showChildView('finder', new Finder({url: 'new url'}));
+            this.showChildView('finder', new Finder());
             this.showChildView('main', new Gallery());
         },
         onShow: function () {

@@ -9,9 +9,7 @@ define([
     'use strict';
 
     var newItemChannel = Backbone.Radio.channel('newItem');
-    var model = new Model();
     return Marionette.View.extend({
-
         template: _.template(tpl),
         tagName: 'div',
         regions: {
@@ -62,7 +60,7 @@ define([
         //     console.log('storage po zapisie', localStorage.getItem("collection"));
         // }
         onRender: function() {
-            console.log('render', this.model);
+          
         }
     });
 })
