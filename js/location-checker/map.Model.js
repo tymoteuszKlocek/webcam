@@ -5,7 +5,8 @@
 
 	return Bb.Model.extend({
 		defaults: {
-			localisation: ''
+			lat: '3',
+			lng: '4'
 		}
 	})
 })

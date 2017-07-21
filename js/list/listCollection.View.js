@@ -8,10 +8,12 @@
     var collection = new Collection([
         {
             title: 'Item1 from list',
+            id: 0,
             active: false
         },
         {
             title: 'Item2 from list',
+            id: 1,
             active: false
         },
         {
@@ -31,7 +33,7 @@
             active: false
         },
     ]);
-
+    //console.log(collection.models[0].cid);
     return Mn.View.extend({
         collection: collection,
         template: _.template(tpl),
