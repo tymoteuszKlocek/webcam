@@ -6,23 +6,24 @@ define([
     'use strict';
 
     var renderChannel = Backbone.Radio.channel('renderView');
-    var appView = new AppView();
     return Mn.AppRouter.extend({
         routes: {
             'localisation': 'showLocalisation',
-            'gallery/:id': 'showGallery',
+            'gallery/:title': 'showGallery',
             'list': 'showList',
+            'finder': 'showFinder'
         },
         showLocalisation: function () {
-            renderChannel.trigger('show:location', appView);
+            renderChannel.trigger('show:location');
         },
         showList: function () {
-            renderChannel.trigger('show:list', appView);
+            renderChannel.trigger('show:list');
         },
-        showGallery: function (id) {
-            renderChannel.trigger('create:gallery', id);
-            renderChannel.trigger('show:gallery', appView);
-
+        showGallery: function (title) {
+            renderChannel.trigger('show:gallery', title);
+        },
+        showFinder: function () {
+            renderChannel.trigger('show:finder');
         }
     });
 });

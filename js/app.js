@@ -12,22 +12,22 @@ define([
     'location-checker/map.View',
     'list/listCollection.View',
     'dialog/dialog.View'
-], function (Backbone, Marionette, AppView, Router, Nav, Finder, GalleryCollection, Gallery, Location, List, Dialog) {
+], function (Bb, Mn, AppView, Router, Nav, Finder, GalleryCollection, Gallery, Location, List, Dialog) {
     'use strict';
 
-    var app = new Marionette.Application({
+    var app = new Mn.Application({
         region: '#app-container',
         onBeforeStart: function () {
             this.appView = new AppView();
             var router = new Router();
-            var appView = new AppView();
-            appView.showChildView('main', new List());
-            this.renderChannel = Backbone.Radio.channel('renderView');
-            this.showView(appView);
+            //this.appView = new AppView();
+            this.renderChannel = Bb.Radio.channel('renderView');
+            this.appView.showChildView('main', new Finder());
+            this.showView(this.appView);
         },
         onStart: function () {
             var collection = [];
-            this.renderChannel.on('create:gallery', function(title) {
+            this.renderChannel.on('create:gallery', function (title) {
                 //just for test
                 collection = new GalleryCollection(localStorage.getItem(title)) || new GalleryCollection([
                     {
@@ -45,31 +45,39 @@ define([
                         url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
                         state: 'some info',
                     },
+                    {
+                        title: 'Paris 4',
+                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
+                        state: 'some info',
+                    },
+                    {
+                        title: 'Paris 5',
+                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
+                        state: 'some info',
+                    },
                 ]);
             });
-            this.renderChannel.on('show:gallery', function (appView) {
+            this.renderChannel.on('show:gallery', function (title) {
                 //TODO check setRenderer method here with data from Radio
-                appView.showChildView('main', new Gallery({collection: collection}));
-                app.showView(appView);
+                app.appView.showChildView('main', new Gallery({ collection: collection }));
+                app.showView(app.appView);
             });
-            this.renderChannel.on('show:location', function (appView) {
-                appView.showChildView('main', new Location());
-                app.showView(appView);
+            this.renderChannel.on('show:location', function () {
+                app.appView.showChildView('main', new Location());
+                app.showView(app.appView);
             });
-            this.renderChannel.on('show:list', function (appView) {
-                appView.showChildView('main', new List());
-                app.showView(appView);
+            this.renderChannel.on('show:list', function () {
+                app.appView.showChildView('main', new List());
+                app.showView(app.appView);
             });
-            this.renderChannel.on('show:dialog', function () {
-                console.log('dialog must show' );
-
-                // this.appView.showChildView('dialog', new Dialog());
-                // app.showView(this.appView);
+            this.renderChannel.on('show:finder', function () {
+                app.appView.showChildView('main', new Finder());
+                app.showView(app.appView);
             });
-            // this.renderChannel.on('hide:dialog', function () {
-            //     this.appView.showChildView('dialog', new List());
-            //     app.showView(appView);
-            // });
+            this.renderChannel.on('show:dialog', function (data) {
+                app.appView.showChildView('dialog', new Dialog());
+                app.showView(this.appView);
+            });
         }
 
     });

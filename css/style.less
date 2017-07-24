@@ -1,5 +1,245 @@
-@grass: #009900;
-
-h1{
-    color: @grass;
+@backgroundColor: #CEF6E3;
+@navPadding: 20px;
+@navColor: #EEEEEE;
+@navBackground: #58FA82;
+//
+@inputPadding: 10px;
+@inputColor: #E6E6E6;
+@inputMargin: 10px;
+//
+@btnPadding: 10px;
+@btnColor: #58FA82;
+@btnBorderColor: #CEF6E3;
+@btnWidth: 70px;
+@btnFontSize: 14px;
+//
+@imgWidth: 200px;
+@imgHeight: 100px;
+//
+@panelColor: #FFF;
+@panelWidth: 100%;
+@panePadding: 20px;
+@radius: 3px;
+@margin: 10px;
+@padding: 10px;
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
 }
+
+#app-container {
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    @media all {
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
+        @media (max-width: 425px) {
+            font-size: 12px;
+        }
+        @media (max-width: 320px) {
+            font-size: 12px;
+        }
+    }
+}
+
+.app-view {
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: @btnPadding;
+    background-color: @btnColor;
+    border-radius: @radius;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: @btnFontSize;
+    width: @btnWidth;
+    box-sizing: border-box;
+}
+
+.btn:hover {
+    opacity: 0.7;
+}
+
+input {
+    padding: @inputPadding;
+    margin: @inputMargin;
+    border-radius: @radius;
+    border: none;
+}
+
+.nav-panel {
+    .panel;
+    border: none;
+    background-color: #FFF;
+    padding: 0;
+}
+
+#nav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    list-style: none;
+    align-items: center;
+    width: 100%;
+    padding-left: 0;
+    li {
+        background-color: @navBackground;
+        border-radius: @radius;
+        margin: @margin;
+        flex-basis: 9rem;
+    }
+    a {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        padding: 5px @navPadding;
+    }
+    li:hover {
+        opacity: 0.7;
+    }
+}
+
+.panel {
+    border: 1px solid #AAA;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    background-color: @backgroundColor;
+    padding: 20px;
+    border-radius: @radius;
+    @media all {
+        @media (max-width: 768px) {
+            font-size: 14px;
+            margin: 5px;
+            padding: 5px;
+        }
+        @media (max-width: 425px) {
+            font-size: 12px;
+            margin: 5px;
+            padding: 5px;
+        }
+        @media (max-width: 320px) {
+            font-size: 12px;
+            margin: 5px;
+            padding: 5px;
+        }
+    }
+}
+
+.list {
+    text-decoration: none;
+    box-shadow: border-box;
+    li {
+        padding: @padding;
+        background-color: #CEF6E3;
+        list-style: none;
+    }
+    li:hover {
+        background-color: #58FA82;
+    }
+    li:active {
+        background-color: #444;
+    }
+    a {
+        text-decoration: none;
+        text-decoration-style: none;
+    }
+}
+
+.webcam-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    .webcam-item {
+        margin: @margin;
+        background-color: black;
+        width: 220px;
+        padding: @padding;
+        box-sizing: border-box;
+        .btn-container {
+            display: flex;
+            width: 200px;
+            justify-content: center;
+            align-content: space-around;
+        }
+        .btn {
+            margin: 5px;
+        }
+        img {
+            width: 200px;
+            height: 120px;
+            margin: auto;
+        }
+    }
+}
+//TODO: make it look better
+@media all {
+        @media (max-width: 768px) {
+            font-size: 14px;
+            margin: 5px;
+            padding: 5px;
+            #app-container{
+                padding: 5px;
+            }
+            .app-view{
+                width: 99%;
+            }
+            .panel{
+                width: 96%;
+            }
+            .btn{
+                padding: 5px;
+            }
+            .webcam-container{
+                justify-content: center;
+            }
+        }
+        @media (max-width: 425px) {
+            font-size: 12px;
+            #app-container{
+                padding: 5px;
+            }
+            .app-view{
+                width: 99%;
+            }
+            .panel{
+                width: 90%;
+            }
+            .btn{
+                padding: 5px;
+            }
+            .webcam-container{
+                justify-content: center;
+            }
+        }
+        @media (max-width: 320px) {
+            font-size: 12px;
+            #app-container{
+                padding: 5px;
+            }
+            .app-view{
+                width: 99%;
+            }
+            .panel{
+                width: 90%;
+            }
+            .btn{
+                padding: 5px;
+            }
+            .webcam-container{
+                justify-content: center;
+            }
+        }
+    }

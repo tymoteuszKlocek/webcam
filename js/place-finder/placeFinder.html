@@ -1,20 +1,20 @@
-<h1>hello</h1>
 <div id="place-finder-tpl">
-    <h3>Here you can write name of a city or country you are looking for.</h3>
-    
-    <form>
-        <div class="finder-input"><label for="category">Category: </label>
-            <input name="category" placeholder="eg. mountans, sea"/>
+    <h3>Here you can write category or place you are looking for.</h3>
+
+    <form class="form">
+        <div><label for="category">Category: </label>
+            <input name="category" placeholder="eg. mountans, sea" />
         </div>
-        <div class="finder-input"><label for="country">Country: </label>
-            <input name="country" type="text" placeholder="eg. Poland, France"/>
+        <div><label for="country">Country: </label>
+            <input name="country" type="text" placeholder="eg. Poland, France" />
         </div>
-        
+
         <!-- <button type="submit" value="Find WebCams">Save</button> -->
     </form>
-    <br />
-    <button id="cancel">cancel</button>
-    <button id="find">find</button>
-    <div id="webcam"></div>
+
+    <button class="btn" id="find">Find</button>
+    <button class="btn" id="cancel">Clear</button>
     <hr>
+    <div id="webcam"></div>
+
 </div>

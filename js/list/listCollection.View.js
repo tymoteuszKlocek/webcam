@@ -37,6 +37,7 @@
     return Mn.View.extend({
         collection: collection,
         template: _.template(tpl),
+        className: 'panel',
         
     });
 });

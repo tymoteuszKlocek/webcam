@@ -8,6 +8,7 @@ define([
     var renderChannel = Backbone.Radio.channel('renderView');
     return Mn.View.extend({
         //collection: collection,
-        template: _.template(tpl)
+        template: _.template(tpl),
+        className: 'panel',
     });
 });

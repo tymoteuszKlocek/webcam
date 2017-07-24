@@ -18,6 +18,7 @@
 	return Mn.View.extend({
 		model: model,
 		template: _.template(tpl),
+		className: 'panel',
 		initialize: function () {
 		},
 		onRender: function () {

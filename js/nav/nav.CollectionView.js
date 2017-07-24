@@ -7,8 +7,8 @@
     
     var collection = new Collection([
         {
-            title: 'Gallery',
-            url: '#/gallery',
+            title: 'Find place',
+            url: '#/finder',
             active: true
         },
         {
@@ -22,6 +22,7 @@
     ]);
     return Mn.View.extend({
         collection: collection,
-        template: _.template(tpl)
+        template: _.template(tpl),
+        className: 'nav-panel'
     });
 });

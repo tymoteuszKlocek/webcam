@@ -5,14 +5,15 @@ define([
     'radio',
     'text!place-finder/placeFinder.html',
     'place-finder/placeFinder.Model',
-    'webcam/webcam.View'
-], function (Marionette, Backbone, Radio, tpl, Model, Webcam) {
+    'webcam/webcam.CollectionView'
+], function (Marionette, Backbone, Radio, tpl, Model, WebcamCollection) {
     'use strict';
 
-    var newItemChannel = Backbone.Radio.channel('newItem');
+    var renderChannel = Backbone.Radio.channel('renderView');
     return Marionette.View.extend({
         template: _.template(tpl),
         tagName: 'div',
+        className: 'panel',
         regions: {
             webcamRegion: {
                 el: '#webcam',
@@ -26,32 +27,36 @@ define([
             find: '#find',
             cancel: '#cancel',
             save: '#save',
-            create: '#create'
-            // successMessage: '.msg-success',
+            delete: '#delete'
         },
         events: {
-            //'submit form': 'formSubmitted',
             'click @ui.cancel': 'clear',
             'click @ui.find': 'find',
+            'click @ui.delete': 'closeWebcam',
+        },
+        childViewEvents: {
+            'open:Dialog': 'openDialog',
+            'hide:dialog': 'closeWebcam'
+        },
+        triggers:{
+            'click @ui.save': 'open:dialog',
         },
         find: function () {
             //TODO REST request here
-            //this.showChildView('webcamRegion', new Webcam());
+            this.showChildView('webcamRegion', new WebcamCollection());
             this.clear();
         },
         clear: function () {
             this.ui.country.val('');
             this.ui.category.val('');
         },
-        store: function(item) {
-            // var collection = JSON.parse(localStorage.getItem("collection")) || [];
-            // collection.push(item);
-            // localStorage.setItem("collection", JSON.stringify(collection));
-            // console.log('storage po zapisie', localStorage.getItem("collection"));
-        },
-        onRender: function () {
-            //TODO append as many Views as needed
-            this.showChildView('webcamRegion', new Webcam());
+        // onChildViewOpenDialog: function (childView) {
+        //     console.log('title from Webcam', childView.model.title);
+        //     renderChannel.trigger("show:dialog");
+        // },
+        closeWebcam: function () {
+            this.detachChildView('webcamRegion');
         }
+
     });
 })
