@@ -7,6 +7,7 @@ define([
     
     return Mn.View.extend({
         template: _.template(tpl),
+        tagName: 'li',
         className: 'webcam-item',
         ui: {
             save: '#save',
@@ -15,6 +16,7 @@ define([
         triggers: {
             'click @ui.save': 'open:dialog',
             'click @ui.delete': 'close:webcam',
-        },     
+        },
+    
     });
 })

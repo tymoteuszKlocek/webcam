@@ -113,6 +113,7 @@ input {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-flow: row wrap;
     align-content: space-around;
     background-color: @backgroundColor;
     padding: 20px;
@@ -136,7 +137,36 @@ input {
     }
 }
 
+.gallery-links {
+    .panel;
+    .list;
+    flex-direction: column;
+    display: block;
+    a {
+        padding: @padding;
+    }
+}
+
+.gallery-item{
+    width: 220px;
+    height: 300px;
+    margin: @margin;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    img {
+        width: 200px;
+        height: 100px;
+    }
+    ul {
+        list-style: none;
+        padding-left: 0px;
+
+    }
+}
+
 .list {
+    list-style: none;
     text-decoration: none;
     box-shadow: border-box;
     li {
@@ -151,6 +181,7 @@ input {
         background-color: #444;
     }
     a {
+        display: block;
         text-decoration: none;
         text-decoration-style: none;
     }
@@ -184,62 +215,67 @@ input {
         }
     }
 }
+
 //TODO: make it look better
 @media all {
-        @media (max-width: 768px) {
-            font-size: 14px;
-            margin: 5px;
+    @media (max-width: 768px) {
+        font-size: 14px;
+        margin: 5px;
+        padding: 5px;
+        #app-container {
             padding: 5px;
-            #app-container{
-                padding: 5px;
-            }
-            .app-view{
-                width: 99%;
-            }
-            .panel{
-                width: 96%;
-            }
-            .btn{
-                padding: 5px;
-            }
-            .webcam-container{
-                justify-content: center;
-            }
         }
-        @media (max-width: 425px) {
-            font-size: 12px;
-            #app-container{
-                padding: 5px;
-            }
-            .app-view{
-                width: 99%;
-            }
-            .panel{
-                width: 90%;
-            }
-            .btn{
-                padding: 5px;
-            }
-            .webcam-container{
-                justify-content: center;
-            }
+        .app-view {
+            width: 99%;
         }
-        @media (max-width: 320px) {
-            font-size: 12px;
-            #app-container{
-                padding: 5px;
-            }
-            .app-view{
-                width: 99%;
-            }
-            .panel{
-                width: 90%;
-            }
-            .btn{
-                padding: 5px;
-            }
-            .webcam-container{
-                justify-content: center;
-            }
+        .panel {
+            width: 96%;
+        }
+        .btn {
+            padding: 5px;
+        }
+        .webcam-container {
+            justify-content: center;
         }
     }
+    @media (max-width: 425px) {
+        font-size: 12px;
+        #nav {
+            
+            //TODO li { flex-direction: column;width: 30px; }
+        }
+        #app-container {
+            padding: 5px;
+        }
+        .app-view {
+            width: 99%;
+        }
+        .panel {
+            width: 90%;
+        }
+        .btn {
+            padding: 5px;
+        }
+        .webcam-container {
+            justify-content: center;
+        }
+    }
+    @media (max-width: 320px) {
+        font-size: 12px;
+        #app-container {
+            padding: 5px;
+        }
+        .app-view {
+            width: 99%;
+        }
+        .panel {
+            width: 90%;
+        }
+        .btn {
+            padding: 5px;
+        }
+        .webcam-container {
+            justify-content: center;
+        }
+    }
+}

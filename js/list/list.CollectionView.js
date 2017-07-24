@@ -1,11 +1,12 @@
-define([
+﻿define([
     'marionette',
-    'text!dialog-list/dialogListCollection.html',
-    'dialog-list/dialogList.Collection',
-    'dialog-list/dialogListItem.View'
-], function (Mn, tpl, Collection, DialogListItemView) {
+    'text!list/listCollection.html',
+    'list/list.Collection',
+    'list/list.View'
+], function (Mn, tpl, Collection, ListItemView) {
     'use strict';
     
+    var renderChannel = Backbone.Radio.channel('renderView'); 
     var collection = new Collection([
         {
             title: 'Item1 from list',
@@ -34,20 +35,20 @@ define([
             active: false
         },
     ]);
-
     return Mn.CollectionView.extend({
         collection: collection,
         template: _.template(tpl),
         tagName: 'ul',
-        className: 'list',
-        childView: DialogListItemView,
+        className: 'gallery-links',
+        childView: ListItemView,
         regions: {
             ul: '#list',
             replaceElement: false
         },
         onChildviewTitleSelected: function(childView) {
             var title = childView.model.attributes.title;
-            this.trigger('child:title:selected', title);
+            renderChannel.trigger('show:gallery', title);
+            //this.trigger('child:title:selected', title);
         },
     });
 });

@@ -1,14 +1,7 @@
-﻿<ul>
-    <% _.each(items, function(item) { %>
-    <li class="gallery-item">
-        <div class="webcam">
-            <img class="webcam-img" style="width: 200px" src="<%- item.url %>" />
-        </div>
-        <div class="info">
-            <h4><%- item.title %></h4>
-            <p>her is place for some info, about the place you see</p>
-        </div>
-        
-    </li>
-    <% }) %>
+﻿<h4><%= title %></h4>
+<div><img src="<%= url %>"/></div>
+<ul><b>Short info:</b>
+    <li>Date: <%= date %></li>
+    <li>Localisation: <%= localisation %><li>
+    <li>Country: <%= country %></li>
 </ul>

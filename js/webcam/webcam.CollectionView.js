@@ -5,7 +5,7 @@ define([
     'webcam/webcam.View'
 ], function (Mn, tpl, Collection, WebcamView) {
     'use strict';
-    
+
     var collection = new Collection([
         {
             title: 'Paris1',
@@ -37,9 +37,9 @@ define([
             url: 'http://www.universal-tourguide.com/wp-content/uploads/2016/09/discoverparis-universaltourguide.jpg',
             active: false
         },
-       
-    ]);
 
+    ]);
+    var renderChannel = Backbone.Radio.channel('renderView');
     return Mn.CollectionView.extend({
         collection: collection,
         template: _.template(tpl),
@@ -47,25 +47,14 @@ define([
         className: 'webcam-container',
         childView: WebcamView,
         regions: {
-            box: '#webcam-box',
+            item: '.webcam-item',
             replaceElement: false
         },
-        ui:{
-            item: 'a'
+        onChildviewOpenDialog: function (childView) {
+            renderChannel.trigger("show:dialog");
         },
-        childViewEvents:{
-            'item:clicked': 'cliked'
-        },
-        createGalleryTitle: function() {
-            console.log( this.ui.input.val().trim());
-
-        },
-        onChildViewItemClicked: function(childView) {
-            console.log('click:', childView.model.title)
-        },
-        onChildViewCloseWebcam: function(childView) {
-            console.log('close webcam:', childView.model.title);
-            this.detachChildView('webcamRegion', childView);
+        onChildviewCloseWebcam: function (childView) {
+            this.removeChildView(childView);
         },
     });
 });

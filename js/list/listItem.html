@@ -1,10 +1,3 @@
-<ol class="list">
-    <h4>List of your galleries</h4>
-    <% _.each(items, function(item) { %>
-        <li class="list-item">
-            <a href="#/gallery/<%= item.title %>">
-                <%- item.title %>
-            </a>
-        </li>
-        <% }) %>
-</ol>
+<a id="link" href="#/gallery/<%= title %>">
+    <%= title %>
+</a>

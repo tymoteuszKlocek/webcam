@@ -8,58 +8,35 @@ define([
     'nav/nav.CollectionView',
     'place-finder/PlaceFinder.View',
     'gallery/gallery.Collection',
-    'gallery/galleryCollection.View',
+    'gallery/gallery.CollectionView',
     'location-checker/map.View',
-    'list/listCollection.View',
+    'list/list.CollectionView',
     'dialog/dialog.View'
-], function (Bb, Mn, AppView, Router, Nav, Finder, GalleryCollection, Gallery, Location, List, Dialog) {
+], function (Bb, Mn, AppView, Router, Nav, Finder, GalleryCollection, Gallery, Location, ListCollectionView, Dialog) {
     'use strict';
 
     var app = new Mn.Application({
         region: '#app-container',
         onBeforeStart: function () {
             this.appView = new AppView();
-            var router = new Router();
-            //this.appView = new AppView();
+            this.router = new Router();
             this.renderChannel = Bb.Radio.channel('renderView');
             this.appView.showChildView('main', new Finder());
             this.showView(this.appView);
         },
         onStart: function () {
-            var collection = [];
+            var collection = new GalleryCollection([
+                   //
+                ]);
             this.renderChannel.on('create:gallery', function (title) {
                 //just for test
-                collection = new GalleryCollection(localStorage.getItem(title)) || new GalleryCollection([
-                    {
-                        title: 'Paris 1',
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
-                        state: 'some info',
-                    },
-                    {
-                        title: 'Paris 2',
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
-                        state: 'some info',
-                    },
-                    {
-                        title: 'Paris 3',
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
-                        state: 'some info',
-                    },
-                    {
-                        title: 'Paris 4',
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
-                        state: 'some info',
-                    },
-                    {
-                        title: 'Paris 5',
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Lublin_trzy_wie%C5%BCe.jpg',
-                        state: 'some info',
-                    },
-                ]);
+                console.log(title);
+                collection = new GalleryCollection(localStorage.getItem(title)) 
             });
             this.renderChannel.on('show:gallery', function (title) {
                 //TODO check setRenderer method here with data from Radio
-                app.appView.showChildView('main', new Gallery({ collection: collection }));
+                console.log(title);
+                app.appView.showChildView('main', new Gallery());
                 app.showView(app.appView);
             });
             this.renderChannel.on('show:location', function () {
@@ -67,18 +44,19 @@ define([
                 app.showView(app.appView);
             });
             this.renderChannel.on('show:list', function () {
-                app.appView.showChildView('main', new List());
+                app.appView.showChildView('main', new ListCollectionView());
                 app.showView(app.appView);
             });
             this.renderChannel.on('show:finder', function () {
                 app.appView.showChildView('main', new Finder());
                 app.showView(app.appView);
             });
-            this.renderChannel.on('show:dialog', function (data) {
-                app.appView.showChildView('dialog', new Dialog());
-                app.showView(this.appView);
+            this.renderChannel.on('show:dialog', function () {
+                app.appView.showChildView('main', new Dialog());
+                app.showView(app.appView);
             });
-        }
+        },
+        
 
     });
 

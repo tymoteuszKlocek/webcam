@@ -5,6 +5,8 @@ define([
     'use strict';
 
     return Mn.View.extend({
-        template: _.template(tpl)
+        template: _.template(tpl),
+        tagName: 'div',
+        className: 'gallery-item'
     });
 })

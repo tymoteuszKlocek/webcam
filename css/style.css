@@ -54,6 +54,7 @@ input {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-flow: row wrap;
   align-content: space-around;
   background-color: #CEF6E3;
   padding: 20px;
@@ -113,6 +114,7 @@ input {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-flow: row wrap;
   align-content: space-around;
   background-color: #CEF6E3;
   padding: 20px;
@@ -139,7 +141,80 @@ input {
     padding: 5px;
   }
 }
+.gallery-links {
+  border: 1px solid #AAA;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row wrap;
+  align-content: space-around;
+  background-color: #CEF6E3;
+  padding: 20px;
+  border-radius: 3px;
+  list-style: none;
+  text-decoration: none;
+  box-shadow: border-box;
+  flex-direction: column;
+  display: block;
+}
+@media all and (max-width: 768px) {
+  .gallery-links {
+    font-size: 14px;
+    margin: 5px;
+    padding: 5px;
+  }
+}
+@media all and (max-width: 425px) {
+  .gallery-links {
+    font-size: 12px;
+    margin: 5px;
+    padding: 5px;
+  }
+}
+@media all and (max-width: 320px) {
+  .gallery-links {
+    font-size: 12px;
+    margin: 5px;
+    padding: 5px;
+  }
+}
+.gallery-links li {
+  padding: 10px;
+  background-color: #CEF6E3;
+  list-style: none;
+}
+.gallery-links li:hover {
+  background-color: #58FA82;
+}
+.gallery-links li:active {
+  background-color: #444;
+}
+.gallery-links a {
+  display: block;
+  text-decoration: none;
+  text-decoration-style: none;
+}
+.gallery-links a {
+  padding: 10px;
+}
+.gallery-item {
+  width: 220px;
+  height: 300px;
+  margin: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.gallery-item img {
+  width: 200px;
+  height: 100px;
+}
+.gallery-item ul {
+  list-style: none;
+  padding-left: 0px;
+}
 .list {
+  list-style: none;
   text-decoration: none;
   box-shadow: border-box;
 }
@@ -155,6 +230,7 @@ input {
   background-color: #444;
 }
 .list a {
+  display: block;
   text-decoration: none;
   text-decoration-style: none;
 }

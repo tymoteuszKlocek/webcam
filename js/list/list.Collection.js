@@ -5,6 +5,6 @@
     'use strict';
     
     return Bb.Collection.extend({
-        
+        model: Model
     });
 })

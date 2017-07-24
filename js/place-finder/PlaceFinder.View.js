@@ -9,7 +9,6 @@ define([
 ], function (Marionette, Backbone, Radio, tpl, Model, WebcamCollection) {
     'use strict';
 
-    var renderChannel = Backbone.Radio.channel('renderView');
     return Marionette.View.extend({
         template: _.template(tpl),
         tagName: 'div',
@@ -32,11 +31,6 @@ define([
         events: {
             'click @ui.cancel': 'clear',
             'click @ui.find': 'find',
-            'click @ui.delete': 'closeWebcam',
-        },
-        childViewEvents: {
-            'open:Dialog': 'openDialog',
-            'hide:dialog': 'closeWebcam'
         },
         triggers:{
             'click @ui.save': 'open:dialog',
@@ -49,14 +43,6 @@ define([
         clear: function () {
             this.ui.country.val('');
             this.ui.category.val('');
-        },
-        // onChildViewOpenDialog: function (childView) {
-        //     console.log('title from Webcam', childView.model.title);
-        //     renderChannel.trigger("show:dialog");
-        // },
-        closeWebcam: function () {
-            this.detachChildView('webcamRegion');
         }
-
     });
 })

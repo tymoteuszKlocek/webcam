@@ -2,12 +2,13 @@ define([
     'marionette',
     'backbone',
     'text!dialog/dialog.html',
-    'dialog-list/dialogList.CollectionView'
-], function(Mn, Bb, tpl, DialogList) {
+    'dialog-list/dialogList.CollectionView',
+], function (Mn, Bb, tpl, DialogList) {
     'use stric';
 
     var Dialog = Bb.Model.extend(); // is this ok?
-
+    var renderChannel = Backbone.Radio.channel('renderView');
+    var dialogList = new DialogList();
     return Mn.View.extend({
         template: _.template(tpl),
         className: 'panel',
@@ -18,21 +19,34 @@ define([
             }
         },
         ui: {
-            back: '#back',
-            save: '#save'
+            webcamName: 'input[name=webcamName]',
+            galleryName: 'input[name=galleryName]',
+            save: '#store',
+            closeDialog: '#back'
+        },
+        childViewEvents: {
+            'child:title:selected': 'useTitle',
         },
         triggers: {
-            'click @ui.back': 'hide:dialog'
+            'click @ui.closeDialog': 'hide:dialog'
         },
         events: {
-            'click @ui.save': 'saveNewWebcam'
+            'click @ui.save': 'saveNewWebcam',
+            'click @ui.closeDialog': 'closeDialog'
         },
-        saveNewWebcam: function() {
+        saveNewWebcam: function () {
             //save here
             console.log('saved');
         },
-        onRender: function() {
-            this.showChildView('listRegion', new DialogList());
+        closeDialog: function(){
+            renderChannel.trigger('show:finder');
+        },
+        useTitle: function (title) {
+            console.log('listen to title:selected', title)
+            this.ui.galleryName.val(title);
+        },
+        onRender: function () {
+            this.showChildView('listRegion', dialogList);
         }
     })
 })
