@@ -25,6 +25,8 @@ define([
                 app.showView(app.appView);
             });
         },
+        //put handler
+        
     });
 
     app.on("before:start", function (options) {

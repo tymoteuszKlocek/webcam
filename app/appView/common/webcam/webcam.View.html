@@ -1,6 +1,6 @@
 <div class="media-left">
   <a href="#">
-      <img class="media-object" width="420" height="236" src="<%= url %>" alt="webcam">
+      <img class="media-object" width="420" height="236" src="<%= thumbnail %>" alt="webcam">
     </a>
 </div>
 <div class="media-body">
@@ -9,8 +9,11 @@
   </h4>
   some info about the place you see...
   <br/>
-  <div>
+  <div id="btn-scanner">
     <button type="button" class="btn btn-success" id="save">Save</button>
     <button type="button" class="btn btn-default" id="delete">Delete</button>
+  </div>
+  <div id="btn-list">
+    <button type="button" class="btn btn-danger" id="deleteFromList">Delete</button>
   </div>
 </div>

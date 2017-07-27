@@ -12,7 +12,8 @@ define([
     var filterChannel = Bb.Radio.channel('filter');
     return Mn.AppRouter.extend({
         routes: {
-            '*filter': 'filterItems'
+            '*filter': 'filterItems',
+            ''
         },
         filterItems: function (filter) {
             var newFilter = filter && filter.trim() || 'all'; // hot to use that???
