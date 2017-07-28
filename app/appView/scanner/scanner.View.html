@@ -1,16 +1,32 @@
 <div class="row">
     <div class="col-lg-6">
+        <h3>Write name of the country and press search.</h3>
         <div class="input-group">
-            <input type="text" id="query" class="form-control" placeholder="Search for place or country">
+            <input type="text" id="query" class="form-control" placeholder="Search for country, eg. PL - Poland, DE - Germany">
             <span class="input-group-btn"><button id="search" class="btn btn-danger" type="button">Search!</button></span>
         </div>
-        <div><%= tags.name %></div>
-        <% _(tags).each(function(name) { %>
-            <a id="tagName" href="#" type='submit'><%= name %><span class="badge"></span></a>
-        <% }); %>
-                <!-- /input-group -->
+
+        <p> Visit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"> link</a> to check
+            the country code.</p>
+        <br/>
+        <h4>
+            Or choose any tag from list and wait:
+            <%= tags.name %>
+        </h4>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% _(tags).each(function(name) { %>
+                <a href="#/scanner/<%= name %>"> <button class="btn btn-default" id="tagName" ><%= name %></button></a>
+                <% }); %>
+        </div>
+        <br/>
+        <div>
+            <button id="findMe" type="button" class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Find near me.
+        </button>
+        </div>
     </div>
     <!-- /.col-lg-6 -->
+
 </div>
 <!-- /.row -->
 <br>

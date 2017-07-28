@@ -18,15 +18,10 @@ define([
         },
         onStart: function () {
             filterChannel.reply('filterState', function (view) {
-                console.log('fix the router-->');
-                // TODO how to use this filter to render the view ??
-                // sorry for that...
                 app.appView.showChildView('main', view);
                 app.showView(app.appView);
             });
-        },
-        //put handler
-        
+        },        
     });
 
     app.on("before:start", function (options) {

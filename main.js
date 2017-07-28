@@ -35,7 +35,6 @@ require([
     'bootstrap',
     'backbone',
     'marionette'
-    //more...  ?
 ], function (app) {
     'use strict';
 

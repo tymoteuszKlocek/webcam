@@ -14,28 +14,24 @@ define([
         ui: {
             save: '#save',
             delete: '#delete',
+            deleteFromList: '#deleteFromList',
             scannerBtns: '#btn-scanner',
             listBtns: '#btn-list'
         },
         events: {
             'change:state': 'render',
             'click @ui.delete': 'deleteModel',
-            'click @ui.save': 'saveModel'
+            'click @ui.save': 'saveModel',
+            'click @ui.deleteFromList': 'deleteModel'
         },
-        onRender: function (options) {
-            //this looks very bad but works...
-            console.log(this.options);
-            var self = this;
-            webcamChannel.on('change:state', function (state) {
-                if (state === 'scanner') {
-                    self.ui.listBtns.addClass('hide');
-                }
-                if (state === 'list') {
-                    self.ui.scannerBtns.addClass('hide');
-                }
-                
-            });
-            this.ui.listBtns.addClass('hide');
+        onRender: function (item) {
+            var state = item.model.attributes.state;
+            if (state === 'scanner') {
+                this.ui.listBtns.addClass('hide');
+            }
+            if (state === 'list') {
+                this.ui.scannerBtns.addClass('hide');
+            }
         },
         deleteModel: function () {
             this.model.destroy();

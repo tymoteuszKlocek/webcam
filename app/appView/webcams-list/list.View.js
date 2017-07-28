@@ -8,8 +8,6 @@ define([
 ], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel) {
     'use strict';
 
-    var webcamChannel = Bb.Radio.channel('buttonDisplay');
-    
     return Mn.View.extend({
         template: _.template(tpl),
         regions: {
@@ -20,10 +18,10 @@ define([
             var fetchedModel = new WebcamModel();
             fetchedModel.fetch({
                 success: function (col) {
-                    // this is going to be strange, is there other way?
                     var arr = [];
                     _.each(col.attributes, function (model) {
                         if (typeof model === 'object') {
+                            model.state = 'list';
                             arr.push(model);
                         }
                     })
@@ -33,8 +31,7 @@ define([
                     console.log('fetched collection error', error);
                 }
             });
-            this.showChildView('list', new WebcamColView({ collection: savedCollection, test: 12 }));
-            webcamChannel.trigger('change:state', 'list');
+            this.showChildView('list', new WebcamColView({ collection: savedCollection}));
         }
     })
 });
