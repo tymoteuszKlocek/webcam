@@ -14,5 +14,8 @@ define([
         tagName: 'ul',
         className: 'media-list',
         childView: WebcamColView,
+        onChildViewSaveModel: function() {
+            console.log('save')
+        }
     });
 });

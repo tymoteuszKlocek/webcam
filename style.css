@@ -1,3 +1,10 @@
-body{
-    padding: 20px;
+@media (min-width: 500px) {
+    .webcam-img-container {
+        width: 450px !important;
+        height: 250px !important;
+    }
+    .webcam-img {
+        width: 420px !important;
+        height: 236px !important;
+    }
 }

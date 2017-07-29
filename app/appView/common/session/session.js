@@ -4,16 +4,19 @@ define([
 ], function (Bb, Mn) {
     'use strict';
 
+    var SRC = 'https://webcamstravel.p.mashape.com/webcams/list/';
+    var PARAMS = '/limit=70?show=webcams:location,image,url,statistics';
+    var API_KEY = "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA";
     return Bb.Model.extend({
         urlRoot: 'https://webcamstravel.p.mashape.com/',
         defaults: {
             auth: '"X-Mashape-Key", "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA"',
             query: null
         },
-        sendQuery: function (query) {
+        searchByCountry: function (query) {
             return Bb.ajax(_.extend({
-                url: 'https://webcamstravel.p.mashape.com/webcams/list/country=' + query + '/orderby=popularity,desc/limit=70?show=webcams:image,url',
-                type: 'GET',  
+                url: SRC + 'country=' + query + PARAMS,
+                type: 'GET',
                 data: {}, // Additional parameters here
                 dataType: 'json',
                 success: function (data) { console.log((data)); },
@@ -25,8 +28,8 @@ define([
         },
         searchWithTag: function (query) {
             return Bb.ajax(_.extend({
-                url: 'https://webcamstravel.p.mashape.com/webcams/list/category=' + query + '/orderby=popularity/limit=70?show=webcams:location,image,url',
-                type: 'GET',  
+                url: SRC + 'category=' + query + PARAMS,
+                type: 'GET',
                 data: {}, // Additional parameters here
                 dataType: 'json',
                 success: function (data) { console.log((data)); },
@@ -38,8 +41,8 @@ define([
         },
         searchNearBy: function (lat, lng) {
             return Bb.ajax(_.extend({
-                url: 'https://webcamstravel.p.mashape.com/webcams/list/nearby=' + lat +','+ lng +','+ 100 + '/limit=70?show=webcams:location,image,url',
-                type: 'GET',  
+                url: SRC + 'nearby=' + lat + ',' + lng + ',' + 100 + PARAMS,
+                type: 'GET',
                 data: {}, // Additional parameters here
                 dataType: 'json',
                 success: function (data) { console.log((data)); },

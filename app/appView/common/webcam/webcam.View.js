@@ -16,13 +16,18 @@ define([
             delete: '#delete',
             deleteFromList: '#deleteFromList',
             scannerBtns: '#btn-scanner',
-            listBtns: '#btn-list'
+            listBtns: '#btn-list',
+            showOnMap: '#show-on-map'
         },
         events: {
             'change:state': 'render',
             'click @ui.delete': 'deleteModel',
             'click @ui.save': 'saveModel',
-            'click @ui.deleteFromList': 'deleteModel'
+            'click @ui.deleteFromList': 'deleteModel',
+            'click @ui.showOnMap': 'showOnMap'
+        },
+        triggers: {
+             'click @ui.save': 'save:model',
         },
         onRender: function (item) {
             var state = item.model.attributes.state;
@@ -38,6 +43,9 @@ define([
         },
         saveModel: function () {
             this.model.save();
+        },
+        showOnMap: function(m) {
+            console.log('showOnMap', m)
         }
     })
 })

@@ -32,16 +32,15 @@ define([
             'keypress @ui.query': 'checkKeyPress',
             'click @ui.findMe': 'useMyLocation'
         },
+        initialize: function(params) {
+            if (Object.getOwnPropertyNames(params).length > 0) {
+                this.useParams(params);
+            }
+        },
         search: function () {
             var query = this.ui.query.val().trim();
             var self = this;
-            
-            //use one of this: 
-            //searchWithRegion
-            //sendQuery
-            //searchNearBy - needs tow params (lat,lng)
-
-            session.sendQuery(query).then(function (resp) {
+            session.searchByCountry(query).then(function (resp) {
                 newCollection = self.createModel(resp);
                 webcamCol = new WebcamCol(newCollection);
             }).then(function () {
@@ -56,9 +55,17 @@ define([
                 self.populate();
             });
         },
+        useParams: function(params) {
+            var self = this;
+            session.searchByCountry(params.params).then(function (resp) {
+                webcamCol = new WebcamCol(self.createModel(resp));
+            }).then(function () {
+                self.populate();
+            });
+        },
         useMyLocation: function () {
             var self = this;
-
+            //navigater gets location
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var LAT = position.coords.latitude.toFixed(3);
@@ -81,8 +88,15 @@ define([
             var arr = [];
             _.each(resp.result.webcams, function (obj) {
                 var newModel = {};
-                newModel.id = obj.id,
-                    newModel.thumbnail = obj.image.current.preview || '';
+                newModel.id = obj.id;
+                newModel.city = obj.location.city;
+                newModel.country = obj.location.country;
+                newModel.countryCode = obj.location.country_code;
+                newModel.views = obj.statistics.views;
+                newModel.lat = obj.location.latitude;
+                newModel.lng = obj.location.longitude;
+                newModel.thumbnail = obj.image.current.preview || '';
+                newModel.state = 'scanner';
                 newModel.title = obj.title || 'name unknown';
                 newModel.url = obj.url.current.desktop || '';
                 arr.push(newModel);

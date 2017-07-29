@@ -13,11 +13,15 @@ define([
     return Mn.AppRouter.extend({
         routes: {
             '': 'showScanner',
-           // 'scanner/*filter': 'showScanner',
             'webcam/:webcamID': 'showWebcam',
             'scanner': 'showScanner',
             'list-of-webcams': 'showList',
-            'webcams-near-you': 'showLocalView'
+            'localisation': 'showLocalView',
+            'scanner/find-near-me/:*near': 'showScannerNearMe',
+            'scanner/country/:*filter': 'showCountryList',
+            'show-map/:*webcamId': 'showOnMap',
+            '/scanner/*tag': 'showScanner',
+            //'*path': 'showScanner',
         },
         showWebcam: function (webcamID) {
             filterChannel.request('filterState', new WebcamModal({ model: { id: webcamID } }));
@@ -31,9 +35,15 @@ define([
         showScanner: function () {
             filterChannel.request('filterState', new Scanner());
         },
-        showScannerParam: function (param) {
-            console.log('param', param)
+        showScannerNearMe: function (params) {
             filterChannel.request('filterState', new Scanner());
+        },
+        showCountryList: function(params) {
+            filterChannel.request('filterState', new Scanner({params: params}));
+        },
+        showOnMap: function(params) {
+            filterChannel.request('filterState', new LocalView({params: params}));
         }
+
     });
 });
