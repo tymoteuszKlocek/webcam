@@ -20,7 +20,13 @@ define([
             position: POSITION,
             localisation: LOCALISATION,
             zoom: ZOOM,
-            type: TYPE
+            type: TYPE,
+            waether: {
+                temp: 0,
+                pressure: 0,
+                humidity: 0,
+                clouds: 0
+            }
         },
     })
 })

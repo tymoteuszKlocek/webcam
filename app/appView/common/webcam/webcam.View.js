@@ -17,7 +17,7 @@ define([
             deleteFromList: '#deleteFromList',
             scannerBtns: '#btn-scanner',
             listBtns: '#btn-list',
-            showOnMap: '#show-on-map'
+          
         },
         events: {
             'change:state': 'render',
@@ -44,8 +44,6 @@ define([
         saveModel: function () {
             this.model.save();
         },
-        showOnMap: function(m) {
-            console.log('showOnMap', m)
-        }
+        
     })
 })

@@ -1,5 +1,16 @@
 <h3>Location on map</h3>
-<div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" height="450" frameborder="0" style="border:0" src="<%= url %>+<%= position %>+<%= localisation %>+<%= zoom %>+<%= type %>" allowfullscreen>
-    </iframe>
+<div class="container-fluid">
+    <div class="row">
+        <iframe class="col-md-8 col-sm-12 col-xs-12" height="450" frameborder="0" style="border:0" src="<%= url %>+<%= position %>+<%= localisation %>+<%= zoom %>+<%= type %>"
+            allowfullscreen>
+        </iframe>
+        <div class="col-md-4">
+            <h4>Weather info:</h4>
+            <h6><a href="https://openweathermap.org" target="_blank">( https://openweathermap.org )</a></h6>
+            <p>Temp:  <%- temp %> &deg;C</p>
+            <p>Pressure: <%= pressure %>hPa </p>
+            <p>Clouds: <%= clouds %>% </p>
+            <p>Humidity: <%= humidity %> </p>
+        </div>
+    </div>
 </div>

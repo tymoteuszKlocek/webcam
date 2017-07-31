@@ -3,11 +3,14 @@
         <h3>Write code of the country (eg. PL for Poland).</h3>
         <div class="input-group">
             <input type="text" id="query" class="form-control" placeholder="PL - Poland, DE - Germany, GB - Great Britain">
-            <span class="input-group-btn"><button id="search" class="btn btn-danger" type="button">Search!</button></span>
+            <span class="input-group-btn">
+                <a href="#/scanner/country/query">
+                    <button id="search" class="btn btn-danger" type="button">Search!</button>
+                </a>
+            </span>
         </div>
 
-        <p> Visit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank"> link</a> to check
-            the country code.</p>
+        <p> Visit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements" target="_blank"> link</a>            to check the country code.</p>
         <br/>
         <h4>
             Or choose any tag from list and wait:
@@ -15,18 +18,20 @@
         </h4>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% _(tags).each(function(name) { %>
-                <a href="#/scanner/<%= name %>"> <button class="btn btn-default" id="tagName" ><%= name %></button></a>
+                <a href="#/scanner/tag/:<%= name %>"> <button class="btn btn-default" id="tagName" ><%= name %></button></a>
                 <% }); %>
         </div>
-        
-        </div>
+
     </div>
-    <!-- /.col-lg-6 -->
-    <br/>
-        <div>
-            <button id="findMe" type="button" class="btn btn-info btn-lg">
+</div>
+<!-- /.col-lg-6 -->
+<br/>
+<div>
+    <a href="#/scanner/find-near-me/:near">
+        <button id="findMe" type="button" class="btn btn-info btn-lg">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Find near me
         </button>
+    </a>
 </div>
 <!-- /.row -->
 <br>

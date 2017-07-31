@@ -32,9 +32,18 @@ define([
             'keypress @ui.query': 'checkKeyPress',
             'click @ui.findMe': 'useMyLocation'
         },
-        initialize: function(params) {
+        initialize: function(params) { 
+            console.log('twoje param', params);
             if (Object.getOwnPropertyNames(params).length > 0) {
-                this.useParams(params);
+                if(params.mode === 1) {
+                    this.useTagName(params.params)
+                } 
+                if(params.mode === 2) {
+                     this.useMyLocation();
+                } 
+                if(params.mode === 3) {
+                     this.useCountry(params.params);
+                } 
             }
         },
         search: function () {
@@ -47,25 +56,35 @@ define([
                 self.populate();
             });
         },
-        useTagName: function (e) {
+        useTagName: function (str) {
             var self = this;
-            session.searchWithTag(e.target.outerText).then(function (resp) {
+            session.searchWithTag(str).then(function (resp) {
                 webcamCol = new WebcamCol(self.createModel(resp));
             }).then(function () {
                 self.populate();
             });
         },
-        useParams: function(params) {
-            var self = this;
-            session.searchByCountry(params.params).then(function (resp) {
-                webcamCol = new WebcamCol(self.createModel(resp));
-            }).then(function () {
-                self.populate();
-            });
+        // useTagName: function (e) {
+        //     var self = this;
+        //     session.searchWithTag(e.target.outerText).then(function (resp) {
+        //         webcamCol = new WebcamCol(self.createModel(resp));
+        //     }).then(function () {
+        //         self.populate();
+        //     });
+        // },
+        useCountry: function(str) {
+            console.log('used router', str);
+            this.search();
+            // var self = this;
+            // session.searchByCountry(params.params).then(function (resp) {
+            //     webcamCol = new WebcamCol(self.createModel(resp));
+            // }).then(function () {
+            //     self.populate();
+            // });
         },
         useMyLocation: function () {
             var self = this;
-            //navigater gets location
+            //navigator gets location
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var LAT = position.coords.latitude.toFixed(3);
