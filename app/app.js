@@ -4,31 +4,30 @@ define([
     'app/appView/appView',
     'app/appView/scanner/scanner.View',
     'router'
-], function (Bb, Mn, AppView,Scanner, Router) {
+], function (Bb, Mn, AppView, Scanner, Router) {
     'use strict';
 
-    var filterChannel = Bb.Radio.channel('filter'); // define here on inside app?
-    var app = new Mn.Application({
+    var filterChannel = Bb.Radio.channel('filter');
+    var App = new Mn.Application({
         region: '#app-container',
-        onBeforeStart: function () {
+        onStart: function (options) {
+            var router = new Router(options);
             this.appView = new AppView();
-            this.router = new Router();
-            this.appView.showChildView('main', new Scanner());
+            var scanner = new Scanner();
+            this.appView.showChildView('main', scanner);
             this.showView(this.appView);
-        },
-        onStart: function () {
             filterChannel.reply('filterState', function (view) {
-                app.appView.showChildView('main', view);
-                app.showView(app.appView);
+                App.appView.showChildView('main', view);
+                App.showView(App.appView);
             });
         },        
     });
 
-    app.on("before:start", function (options) {
+    App.on("before:start", function (options) {
         if (Backbone.history) {
             Backbone.history.start();
         }
     });
 
-    return window.app = app;
+    return window.app = App;
 });

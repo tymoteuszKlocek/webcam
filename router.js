@@ -1,56 +1,47 @@
 define([
     'backbone',
     'marionette',
-    'app/appView/appView',
     'app/appView/scanner/scanner.View',
     'app/appView/webcams-list/list.View',
     'app/appView/local-webcams/localWebcams.View',
-], function (Bb, Mn, AppView, Scanner, List, LocalView) {
+    'app/appView/common/localisation/localisation.Service'
+], function (Bb, Mn, Scanner, List, LocalMapView, LocalisationService) {
     'use strict';
 
     var filterChannel = Bb.Radio.channel('filter');
+    var localisationService = new LocalisationService();
+    var position;
     return Mn.AppRouter.extend({
         routes: {
             '': 'showScanner',
             'scanner': 'showScanner',
-            'scanner/find-near-me/:*filter': 'showNearMe',
-            'scanner/tag/:*filter': 'showByTag',
-            'scanner/country/:*filter': 'showByCountry',
-            'list-of-webcams': 'showList',
-            'localisation': 'showLocalMap',
-            'show-map/:*webcamId': 'showOnMap',
-            '/scanner/*tag': 'showScanner',
-            //'*path': 'showScanner',
+            'scanner/:mode/:*filter': 'useScanner',
+            'list-of-my-webcams': 'showMyList',
+            'localisation': 'showMeOnMap',
+            'show-map/:*position': 'showWebcamOnMap',
+            '*path': 'showScanner',
         },
         showScanner: function () {
             filterChannel.request('filterState', new Scanner());
         },
-        showNearMe: function (params) {
-             filterChannel.request('filterState', new Scanner({ params: params, mode: 2 }));
+        useScanner: function (mode, params) {
+            console.log('i fired router', mode, params);
+            var scanner = new Scanner({ mode: mode, params: params });
+            filterChannel.request('filterState', scanner);
         },
-        showByTag: function (params) {
-             filterChannel.request('filterState', new Scanner({ params: params, mode: 1 }));
-        },
-        showByCountry: function (params) {
-            filterChannel.request('filterState', new Scanner({ params: params, mode: 3 }));
-        },
-        showList: function () {
+        showMyList: function () {
             filterChannel.request('filterState', new List());
         },
-        showLocalMap: function () {
-            var localView = new LocalView();
-            localView.render();
-            filterChannel.request('filterState', localView);
+        showMeOnMap: function () {
+            position = localisationService.getLocalisation();
+            filterChannel.request('filterState', new LocalMapView({ position: position }));
         },
-        showOnMap: function (params) {
-            filterChannel.request('filterState', new LocalView({ params: params }));
+        showWebcamOnMap: function (position) {
+            filterChannel.request('filterState', new LocalMapView({ position: position }));
         },
-        onRoute: function (name, path, args) {
-            console.log('User navigated to ' + path, 'name: ', name, 'args:', args);
+        initialize: function () {
+            position = localisationService.getLocalisation(); // check where should this go
         }
-
     });
-
-    // router to be fixed
 
 });

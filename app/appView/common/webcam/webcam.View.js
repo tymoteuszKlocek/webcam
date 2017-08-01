@@ -17,7 +17,6 @@ define([
             deleteFromList: '#deleteFromList',
             scannerBtns: '#btn-scanner',
             listBtns: '#btn-list',
-          
         },
         events: {
             'change:state': 'render',

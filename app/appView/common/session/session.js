@@ -8,10 +8,9 @@ define([
     var PARAMS = '/limit=70?show=webcams:location,image,url,statistics';
     var API_KEY = "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA";
     return Bb.Model.extend({
-        urlRoot: 'https://webcamstravel.p.mashape.com/',
+        //urlRoot: 'https://webcamstravel.p.mashape.com/',
         defaults: {
             auth: '"X-Mashape-Key", "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA"',
-            query: null
         },
         searchByCountry: function (query) {
             return Bb.ajax(_.extend({
@@ -39,9 +38,10 @@ define([
                 }
             }));
         },
-        searchNearBy: function (lat, lng) {
+        searchNearBy: function (position) {
+            var RANGE = 100; //(km)
             return Bb.ajax(_.extend({
-                url: SRC + 'nearby=' + lat + ',' + lng + ',' + 100 + PARAMS,
+                url: SRC + 'nearby=' + position + ',' + RANGE + PARAMS,
                 type: 'GET',
                 data: {}, // Additional parameters here
                 dataType: 'json',
@@ -54,8 +54,3 @@ define([
         },
     })
 });
-
-//API KEY: 27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA
-//examples:
-// https://webcamstravel.p.mashape.com/webcams/list/category=beach/country=IT/orderby=popularity,desc/limit=20
-// https://webcamstravel.p.mashape.com/webcams/list/?show=webcams:image,url

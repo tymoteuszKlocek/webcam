@@ -1,11 +1,14 @@
 define([
     'backbone',
     'backboneLocalstorage',
-], function (Bb, Store) {
+    'app/appView/common/localisation/localisation.Service'
+], function (Bb, Store, LocalisationService) {
     'use strict';
 
     return Bb.Model.extend({
         defaults: {
+            position: 'position',
+            query: '',
             tags: {
                 airport: 'Airport',
                 area: 'Area',
@@ -37,7 +40,11 @@ define([
 
             }
         },
-        
+        initialize: function () {
+            var localisationService = new LocalisationService();
+            this.position = localisationService.getLocalisation();
+        },
+        localStorage: new Store('webcam-scanner-backbone')
     })
 })
 

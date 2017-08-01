@@ -3,7 +3,7 @@ define([
 ], function (Bb, Store) {
     'use strict';
 
-    var LAT = 51.2379945;
+    var LAT = 51.2379945; // default localisatin on DATAART IN LUBLIN
     var LNG = 22.5269071;
     var API_KEY = '?key=AIzaSyB7ppMoa2FbrcxYVRuwFdm9e5UEb281t9o';
     var MODE = 'view';
@@ -20,13 +20,7 @@ define([
             position: POSITION,
             localisation: LOCALISATION,
             zoom: ZOOM,
-            type: TYPE,
-            waether: {
-                temp: 0,
-                pressure: 0,
-                humidity: 0,
-                clouds: 0
-            }
+            type: TYPE
         },
     })
 })

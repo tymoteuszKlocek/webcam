@@ -16,8 +16,7 @@ define([
             url: '',
             state: 'scanner', // state for 'scanner/list' view display default buttons
             thumbnail: '',
-            lat: '',
-            lng: ''
+            position: ''
         },
         localStorage: new Store('webcam-backbone')
     })

@@ -32,9 +32,6 @@ require.config({
 
 require([
     './app/app',
-    'bootstrap',
-    'backbone',
-    'marionette'
 ], function (app) {
     'use strict';
 
