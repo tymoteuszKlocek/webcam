@@ -11,7 +11,9 @@ define([
     var filterChannel = Bb.Radio.channel('filter');
     var localisationService = new LocalisationService();
     var position;
+
     return Mn.AppRouter.extend({
+
         routes: {
             '': 'showScanner',
             'scanner': 'showScanner',
@@ -21,25 +23,30 @@ define([
             'show-map/:*position': 'showWebcamOnMap',
             '*path': 'showScanner',
         },
+
         showScanner: function () {
             filterChannel.request('filterState', new Scanner());
         },
+
         useScanner: function (mode, params) {
-            var scanner = new Scanner({ mode: mode, params: params });
-            filterChannel.request('filterState', scanner);
+            filterChannel.request('filterState', new Scanner({ mode: mode, params: params }));
         },
+
         showMyList: function () {
             filterChannel.request('filterState', new List());
         },
+
         showMeOnMap: function () {
             position = localisationService.getLocalisation();
             filterChannel.request('filterState', new LocalMapView({ position: position }));
         },
+
         showWebcamOnMap: function (position) {
             filterChannel.request('filterState', new LocalMapView({ position: position }));
         },
+
         initialize: function () {
-            position = localisationService.getLocalisation(); // check where should this go
+            position = localisationService.getLocalisation();
         }
     });
 

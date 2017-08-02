@@ -9,6 +9,7 @@ define([
     return Mn.View.extend({
         template: _.template(tpl),
         model: new Model(),
+
         onRender: function () {
             var localisationService = new LocalisationService();
             var position = localisationService.getLocalisation();

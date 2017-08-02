@@ -40,10 +40,12 @@ define([
 
             }
         },
+
         initialize: function () {
             var localisationService = new LocalisationService();
             this.position = localisationService.getLocalisation();
         },
+        
         localStorage: new Store('webcam-scanner-backbone')
     })
 })

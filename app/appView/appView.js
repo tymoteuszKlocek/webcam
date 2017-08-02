@@ -21,6 +21,7 @@ define([
                 replaceElement: true
             },
         },
+        
         onRender: function () {
             this.showChildView('nav', new Nav());
         }

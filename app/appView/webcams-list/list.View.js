@@ -13,25 +13,34 @@ define([
         regions: {
             list: '#list'
         },
+
         onRender: function () {
+
             var savedCollection;
             var fetchedModel = new WebcamModel();
+
             fetchedModel.fetch({
+
                 success: function (col) {
                     var arr = [];
+
                     _.each(col.attributes, function (model) {
                         if (typeof model === 'object') {
                             model.state = 'list';
                             arr.push(model);
                         }
                     })
+                    
                     savedCollection = new WebcamCol(arr);
                 },
-                error: function (error,m) {
+
+                error: function (error, m) {
                     console.log('fetched collection error', error, m);
                 }
+
             });
-            this.showChildView('list', new WebcamColView({ collection: savedCollection}));
+
+            this.showChildView('list', new WebcamColView({ collection: savedCollection }));
         }
     })
 });

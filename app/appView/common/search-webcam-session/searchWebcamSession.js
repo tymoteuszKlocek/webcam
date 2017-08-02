@@ -7,11 +7,13 @@ define([
     var SRC = 'https://webcamstravel.p.mashape.com/webcams/list/';
     var PARAMS = '/limit=70?show=webcams:location,image,url,statistics';
     var API_KEY = "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA";
+
     return Bb.Model.extend({
-        //urlRoot: 'https://webcamstravel.p.mashape.com/',
+
         defaults: {
             auth: '"X-Mashape-Key", "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA"',
         },
+
         searchByCountry: function (query) {
             return Bb.ajax(_.extend({
                 url: SRC + 'country=' + query + PARAMS,
@@ -25,6 +27,7 @@ define([
                 }
             }));
         },
+
         searchWithTag: function (query) {
             return Bb.ajax(_.extend({
                 url: SRC + 'category=' + query + PARAMS,
@@ -38,6 +41,7 @@ define([
                 }
             }));
         },
+        
         searchNearBy: function (position) {
             var RANGE = 100; //(km)
             return Bb.ajax(_.extend({

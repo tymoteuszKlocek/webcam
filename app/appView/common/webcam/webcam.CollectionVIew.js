@@ -14,6 +14,7 @@ define([
         tagName: 'ul',
         className: 'media-list',
         childView: WebcamColView,
+        
         onChildviewSaveModel: function(view) {
             this.removeChildView(view);
         }

@@ -1,4 +1,5 @@
 require.config({
+
     paths: {
         underscore: './node_modules/underscore/underscore',
         backbone: './node_modules/backbone/backbone',
@@ -7,7 +8,8 @@ require.config({
         jquery: './node_modules/jquery/dist/jquery',
         text: './node_modules/requirejs-text/text',
         backboneLocalstorage: './node_modules/backbone.localstorage/backbone.localStorage',
-        bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min'
+        bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min',
+        typeahead: './node_modules/backbone.typeahead.js/backbone.typeahead'
     },
 
     shim: {
@@ -19,15 +21,21 @@ require.config({
             deps: ['backbone']
         },
         backboneLocalstorage: {
-			deps: ['backbone'],
-			exports: 'Store'
-		},
+            deps: ['backbone'],
+            exports: 'Store'
+        },
         bootstrap: {
             deps: ['jquery']
+        },
+        typeahead: {
+            exports: "Backbone.Typeahead",
+            deps: ['backbone']
         }
 
     },
+
     waitSeconds: 60
+
 });
 
 require([

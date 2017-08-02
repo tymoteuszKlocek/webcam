@@ -7,6 +7,7 @@ define([
     'use strict';
 
     var webcamChannel = Bb.Radio.channel('buttonDisplay');
+
     return Mn.View.extend({
         template: _.template(tpl),
         tagname: 'li',
@@ -28,8 +29,10 @@ define([
         triggers: {
              'click @ui.save': 'save:model',
         },
+
         onRender: function (item) {
             var state = item.model.attributes.state;
+            
             if (state === 'scanner') {
                 this.ui.listBtns.addClass('hide');
             }
@@ -37,9 +40,11 @@ define([
                 this.ui.scannerBtns.addClass('hide');
             }
         },
+
         deleteModel: function () {
             this.model.destroy();
         },
+
         saveModel: function () {
             this.model.save();
         },

@@ -20,6 +20,7 @@ define([
             title: 'name unknown',
             link: ''
         },
+        
         localStorage: new Store('webcam-backbone')
     })
 })
