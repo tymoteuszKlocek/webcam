@@ -4,7 +4,7 @@ define([
     'app/appView/nav/nav.View',
     'app/appView/scanner/scanner.View',
     'app/appView/webcams-list/list.View',
-    'app/appView/local-webcams/localWebcams.View',
+    'app/appView/map/localWebcams.View',
 ], function (Mn, tpl, Nav, Scanner, List, LocalView) {
     'use strict';
 

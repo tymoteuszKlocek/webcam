@@ -3,7 +3,7 @@ define([
     'marionette',
     'app/appView/scanner/scanner.View',
     'app/appView/webcams-list/list.View',
-    'app/appView/local-webcams/localWebcams.View',
+    'app/appView/map/localWebcams.View',
     'app/appView/common/localisation/localisation.Service'
 ], function (Bb, Mn, Scanner, List, LocalMapView, LocalisationService) {
     'use strict';
@@ -25,7 +25,6 @@ define([
             filterChannel.request('filterState', new Scanner());
         },
         useScanner: function (mode, params) {
-            console.log('i fired router', mode, params);
             var scanner = new Scanner({ mode: mode, params: params });
             filterChannel.request('filterState', scanner);
         },

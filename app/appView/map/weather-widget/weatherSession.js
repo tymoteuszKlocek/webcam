@@ -16,7 +16,7 @@ define([
                 type: 'GET',
                 data: {}, // Additional parameters here
                 dataType: 'json',
-                success: function (data) { console.log(data)},
+                success: function (data) {},
                 error: function (err) { alert(JSON.stringify(err)); },
             }));
         }

@@ -27,8 +27,8 @@ define([
                     })
                     savedCollection = new WebcamCol(arr);
                 },
-                error: function (error,m,n) {
-                    console.log('fetched collection error', error,m,n);
+                error: function (error,m) {
+                    console.log('fetched collection error', error, m);
                 }
             });
             this.showChildView('list', new WebcamColView({ collection: savedCollection}));

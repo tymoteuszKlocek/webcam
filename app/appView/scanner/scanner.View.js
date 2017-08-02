@@ -33,11 +33,10 @@ define([
             'click @ui.tagName': 'useTagName',
             'keypress @ui.query': 'checkKeyPress',
             'click @ui.findMe': 'useMyLocation',
-            'change': 'render'
         },
         search: function () {
-            this.model.set('query', this.ui.query.val().trim());
-
+            Bb.history.navigate('scanner/:country/:' + this.ui.query.val().trim());
+            this.useCountry(this.ui.query.val().trim());
         },
         useTagName: function (str) {
             var self = this;
@@ -90,13 +89,12 @@ define([
             return arr
         },
         checkKeyPress: function (e) {
-            // var ENTER = 13;
-            // if (e.which === ENTER) {
-            //     this.search();
-            // } 
-            //     this.model.set('query', this.ui.query.val().trim());
-            //     console.log('to wpisałeś:', this.ui.query.val().trim());
-
+            var ENTER = 13;
+            var queryTxt = this.ui.query.val().trim();
+            this.model.set('query', queryTxt);
+            if (e.which === ENTER) {
+                this.search();
+            }
         },
         onBeforeRender: function (view) {
             position = localisationService.getLocalisation();
