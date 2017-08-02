@@ -1,5 +1,5 @@
 <div class="webcam-img-container">
-  <a href="<%= url %>" target="_blank">
+  <a href="<%= link %>" target="_blank">
       <img class="img-responsive" src="<%= thumbnail %>" alt="webcam">
   </a>
 </div>
@@ -20,7 +20,10 @@
       <%= views %>
     </li>
     <li class="list-group-item">
-          <a href="#/show-map/:<%= position %>">Show on map</a>
+          <a href="#/show-map/:<%= position %>">Show</a> map and weather info.
+    </li>
+    <li class="list-group-item">
+      <a href="#/scanner/country/:<%= countryCode %>">Show</a> more from this country.
     </li>
     <li class="list-group-item">
       <div id="btn-scanner">
@@ -30,9 +33,6 @@
       <div id="btn-list">
         <button type="button" class="btn btn-danger" id="deleteFromList">Delete</button>
       </div>
-    </li>
-    <li class="list-group-item">
-      <a href="#/scanner/country/:<%= countryCode %>">Show</a> more from this country.
     </li>
   </ul>
 </div>

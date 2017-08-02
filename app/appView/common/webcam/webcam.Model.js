@@ -1,22 +1,24 @@
 define([
     'backbone',
     'backboneLocalstorage',
-], function(Bb, Store) {
+], function (Bb, Store) {
     'use strict';
 
     return Bb.Model.extend({
         urlRoot: '/webcam', //???
         defaults: {
-            //id: '', //- why i can't use it here?
+            //id: '', why not this?
             city: '',
             country: '',
             countryCode: '',
-            views: '',
-            title: 'No data',
-            url: '',
-            state: 'scanner', // state for 'scanner/list' view display default buttons
+            views:'',
+            lat: '',
+            lng: '',
+            position:'',
             thumbnail: '',
-            position: ''
+            state: 'scanner',
+            title: 'name unknown',
+            link: ''
         },
         localStorage: new Store('webcam-backbone')
     })

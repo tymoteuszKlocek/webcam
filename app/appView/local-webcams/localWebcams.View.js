@@ -18,7 +18,7 @@ define([
             widgetRegion: '#widget'
         },
         initialize: function(options) {
-            this.model.set('localisation', options.position)
+            this.model.set('localisation', options.position);
         },
         onRender: function (view) {
             widget = new WeatherWidget({ position: view.options.position })

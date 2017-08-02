@@ -37,7 +37,7 @@ define([
         },
         search: function () {
             this.model.set('query', this.ui.query.val().trim());
-           
+
         },
         useTagName: function (str) {
             var self = this;
@@ -58,7 +58,7 @@ define([
         },
         useMyLocation: function () {
             var self = this;
-            session.searchNearBy(position).then(function (resp) {
+            session.searchNearBy(localisationService.getLocalisation()).then(function (resp) {
                 newCollection = self.createModel(resp);
                 webcamCol = new WebcamCol(newCollection);
             }).then(function () {
@@ -71,19 +71,20 @@ define([
         createModel: function (resp) {
             var arr = [];
             _.each(resp.result.webcams, function (obj) {
-                var newModel = {};
-                newModel.id = obj.id;
-                newModel.city = obj.location.city;
-                newModel.country = obj.location.country;
-                newModel.countryCode = obj.location.country_code;
-                newModel.views = obj.statistics.views;
-                newModel.lat = obj.location.latitude;
-                newModel.lng = obj.location.longitude;
-                newModel.position = obj.location.latitude.toFixed(3) + ',' + obj.location.longitude.toFixed(3);
-                newModel.thumbnail = obj.image.current.preview || '';
-                newModel.state = 'scanner';
-                newModel.title = obj.title || 'name unknown';
-                newModel.url = obj.url.current.desktop || '';
+                var newModel = new WebcamModel({
+                    id: obj.id,
+                    city: obj.location.city,
+                    country: obj.location.country,
+                    countryCode: obj.location.country_code,
+                    views: obj.statistics.views,
+                    lat: obj.location.latitude,
+                    lng: obj.location.longitude,
+                    position: obj.location.latitude.toFixed(3) + ',' + obj.location.longitude.toFixed(3),
+                    thumbnail: obj.image.current.preview || '',
+                    state: 'scanner',
+                    title: obj.title || 'name unknown',
+                    link: obj.url.current.desktop || ''
+                });
                 arr.push(newModel);
             });
             return arr
@@ -95,7 +96,7 @@ define([
             // } 
             //     this.model.set('query', this.ui.query.val().trim());
             //     console.log('to wpisałeś:', this.ui.query.val().trim());
-            
+
         },
         onBeforeRender: function (view) {
             position = localisationService.getLocalisation();

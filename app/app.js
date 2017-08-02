@@ -20,14 +20,10 @@ define([
                 App.appView.showChildView('main', view);
                 App.showView(App.appView);
             });
-        },        
+            if (Backbone.history) {
+                Backbone.history.start();
+            }
+        },
     });
-
-    App.on("before:start", function (options) {
-        if (Backbone.history) {
-            Backbone.history.start();
-        }
-    });
-
     return window.app = App;
 });
