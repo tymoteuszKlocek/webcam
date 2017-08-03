@@ -5,7 +5,7 @@ define([
     'use strict';
 
     return Bb.Model.extend({
-        urlRoot: '/webcam', //???
+        urlRoot: '/webcams', //???
         defaults: {
             //id: '', why not this?
             city: '',

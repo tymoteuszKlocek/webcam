@@ -1,14 +1,14 @@
 define([
     'backbone',
     'marionette',
-    'text!app/appView/scanner/scanner.View.html',
-    'app/appView/scanner/scanner.Model',
-    'app/appView/common/webcam/webcam.Collection',
-    'app/appView/common/webcam/webcam.CollectionView',
-    'app/appView/common/webcam/webcam.Model',
-    'app/appView/common/search-webcam-session/searchWebcamSession',
-    'app/appView/common/localisation/localisation.Service',
-    'app/appView/scanner/autocomplete-country-city/autocomplete.View',
+    'text!appView/scanner/scanner.View.html',
+    'appView/scanner/scanner.Model',
+    'appView/common/webcam/webcam.Collection',
+    'appView/common/webcam/webcam.CollectionView',
+    'appView/common/webcam/webcam.Model',
+    'appView/common/search-webcam-session/searchWebcamSession',
+    'appView/common/localisation/localisation.Service',
+    'appView/scanner/autocomplete-country-city/autocomplete.View',
 ], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, Autocomplete) {
     'use strict';
 
@@ -16,7 +16,6 @@ define([
     var localisationService = new LocalisationService();
     var newCollection = [];
     var webcamCol;
-    var position;
 
     return Mn.View.extend({
 
@@ -49,42 +48,29 @@ define([
         },
 
         useTagName: function (str) {
+            var category = 'category='
 
-            var self = this;
-
-            position = localisationService.getLocalisation();
-            searchWebcamSession.searchWithTag(str).then(function (resp) {
-                webcamCol = new WebcamCol(self.createModel(resp));
-            }).then(function () {
-                self.populate();
-            });
+            this.sendRequest(category, str);
         },
 
         useCountry: function (countryCode) {
+            var category = 'country=';
 
-            var self = this;
-
-            searchWebcamSession.searchByCountry(countryCode).then(function (resp) {
-                webcamCol = new WebcamCol(self.createModel(resp));
-            }).then(function () {
-                self.populate();
-            });
+            this.sendRequest(category, countryCode);
         },
 
         useMyLocation: function () {
+            var category = 'nearby=';
+            var position = localisationService.getLocalisation();
 
-            var self = this;
-
-            searchWebcamSession.searchNearBy(localisationService.getLocalisation()).then(function (resp) {
-                newCollection = self.createModel(resp);
-                webcamCol = new WebcamCol(newCollection);
-            }).then(function () {
-                self.populate();
-            });
+            this.sendRequest(category, position);
         },
 
-        populate: function () {
-            this.showChildView('webcamRegion', new WebcamColView({ collection: webcamCol, state: 'scanner' }));
+        populate: function (webcamCol) { //works but...
+            if (webcamCol) {
+                var webcamColView = new WebcamColView({ collection: webcamCol, state: 'scanner' }) //check it - what is wrong?? error: Uncaught (in promise) TypeError: Cannot read property 'show' of undefined
+                this.showChildView('webcamRegion', webcamColView);
+            }
         },
 
         createModel: function (resp) {
@@ -111,8 +97,19 @@ define([
             return arr
         },
 
-        checkKeyPress: function (e) {
+        sendRequest: function(category, position) {
+            var self = this;
 
+            searchWebcamSession.searchForWebcam(category, position).then(function (resp) {
+                return self.createModel(resp);
+            }).then(function (newCollection) {
+                return new WebcamCol(newCollection);
+            }).then(function (webcamCol) {
+                self.populate(webcamCol);
+            });
+        },
+
+        checkKeyPress: function (e) {
             var ENTER = 13;
             var queryTxt = this.ui.query.val().trim();
 
@@ -125,10 +122,9 @@ define([
 
         onBeforeRender: function (view) {
 
-            position = localisationService.getLocalisation();
-
+            var position = localisationService.getLocalisation();
             this.model.set('position', position);
-     
+
             if (Object.getOwnPropertyNames(view).length > 0) {
                 switch (view.options.mode) {
                     case 'near':
@@ -144,11 +140,9 @@ define([
                         break;
                 }
             }
-
-            
         },
 
-        onRender: function() {
+        onRender: function () {
             this.showChildView('autocplRegion', new Autocomplete());
         }
     })

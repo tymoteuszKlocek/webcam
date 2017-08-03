@@ -1,8 +1,8 @@
 define([
     'backbone',
     'marionette',
-    'app/appView/appView',
-    'app/appView/scanner/scanner.View',
+    'appView/appView',
+    'appView/scanner/scanner.View',
     'router'
 ], function (Bb, Mn, AppView, Scanner, Router) {
     'use strict';

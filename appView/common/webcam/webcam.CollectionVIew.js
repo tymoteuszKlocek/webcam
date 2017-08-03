@@ -1,10 +1,10 @@
 define([
     'marionette',
     'backbone',
-    'text!app/appView/common/webcam/webcam.Collection.html',
-    'app/appView/common/webcam/webcam.Collection',
-    'app/appView/common/webcam/webcam.View',
-    'app/appView/common/webcam/webcam.Model',
+    'text!appView/common/webcam/webcam.Collection.html',
+    'appView/common/webcam/webcam.Collection',
+    'appView/common/webcam/webcam.View',
+    'appView/common/webcam/webcam.Model',
 ], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel) {
     'use strict';
 

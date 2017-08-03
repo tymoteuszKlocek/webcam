@@ -1,36 +1,37 @@
 define([
     'marionette',
     'backbone',
-    'text!app/appView/webcams-list/list.View.html',
-    'app/appView/common/webcam/webcam.Collection',
-    'app/appView/common/webcam/webcam.CollectionView',
-    'app/appView/common/webcam/webcam.Model',
+    'text!appView/webcams-list/list.View.html',
+    'appView/common/webcam/webcam.Collection',
+    'appView/common/webcam/webcam.CollectionView',
+    'appView/common/webcam/webcam.Model',
 ], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel) {
     'use strict';
 
+    var savedCollection;
     return Mn.View.extend({
         template: _.template(tpl),
         regions: {
             list: '#list'
         },
 
-        onRender: function () {
+        initialize: function () {
 
-            var savedCollection;
             var fetchedModel = new WebcamModel();
 
             fetchedModel.fetch({
 
                 success: function (col) {
                     var arr = [];
+                    var self = this;
 
                     _.each(col.attributes, function (model) {
                         if (typeof model === 'object') {
-                            model.state = 'list';
+                            console.log('model', model)
+                            model.state = "list";
                             arr.push(model);
                         }
                     })
-                    
                     savedCollection = new WebcamCol(arr);
                 },
 
@@ -40,6 +41,8 @@ define([
 
             });
 
+        },
+        onRender: function () {
             this.showChildView('list', new WebcamColView({ collection: savedCollection }));
         }
     })

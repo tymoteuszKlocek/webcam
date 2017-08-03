@@ -1,8 +1,8 @@
 define([
     'backbone',
     'marionette',
-    'text!app/appView/common/webcam/webcam.View.html',
-    'app/appView/common/webcam/webcam.Model',
+    'text!appView/common/webcam/webcam.View.html',
+    'appView/common/webcam/webcam.Model',
 ], function (Bb, Mn, tpl, Model) {
     'use strict';
 
@@ -31,12 +31,12 @@ define([
         },
 
         onRender: function (item) {
-            var state = item.model.attributes.state;
+            this.model.set('state', item.model.attributes.state);
             
-            if (state === 'scanner') {
+            if (this.model.get('state') === 'scanner') {
                 this.ui.listBtns.addClass('hide');
             }
-            if (state === 'list') {
+            if (this.model.get('state') === 'list') {
                 this.ui.scannerBtns.addClass('hide');
             }
         },

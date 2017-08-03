@@ -1,5 +1,5 @@
 define([
-    'app/appView/scanner/autocomplete-country-city/autocomplete.Model',
+    'appView/scanner/autocomplete-country-city/autocomplete.Model',
     'backbone'
 ], function(Model, Bb) {
     'use strict';

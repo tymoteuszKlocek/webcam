@@ -1,10 +1,10 @@
 define([
     'marionette',
-    'text!app/appView/appView.html',
-    'app/appView/nav/nav.View',
-    'app/appView/scanner/scanner.View',
-    'app/appView/webcams-list/list.View',
-    'app/appView/map/localWebcams.View',
+    'text!appView/appView.html',
+    'appView/nav/nav.View',
+    'appView/scanner/scanner.View',
+    'appView/webcams-list/list.View',
+    'appView/map/localWebcams.View',
 ], function (Mn, tpl, Nav, Scanner, List, LocalView) {
     'use strict';
 

@@ -39,7 +39,7 @@ require.config({
 });
 
 require([
-    './app/app',
+    './app',
 ], function (app) {
     'use strict';
 

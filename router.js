@@ -1,10 +1,10 @@
 define([
     'backbone',
     'marionette',
-    'app/appView/scanner/scanner.View',
-    'app/appView/webcams-list/list.View',
-    'app/appView/map/localWebcams.View',
-    'app/appView/common/localisation/localisation.Service'
+    'appView/scanner/scanner.View',
+    'appView/webcams-list/list.View',
+    'appView/map/localWebcams.View',
+    'appView/common/localisation/localisation.Service'
 ], function (Bb, Mn, Scanner, List, LocalMapView, LocalisationService) {
     'use strict';
 
@@ -23,6 +23,7 @@ define([
             'show-map/:*position': 'showWebcamOnMap',
             '*path': 'showScanner',
         },
+        
 
         showScanner: function () {
             filterChannel.request('filterState', new Scanner());

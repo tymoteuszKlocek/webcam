@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'app/appView/map/weather-widget/weatherSession'
+    'appView/map/weather-widget/weatherSession'
 ], function (Bb, WeatherSession) {
     'use strict';
 

@@ -1,9 +1,9 @@
 define([
     'backbone',
     'marionette',
-    'app/appView/scanner/autocomplete-country-city/autocomplete.backbone',
-    'text!app/appView/scanner/autocomplete-country-city/autocomplete.View.html',
-    'app/appView/scanner/autocomplete-country-city/autocomplete.Collection',
+    'appView/scanner/autocomplete-country-city/autocomplete.backbone',
+    'text!appView/scanner/autocomplete-country-city/autocomplete.View.html',
+    'appView/scanner/autocomplete-country-city/autocomplete.Collection',
 ], function (Bb, Mn, Autocomplete, tpl, Collection) {
     'use strict';
 
@@ -41,11 +41,9 @@ define([
         },
 
         onRender: function () {
-            console.log('rener');
             typeahead.setElement('#autocomplete').render();
            
         },
-
         search: function () {
             console.log('yes');
             typeahead.setElement('#autocomplete').render();

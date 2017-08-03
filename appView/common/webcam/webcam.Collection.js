@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'app/appView/common/webcam/webcam.Model'
+    'appView/common/webcam/webcam.Model'
 ], function (Bb, Model) {
     'use strict';
 

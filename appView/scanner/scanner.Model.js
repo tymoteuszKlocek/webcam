@@ -1,7 +1,7 @@
 define([
     'backbone',
     'backboneLocalstorage',
-    'app/appView/common/localisation/localisation.Service'
+    'appView/common/localisation/localisation.Service'
 ], function (Bb, Store, LocalisationService) {
     'use strict';
 

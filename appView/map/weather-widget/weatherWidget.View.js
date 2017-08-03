@@ -1,8 +1,8 @@
 define([
     'marionette',
-    'text!app/appView/map/weather-widget/weatherWidget.View.html',
-    'app/appView/map/weather-widget/weatherWidget.Model',
-    'app/appView/map/weather-widget/weatherSession'
+    'text!appView/map/weather-widget/weatherWidget.View.html',
+    'appView/map/weather-widget/weatherWidget.Model',
+    'appView/map/weather-widget/weatherSession'
 ], function (Mn, tpl, Model, WeatherSession) {
     'use strict';
 

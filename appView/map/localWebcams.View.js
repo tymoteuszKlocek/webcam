@@ -1,8 +1,8 @@
 define([
     'marionette',
-    'text!app/appView/map/localWebcams.View.html',
-    'app/appView/map/localWebcams.Model',
-    'app/appView/map/weather-widget/weatherWidget.View'
+    'text!appView/map/localWebcams.View.html',
+    'appView/map/localWebcams.Model',
+    'appView/map/weather-widget/weatherWidget.View'
 ], function (Mn, tpl, Model, WeatherWidget) {
     'use strict';
 
