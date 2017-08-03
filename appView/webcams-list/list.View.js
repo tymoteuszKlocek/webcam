@@ -27,11 +27,11 @@ define([
 
                     _.each(col.attributes, function (model) {
                         if (typeof model === 'object') {
-                            console.log('model', model)
                             model.state = "list";
                             arr.push(model);
                         }
                     })
+                    
                     savedCollection = new WebcamCol(arr);
                 },
 

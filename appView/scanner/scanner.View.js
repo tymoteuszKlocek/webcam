@@ -8,38 +8,31 @@ define([
     'appView/common/webcam/webcam.Model',
     'appView/common/search-webcam-session/searchWebcamSession',
     'appView/common/localisation/localisation.Service',
-    'appView/scanner/autocomplete-country-city/autocomplete.View',
+    'appView/scanner/autocomplete-country-city/autocomplete.View.js',
+    'typeahead',
 ], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, Autocomplete) {
     'use strict';
 
     var searchWebcamSession = new SearchWebcamSession();
     var localisationService = new LocalisationService();
-    var newCollection = [];
-    var webcamCol;
-
     return Mn.View.extend({
 
         model: new Model(),
-
         template: _.template(tpl),
-
         ui: {
             search: '#search',
             query: '#query',
             tagName: '#tagName',
             findMe: '#findMe'
         },
-
         regions: {
             webcamRegion: '#webcam-collection',
-            autocplRegion: '#autocomplete'
+            autocplRegion: {
+                el: '#autocomplete',
+            }
         },
-
         events: {
             'click @ui.search': 'search',
-            'click @ui.tagName': 'useTagName',
-            'keypress @ui.query': 'checkKeyPress',
-            'click @ui.findMe': 'useMyLocation',
         },
 
         search: function () {
@@ -93,11 +86,10 @@ define([
                 });
                 arr.push(newModel);
             });
-
             return arr
         },
 
-        sendRequest: function(category, position) {
+        sendRequest: function (category, position) {
             var self = this;
 
             searchWebcamSession.searchForWebcam(category, position).then(function (resp) {
@@ -121,7 +113,6 @@ define([
         },
 
         onBeforeRender: function (view) {
-
             var position = localisationService.getLocalisation();
             this.model.set('position', position);
 
@@ -146,4 +137,7 @@ define([
             this.showChildView('autocplRegion', new Autocomplete());
         }
     })
+
+    
 })
+

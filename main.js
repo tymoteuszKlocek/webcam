@@ -9,7 +9,8 @@ require.config({
         text: './node_modules/requirejs-text/text',
         backboneLocalstorage: './node_modules/backbone.localstorage/backbone.localStorage',
         bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min',
-        typeahead: './node_modules/backbone.typeahead.js/backbone.typeahead'
+        typeahead: './node_modules/backbone.typeahead.js/backbone.typeahead',
+        jqueryui: './node_modules/jquery-ui/jquery-ui'
     },
 
     shim: {
@@ -30,6 +31,10 @@ require.config({
         typeahead: {
             exports: "Backbone.Typeahead",
             deps: ['backbone']
+        },
+        jqueryui: {
+            exports: "jquery-ui",
+            deps: ['jquery']
         }
 
     },
