@@ -1,10 +1,17 @@
 define([
+    'backbone',
     'appView/scanner/autocomplete-country-city/autocomplete.Model',
-    'backbone'
-], function(Model, Bb) {
+    'backboneLocalstorage',
+], function(Bb, Model, Store) {
     'use strict';
     
     return Bb.Collection.extend({
-        model: new Model(),
+        url: 'appView/scanner/autocomplete-country-city/countries.lib.json',
+        model: Model,
+        initialize: function() {
+        },
+        parse: function(response) {
+            return response;
+        },
     })
 });

@@ -13,13 +13,13 @@ gulp.task('html', function () {
 });
 
 gulp.task('js', function () {
-    gulp.src('./appView/*.js')
+    gulp.src('./appView/**/*.js')
         .pipe(connect.reload());
 });
 
 gulp.task('watch', function () {
     gulp.watch(['./appView/*.html'], ['html']);
-    gulp.watch(['./appView/*.js'], ['js']);
+    gulp.watch(['./appView/**/*.js'], ['js']);
 });
 
 gulp.task('default', ['connect', 'watch']);

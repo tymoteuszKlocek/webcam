@@ -23,7 +23,6 @@ define([
             'show-map/:*position': 'showWebcamOnMap',
             '*path': 'showScanner',
         },
-        
 
         showScanner: function () {
             filterChannel.request('filterState', new Scanner());

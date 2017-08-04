@@ -1,14 +1,16 @@
 define([
-    'backbone'
-], function(Bb) {
+    'backbone',
+    'backboneLocalstorage',
+], function(Bb, Store) {
     'use strict';
 
     return Bb.Model.extend({
+        urlRoot: '/autocomplete/model',
         defaults: {
-            countryCode: {
-                pl: 'PL',
-                po: 'PO',
-            }
-        }
+            name: 'default name',
+            code: 'default code'
+        },
+        initialize: function() {
+        },
     })
 });

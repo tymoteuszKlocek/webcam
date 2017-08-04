@@ -8,36 +8,34 @@ define([
     'appView/common/webcam/webcam.Model',
     'appView/common/search-webcam-session/searchWebcamSession',
     'appView/common/localisation/localisation.Service',
-    'appView/scanner/autocomplete-country-city/autocomplete.View.js',
+    'appView/scanner/autocomplete-country-city/autocomplete.View',
+    'appView/scanner/autocomplete-country-city/typeahead.View.js',
     'typeahead',
-], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, Autocomplete) {
+], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, AutocompleteView, Typeahead) {
     'use strict';
 
     var searchWebcamSession = new SearchWebcamSession();
     var localisationService = new LocalisationService();
+    var itemTemplate = '<a href="#/scanner/country/:<%- code %>"><strong><%- name %></strong> (<%- code %>)</a>';
+    var typeahead = new Typeahead({key: 'name',itemTemplate: itemTemplate});
+    
     return Mn.View.extend({
 
         model: new Model(),
         template: _.template(tpl),
         ui: {
-            search: '#search',
-            query: '#query',
             tagName: '#tagName',
-            findMe: '#findMe'
+            findMe: '#findMe',
+            input: '#autocomplet-input',
         },
         regions: {
             webcamRegion: '#webcam-collection',
-            autocplRegion: {
-                el: '#autocomplete',
-            }
+            autocplRegion: '#autocomplete',
         },
         events: {
-            'click @ui.search': 'search',
-        },
-
-        search: function () {
-            Bb.history.navigate('scanner/:country/:' + this.ui.query.val().trim());
-            this.useCountry(this.ui.query.val().trim());
+            'click @ui.search1': 'search',
+            'mouseover @ui.findMe': 'checkPosition',
+            'mouseover @ui.input': 'showAutocomplete',
         },
 
         useTagName: function (str) {
@@ -46,10 +44,10 @@ define([
             this.sendRequest(category, str);
         },
 
-        useCountry: function (countryCode) {
+        useCountry: function (str) {
             var category = 'country=';
-
-            this.sendRequest(category, countryCode);
+ 
+            this.sendRequest(category, str);
         },
 
         useMyLocation: function () {
@@ -59,7 +57,7 @@ define([
             this.sendRequest(category, position);
         },
 
-        populate: function (webcamCol) { //works but...
+        populate: function (webcamCol) {
             if (webcamCol) {
                 var webcamColView = new WebcamColView({ collection: webcamCol, state: 'scanner' }) //check it - what is wrong?? error: Uncaught (in promise) TypeError: Cannot read property 'show' of undefined
                 this.showChildView('webcamRegion', webcamColView);
@@ -101,15 +99,13 @@ define([
             });
         },
 
-        checkKeyPress: function (e) {
-            var ENTER = 13;
-            var queryTxt = this.ui.query.val().trim();
+        checkPosition: function () {
+            var position = localisationService.getLocalisation();
+            this.model.set('position', position);
+        },
 
-            this.model.set('query', queryTxt);
-
-            if (e.which === ENTER) {
-                this.search();
-            }
+        showAutocomplete: function() {           
+            typeahead.setElement('#autocomplete').render();
         },
 
         onBeforeRender: function (view) {
@@ -134,10 +130,9 @@ define([
         },
 
         onRender: function () {
-            this.showChildView('autocplRegion', new Autocomplete());
-        }
-    })
+            this.showChildView('autocplRegion', new AutocompleteView());
+        },
 
-    
-})
+    });
+});
 
