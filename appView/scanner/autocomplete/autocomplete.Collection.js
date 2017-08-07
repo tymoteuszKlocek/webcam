@@ -8,10 +8,5 @@ define([
     return Bb.Collection.extend({
         url: 'appView/scanner/autocomplete/countries.lib.json',
         model: Model,
-        initialize: function() {
-        },
-        parse: function(response) {
-            return response;
-        },
     });
 });

@@ -13,13 +13,12 @@ define([
     return Mn.AppRouter.extend({
 
         routes: {
-            //'': 'showScanner',
             'scanner': 'showScanner',
             'scanner/:mode/:*filter': 'useScanner',
             'list-of-my-webcams': 'showMyList',
             'map/:*position': 'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
-            //'*path': 'showScanner',
+            '/#/*default': 'showScanner',
         },
 
         showScanner: function () {

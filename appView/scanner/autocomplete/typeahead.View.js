@@ -7,6 +7,7 @@ define([
 ], function (Bb, Mn, TypeaheadConstructor, Collection, tpl) {
     'use strict';
 
+
     var collection = new Collection();
     collection.fetch({
         url: 'appView/scanner/autocomplete/countries.lib.json',
@@ -17,7 +18,6 @@ define([
             console.log('error', error);
         }
     });
-    
     return TypeaheadConstructor.extend({
         collection: collection,
         template: _.template(tpl),

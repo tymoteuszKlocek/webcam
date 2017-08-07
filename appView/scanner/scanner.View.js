@@ -8,16 +8,28 @@ define([
     'appView/common/webcam/webcam.Model',
     'appView/common/search-webcam-session/searchWebcamSession',
     'appView/common/localisation/localisation.Service',
-    'appView/scanner/autocomplete/autocomplete.View',
-    'appView/scanner/autocomplete/typeahead.View.js',
+    //'appView/scanner/autocomplete/autocomplete.View',
+    //'appView/scanner/autocomplete/typeahead.View.js',
+    'appView/scanner/autocomplete/autocomplete.Collection',
     'typeahead',
-], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, AutocompleteView, Typeahead) {
+], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, CountryCollection, Typeahead) {
     'use strict';
 
     var searchWebcamSession = new SearchWebcamSession();
     var localisationService = new LocalisationService();
     var itemTemplate = '<a href="#/scanner/country/:<%- code %>"><strong><%- name %></strong> (<%- code %>)</a>';
-    var typeahead = new Typeahead({ key: 'name', itemTemplate: itemTemplate });
+    var countryCollection = new CountryCollection();
+    
+    countryCollection.fetch({
+        success: function (collection, response) {
+            //console.log('fetched countires', collection, response);
+        },
+        error: function (error) {
+            console.log('error', error);
+        }
+    });
+    var queryset = countryCollection.models;
+    var typeahead = new Backbone.Typeahead({collection: countryCollection, key: 'name', itemTemplate: itemTemplate });
 
     return Mn.View.extend({
 
@@ -46,7 +58,7 @@ define([
             localisationService.getLocalisation().then(function (response) {
                 self.model.set('position', response);
             });
-
+            typeahead.setElement('#autocomplete').render();
             if (Object.getOwnPropertyNames(obj).length > 0) {
                 switch (obj.mode) {
                     case 'near':
@@ -68,8 +80,8 @@ define([
         },
 
         onRender: function () {
-            this.showChildView('autocplRegion', new AutocompleteView());
-            console.log(this.model.get('size'));
+            // this.showChildView('autocplRegion', new AutocompleteView());
+            typeahead.setElement('#autocomplete').render();
         },
 
         populate: function (webcamCol) {
@@ -77,8 +89,6 @@ define([
                 this.model.set('size', webcamCol.size());
                 var webcamColView = new WebcamColView({ collection: webcamCol, state: 'scanner' });
                 this.showChildView('webcamRegion', webcamColView);
-            } else {
-
             }
         },
 
@@ -118,6 +128,7 @@ define([
         },
 
         showAutocomplete: function () {
+            console.log('autocomplete changed')
             typeahead.setElement('#autocomplete').render();
         },
 

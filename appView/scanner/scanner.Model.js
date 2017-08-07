@@ -49,7 +49,6 @@ define([
             });
         },
 
-        localStorage: new Store('webcam-scanner-backbone')
     })
 })
 
