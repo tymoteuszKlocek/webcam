@@ -1,5 +1,4 @@
 require.config({
-
     paths: {
         underscore: './node_modules/underscore/underscore',
         backbone: './node_modules/backbone/backbone',
@@ -7,19 +6,14 @@ require.config({
         marionette: './node_modules/backbone.marionette/lib/backbone.marionette',
         jquery: './node_modules/jquery/dist/jquery',
         text: './node_modules/requirejs-text/text',
+        css: './node_modules/require-css/css',
         backboneLocalstorage: './node_modules/backbone.localstorage/backbone.localStorage',
         bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min',
         typeahead: './node_modules/backbone.typeahead.js/backbone.typeahead',
     },
 
     shim: {
-        underscore: {
-            exports: '_'
-        },
-        'backbone.radio': {
-            exports: 'Backbone.Radio',
-            deps: ['backbone']
-        },
+       
         backboneLocalstorage: {
             deps: ['backbone'],
             exports: 'Store'
@@ -38,7 +32,7 @@ require.config({
 });
 
 require([
-    './app',
+    './app/app',
 ], function (app) {
     'use strict';
 
