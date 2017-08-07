@@ -3,16 +3,21 @@ define([
     'text!appView/nav/nav.View.html',
     'appView/nav/nav.Model',
     'appView/common/localisation/localisation.Service'
-], function(Mn, tpl, Model, LocalisationService) {
+], function (Mn, tpl, Model, LocalisationService) {
     'use strict';
 
+    var localisationService = new LocalisationService();
     return Mn.View.extend({
         template: _.template(tpl),
         model: new Model(),
-
-        onRender: function () {
-            var localisationService = new LocalisationService();
-            var position = localisationService.getLocalisation();
+        modelEvents: {
+            'change': 'render'
+        },
+        initialize: function () {
+            var self = this;
+            localisationService.getLocalisation().then(function (response) {
+                self.model.set('position', response);
+            });
         },
     })
 })

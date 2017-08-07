@@ -5,6 +5,7 @@ define([
     'appView/scanner/scanner.View',
     'appView/webcams-list/list.View',
     'appView/map/localWebcams.View',
+    'bootstrap',
 ], function (Mn, tpl, Nav, Scanner, List, LocalView) {
     'use strict';
 
@@ -21,7 +22,7 @@ define([
                 replaceElement: true
             },
         },
-        
+
         onRender: function () {
             this.showChildView('nav', new Nav());
         }

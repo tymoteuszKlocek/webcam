@@ -16,6 +16,7 @@ define([
         childView: WebcamColView,
         
         onChildviewSaveModel: function(view) {
+            // saved webcame is removed from view (in scanner)
             this.removeChildView(view);
         }
     });

@@ -16,7 +16,6 @@
     "bootstrap": "^3.3.7",
     "bootstrap-3-typeahead": "^4.0.2",
     "jquery": "^3.2.1",
-    "jquery-ui": "^1.12.1",
     "requirejs": "^2.3.4",
     "requirejs-text": "^2.0.15",
     "underscore": "^1.8.3"

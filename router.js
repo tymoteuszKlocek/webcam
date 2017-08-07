@@ -9,19 +9,17 @@ define([
     'use strict';
 
     var filterChannel = Bb.Radio.channel('filter');
-    var localisationService = new LocalisationService();
-    var position;
-
+    
     return Mn.AppRouter.extend({
 
         routes: {
-            '': 'showScanner',
+            //'': 'showScanner',
             'scanner': 'showScanner',
             'scanner/:mode/:*filter': 'useScanner',
             'list-of-my-webcams': 'showMyList',
-            'localisation': 'showMeOnMap',
-            'show-map/:*position': 'showWebcamOnMap',
-            '*path': 'showScanner',
+            'map/:*position': 'showMeOnMap',
+            'show-map/:*position/:*country': 'showWebcamOnMap',
+            //'*path': 'showScanner',
         },
 
         showScanner: function () {
@@ -36,17 +34,12 @@ define([
             filterChannel.request('filterState', new List());
         },
 
-        showMeOnMap: function () {
-            position = localisationService.getLocalisation();
-            filterChannel.request('filterState', new LocalMapView({ position: position }));
+        showMeOnMap: function (position) {
+            filterChannel.request('filterState', new LocalMapView({ position: position, country: "Poland" }));
         },
 
-        showWebcamOnMap: function (position) {
-            filterChannel.request('filterState', new LocalMapView({ position: position }));
-        },
-
-        initialize: function () {
-            position = localisationService.getLocalisation();
+        showWebcamOnMap: function (position, country) {
+            filterChannel.request('filterState', new LocalMapView({ position: position, country: country }));
         }
     });
 

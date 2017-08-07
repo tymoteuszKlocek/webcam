@@ -1,8 +1,8 @@
 define([
     'backbone',
     'marionette',
-    'text!appView/scanner/autocomplete-country-city/autocomplete.View.html',
-    'appView/scanner/autocomplete-country-city/autocomplete.Model',
+    'text!appView/scanner/autocomplete/autocomplete.View.html',
+    'appView/scanner/autocomplete/autocomplete.Model',
 ], function (Bb, Mn, tpl, Model) {
     'use strict';
 

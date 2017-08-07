@@ -5,22 +5,21 @@ define([
     'use strict';
 
     return Bb.Model.extend({
-        urlRoot: '/webcams', //???
+        urlRoot: '/webcams',
         defaults: {
-            //id: '', why not this?
             city: '',
             country: '',
             countryCode: '',
-            views:'',
+            views: '',
             lat: '',
             lng: '',
-            position:'',
+            position: '',
             thumbnail: '',
             state: 'scanner',
             title: 'name unknown',
             link: ''
         },
-        
+
         localStorage: new Store('webcam-backbone')
     })
 })

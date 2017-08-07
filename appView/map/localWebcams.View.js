@@ -8,7 +8,7 @@ define([
 
     var model = new Model();
     var widget;
-    
+
     return Mn.View.extend({
         model: model,
         template: _.template(tpl),
@@ -19,13 +19,14 @@ define([
             widgetRegion: '#widget'
         },
 
-        initialize: function(options) {
+        initialize: function (options) {
             this.model.set('localisation', options.position);
+            this.model.set('country', options.country);
         },
 
-        onRender: function (view) {
-            widget = new WeatherWidget({ position: view.options.position })
+        onRender: function (obj) {
+            widget = new WeatherWidget({ position: obj.options.position })
             this.showChildView('widgetRegion', widget);
-        }
+        },
     })
 });

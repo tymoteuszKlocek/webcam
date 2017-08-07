@@ -2,14 +2,14 @@ define([
     'backbone',
     'marionette',
     'typeahead', //for more info see: https://github.com/aodin/Backbone.Typeahead
-    'appView/scanner/autocomplete-country-city/autocomplete.Collection',
-    'text!appView/scanner/autocomplete-country-city/typeahead.html',
+    'appView/scanner/autocomplete/autocomplete.Collection',
+    'text!appView/scanner/autocomplete/typeahead.html',
 ], function (Bb, Mn, TypeaheadConstructor, Collection, tpl) {
     'use strict';
 
     var collection = new Collection();
     collection.fetch({
-        url: 'appView/scanner/autocomplete-country-city/countries.lib.json',
+        url: 'appView/scanner/autocomplete/countries.lib.json',
         success: function (collection, response) {
             //console.log('fetched', collection, response);
         },
@@ -24,12 +24,6 @@ define([
         events: {
             'click li': 'chooseCountry',
         },
-        onRender: function () {
-            this.$menu = this.$('li');
-            this.$input = this.$('input');
-            return this;
-        },
-
     });
 
 })

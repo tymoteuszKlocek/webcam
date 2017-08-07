@@ -1,9 +1,11 @@
 <div class="webcam-img-container">
   <a href="<%= link %>" onclick="window.open('<%= link %>', 'newwindow', 'width=1200,height=600'); return false;">
-      <img class="img-responsive" src="<%= thumbnail %>" alt="webcam">
-  </a>
+        <img class="img-responsive" src="<%= thumbnail %>" alt="webcam">
+    </a>
 </div>
+
 <div class="media-rigth">
+
   <ul class="list-group">
     <li class="list-group-item">
       <h4 class="media-heading">
@@ -20,19 +22,23 @@
       <%= views %>
     </li>
     <li class="list-group-item">
-      <a href="#/show-map/:<%= position %>">Show</a> map and weather info.
+      <a href="#/show-map/:<%= position %>/:<%= country %>">Show</a> map and weather info.
     </li>
     <li class="list-group-item">
       <a href="#/scanner/country/:<%= countryCode %>">Show</a> more from this country.
     </li>
     <li class="list-group-item">
+
       <div id="btn-scanner">
         <button type="button" class="btn btn-success" id="save">Save</button>
         <button type="button" class="btn btn-default" id="delete">Delete</button>
       </div>
+      
       <div id="btn-list">
         <button type="button" class="btn btn-danger" id="deleteFromList">Delete</button>
       </div>
+
     </li>
   </ul>
+
 </div>

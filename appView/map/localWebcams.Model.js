@@ -20,7 +20,8 @@ define([
             position: POSITION,
             localisation: LOCALISATION,
             zoom: ZOOM,
-            type: TYPE
+            type: TYPE,
+            country: 'unknown country'
         },
     })
 })

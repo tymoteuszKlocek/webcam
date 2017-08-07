@@ -9,6 +9,7 @@ define([
         defaults: {
             position: 'position',
             query: '',
+            size: 0,
             tags: {
                 airport: 'Airport',
                 area: 'Area',
@@ -25,7 +26,6 @@ define([
                 island: 'Island',
                 lake: 'Lake',
                 mountain: 'Mountain',
-                //canyon: 'Canyon',
                 other: 'Other',
                 landscape: 'Landscape',
                 park: 'Park',
@@ -43,9 +43,12 @@ define([
 
         initialize: function () {
             var localisationService = new LocalisationService();
-            this.position = localisationService.getLocalisation();
+            var self = this;
+            localisationService.getLocalisation().then(function (response) {
+                self.position = response
+            });
         },
-        
+
         localStorage: new Store('webcam-scanner-backbone')
     })
 })

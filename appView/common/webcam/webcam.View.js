@@ -14,14 +14,13 @@ define([
         className: 'media',
         ui: {
             save: '#save',
-            delete: '#delete',
+            deleteFromView: '#delete',
             deleteFromList: '#deleteFromList',
             scannerBtns: '#btn-scanner',
             listBtns: '#btn-list',
         },
         events: {
-            'change:state': 'render',
-            'click @ui.delete': 'deleteModel',
+            'click @ui.deleteFromView': 'deleteModel',
             'click @ui.save': 'saveModel',
             'click @ui.deleteFromList': 'deleteModel',
             'click @ui.showOnMap': 'showOnMap'

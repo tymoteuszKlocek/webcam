@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="col-lg-6">
-        <h3>Search for the country.</h3>
-        <p>(eg. Poland, France)</p>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h3>Scanner is a tool which lets you search for webcams all around the world.</h3>
+        <p>Write the country name (eg. Poland, France)</p>
         <div class="input-group">
             <div id="autocomplete" class="input-group"></div>
-        </div>
-        <h4>
+        </div><br/>
+        <p>
             Or choose any tag from list and wait:
             <%= tags.name %>
-        </h4>
-        <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% _(tags).each(function(name) { %>
+        </p>
+        <div class="btn-group btn-group-sm" role="group" aria-label="tags">
+            <% _.each(tags, function(name) { %>
                 <a href="#/scanner/tag/:<%= name %>">
                     <button class="btn btn-default" id="tagName" ><%= name %></button>
                 </a>
@@ -22,8 +22,9 @@
 <!-- /.col-lg-6 -->
 <br/>
 <div>
+    <p>You can also quickly find webcams in range of 100km from your current localisation. Just press the button below.</p>
     <a href="#/scanner/near/:<%= position %>">
-        <button id="findMe" type="button" class="btn btn-info btn-lg">
+        <button id="findMe" type="button" class="btn btn-info">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Find near me
         </button>
     </a>
@@ -32,7 +33,7 @@
 <br>
 
 <div class="panel panel-info">
-    <div class="panel-heading">Here you can see available webcams.</div>
+    <div class="panel-heading">Here you can see available webcams. (There are <%= size %> webcams.)</div>
     <div class="panel-body" id="webcam-collection">
         No webcams yet...
     </div>

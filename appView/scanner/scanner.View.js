@@ -8,8 +8,8 @@ define([
     'appView/common/webcam/webcam.Model',
     'appView/common/search-webcam-session/searchWebcamSession',
     'appView/common/localisation/localisation.Service',
-    'appView/scanner/autocomplete-country-city/autocomplete.View',
-    'appView/scanner/autocomplete-country-city/typeahead.View.js',
+    'appView/scanner/autocomplete/autocomplete.View',
+    'appView/scanner/autocomplete/typeahead.View.js',
     'typeahead',
 ], function (Bb, Mn, tpl, Model, WebcamCol, WebcamColView, WebcamModel, SearchWebcamSession, LocalisationService, AutocompleteView, Typeahead) {
     'use strict';
@@ -17,8 +17,8 @@ define([
     var searchWebcamSession = new SearchWebcamSession();
     var localisationService = new LocalisationService();
     var itemTemplate = '<a href="#/scanner/country/:<%- code %>"><strong><%- name %></strong> (<%- code %>)</a>';
-    var typeahead = new Typeahead({key: 'name',itemTemplate: itemTemplate});
-    
+    var typeahead = new Typeahead({ key: 'name', itemTemplate: itemTemplate });
+
     return Mn.View.extend({
 
         model: new Model(),
@@ -32,35 +32,53 @@ define([
             webcamRegion: '#webcam-collection',
             autocplRegion: '#autocomplete',
         },
+        modelEvents: {
+            'change': 'render'
+        },
         events: {
             'click @ui.search1': 'search',
-            'mouseover @ui.findMe': 'checkPosition',
             'mouseover @ui.input': 'showAutocomplete',
         },
+        initialize: function (obj) {
 
-        useTagName: function (str) {
-            var category = 'category='
+            var self = this;
+            this.model.set('size', 0);
+            localisationService.getLocalisation().then(function (response) {
+                self.model.set('position', response);
+            });
 
-            this.sendRequest(category, str);
+            if (Object.getOwnPropertyNames(obj).length > 0) {
+                switch (obj.mode) {
+                    case 'near':
+                        var category = 'nearby='
+                        this.sendRequest(category, obj.params);
+                        break;
+                    case 'tag':
+                        var category = 'category='
+                        this.sendRequest(category, obj.params);
+                        break;
+                    case 'country':
+                        var category = 'country=';
+                        this.sendRequest(category, obj.params);
+                        break;
+                    default:
+                        break;
+                }
+            }
         },
 
-        useCountry: function (str) {
-            var category = 'country=';
- 
-            this.sendRequest(category, str);
-        },
-
-        useMyLocation: function () {
-            var category = 'nearby=';
-            var position = localisationService.getLocalisation();
-
-            this.sendRequest(category, position);
+        onRender: function () {
+            this.showChildView('autocplRegion', new AutocompleteView());
+            console.log(this.model.get('size'));
         },
 
         populate: function (webcamCol) {
             if (webcamCol) {
-                var webcamColView = new WebcamColView({ collection: webcamCol, state: 'scanner' }) //check it - what is wrong?? error: Uncaught (in promise) TypeError: Cannot read property 'show' of undefined
+                this.model.set('size', webcamCol.size());
+                var webcamColView = new WebcamColView({ collection: webcamCol, state: 'scanner' });
                 this.showChildView('webcamRegion', webcamColView);
+            } else {
+
             }
         },
 
@@ -99,38 +117,8 @@ define([
             });
         },
 
-        checkPosition: function () {
-            var position = localisationService.getLocalisation();
-            this.model.set('position', position);
-        },
-
-        showAutocomplete: function() {           
+        showAutocomplete: function () {
             typeahead.setElement('#autocomplete').render();
-        },
-
-        onBeforeRender: function (view) {
-            var position = localisationService.getLocalisation();
-            this.model.set('position', position);
-
-            if (Object.getOwnPropertyNames(view).length > 0) {
-                switch (view.options.mode) {
-                    case 'near':
-                        this.useMyLocation(view.options.params);
-                        break;
-                    case 'tag':
-                        this.useTagName(view.options.params)
-                        break;
-                    case 'country':
-                        this.useCountry(view.options.params);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        },
-
-        onRender: function () {
-            this.showChildView('autocplRegion', new AutocompleteView());
         },
 
     });

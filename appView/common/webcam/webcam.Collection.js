@@ -1,10 +1,13 @@
 define([
     'backbone',
-    'appView/common/webcam/webcam.Model'
-], function (Bb, Model) {
+    'appView/common/webcam/webcam.Model',
+    'backboneLocalstorage',
+], function (Bb, Model, Store) {
     'use strict';
 
     return Bb.Collection.extend({
-        model: Model
+        url: '/webcamsCol',
+        model: Model,
+        localStorage: new Store('webcam-backbone')
     });
 })

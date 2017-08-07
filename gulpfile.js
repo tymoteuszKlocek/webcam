@@ -8,18 +8,18 @@ gulp.task('connect', function () {
 });
 
 gulp.task('html', function () {
-    gulp.src('./appView/*.html')
+    gulp.src('./**/*.html')
         .pipe(connect.reload());
 });
 
 gulp.task('js', function () {
-    gulp.src('./appView/**/*.js')
+    gulp.src('./*.js')
         .pipe(connect.reload());
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./appView/*.html'], ['html']);
-    gulp.watch(['./appView/**/*.js'], ['js']);
+    gulp.watch(['./**/*.html'], ['html']);
+    gulp.watch(['./*.js', './**/*.js'], ['js']);
 });
 
 gulp.task('default', ['connect', 'watch']);
