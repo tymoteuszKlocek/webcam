@@ -5,7 +5,7 @@ define([
     'use strict';
 
     return Bb.Model.extend({
-        urlRoot: '/webcams',
+        //url: '/webcams',
         defaults: {
             city: '',
             country: '',
@@ -15,7 +15,7 @@ define([
             lng: '',
             position: '',
             thumbnail: '',
-            state: 'scanner',
+            type: 'scanner',
             title: 'name unknown',
             link: ''
         },

@@ -14,7 +14,6 @@
     "backbone.radio": "^2.0.0",
     "backbone.typeahead.js": "^0.3.0",
     "bootstrap": "^3.3.7",
-    "bootstrap-3-typeahead": "^4.0.2",
     "jquery": "^3.2.1",
     "requirejs": "^2.3.4",
     "requirejs-text": "^2.0.15",
@@ -24,6 +23,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
-    "require-css": "^0.1.10"
+    "require-css": "^0.1.10",
+    "requirejs-plugins": "^1.0.2"
   }
 }

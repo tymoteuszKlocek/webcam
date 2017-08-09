@@ -1,12 +1,13 @@
 require.config({
     paths: {
-        underscore: './node_modules/underscore/underscore',
         backbone: './node_modules/backbone/backbone',
-        'backbone.radio': './node_modules/backbone.radio/build/backbone.radio',
         marionette: './node_modules/backbone.marionette/lib/backbone.marionette',
+        underscore: './node_modules/underscore/underscore',
         jquery: './node_modules/jquery/dist/jquery',
+        'backbone.radio': './node_modules/backbone.radio/build/backbone.radio',
         text: './node_modules/requirejs-text/text',
         css: './node_modules/require-css/css',
+        json: './node_modules/requirejs-plugins/src/json',
         backboneLocalstorage: './node_modules/backbone.localstorage/backbone.localStorage',
         bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min',
         typeahead: './node_modules/backbone.typeahead.js/backbone.typeahead',

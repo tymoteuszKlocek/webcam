@@ -5,23 +5,23 @@ define([
     'app/appView/appView',
     'app/scanner/scanner.View',
     'app/router',
-    'css!/app/css/style'
-], function (Bb, Mn, LandingPage, AppView, Scanner, Router, css) {
+    'css!app/css/style',
+    'css!node_modules/bootstrap/dist/css/bootstrap.min.css'
+], function (Bb, Mn, LandingPage, AppView, Scanner, Router) {
     'use strict';
-
-    var filterChannel = Bb.Radio.channel('filter');
 
     var App = new Mn.Application({
         region: '#app-container',
         
         onStart: function () {
 
+            this.filterChannel = Bb.Radio.channel('filter');
             this.router = new Router();
             this.landingPage = new LandingPage();
             this.appView = new AppView();
             this.showView(this.landingPage);
 
-            filterChannel.reply('filterState', function (view) {
+            this.filterChannel.reply('filterState', function (view) {
                 App.appView.showChildView('main', view);
                 App.showView(App.appView);
             });

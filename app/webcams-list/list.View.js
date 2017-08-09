@@ -8,7 +8,6 @@ define([
 ], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel) {
     'use strict';
 
-    var savedCollection;
     return Mn.View.extend({
         template: _.template(tpl),
         regions: {
@@ -26,45 +25,41 @@ define([
             'click @ui.sortByMostPop': 'sort',
             'click @ui.sortByLessPop': 'sort'
         },
-
+   
         initialize: function () {
-            var fetchedModel = new WebcamModel();
-
-            fetchedModel.fetch({
-                success: function (col) {
-                    var arr = [];
-                    var self = this;
-                    _.each(col.attributes, function (model) {
-                        if (typeof model === 'object') {
-                            model.state = "list";
-                            arr.push(model);
-                        }
-                    })
-                    savedCollection = new WebcamCol(arr);
-                },
-
-                error: function (error, m) {
-                    console.log('fetched collection error', error, m);
-                }
+            // work in progress unknown issue with fetching data from localStorage
+            var self = this;
+            this.model = new WebcamModel();
+            this.model.fetch().done(function(data){
+                self.collection = new WebcamCol(data);
+                self.displayColView();
             });
+            // this.collection = new WebcamCol();
+            // this.collection.fetch().done(function (data) {
+            //     console.log('fdata', data)
+            //     self.displayColView();
+            // });
         },
 
         onRender: function () {
-            this.showChildView('list', new WebcamColView({ collection: savedCollection }));
+            this.showChildView('list', new WebcamColView({ collection: this.collection, type: 'list' }));
+        },
+
+        displayColView: function() {
+            this.showChildView('list', new WebcamColView({ collection: this.collection, type: 'list' }));
         },
 
         sort: function (e) {
             var sortedCol;
-            var arr = savedCollection.sortBy(function (webcam) {
+            var arr = this.collection.sortBy(function (webcam) {
                 return webcam.get(e.target.value);
             });
-
             if (e.target.id === 'sortByMostPop') {
                 sortedCol = new WebcamCol(arr.reverse());
             } else {
                 sortedCol = new WebcamCol(arr);
             }
-            this.showChildView('list', new WebcamColView({ collection: sortedCol }));
+            this.showChildView('list', new WebcamColView({ collection: sortedCol, type: 'list' }));
         }
 
     })

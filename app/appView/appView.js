@@ -23,22 +23,20 @@ define([
             },
         },
         ui: {
-            backTop: '#top-link'
+            backTop: '#top-link',
         },
 
         events: {
-            'click @ui.backTop': 'animateBackBtn'
+            'click @ui.backTop': 'animateBackBtn',
         },
 
         onRender: function () {
             this.showChildView('nav', new Nav());
         },
 
-        animateBackBtn: function() {
-            $('html,body').animate({scrollTop:0},'slow');
-        }
-
+        animateBackBtn: function () {
+            $('html,body').animate({ scrollTop: 0 }, 'slow');
+        },
+       
     });
 });
-
-onclick=";"

@@ -6,8 +6,10 @@ define([
     'use strict';
 
     return Bb.Collection.extend({
-        url: '/webcamsCol',
         model: Model,
+        parse: function (response) {
+            return response.results; 
+        },
         localStorage: new Store('webcam-backbone')
     });
 })

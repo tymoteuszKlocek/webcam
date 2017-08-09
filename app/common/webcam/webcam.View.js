@@ -3,7 +3,8 @@ define([
     'marionette',
     'text!app/common/webcam/webcam.View.html',
     'app/common/webcam/webcam.Model',
-], function (Bb, Mn, tpl, Model) {
+    'app/common/webcam/webcam.Collection',
+], function (Bb, Mn, tpl, Model, WebcamCol) {
     'use strict';
 
     var webcamChannel = Bb.Radio.channel('buttonDisplay');
@@ -26,16 +27,18 @@ define([
             'click @ui.showOnMap': 'showOnMap'
         },
         triggers: {
-             'click @ui.save': 'save:model',
+            'click @ui.save': 'save:model',
         },
 
-        onRender: function (item) {
-            this.model.set('state', item.model.attributes.state);
-            
-            if (this.model.get('state') === 'scanner') {
+        initialize: function (options) {
+            this.type = options.type;
+        },
+
+        onRender: function (child) {
+            if (child.type === 'scanner') {
                 this.ui.listBtns.addClass('hide');
             }
-            if (this.model.get('state') === 'list') {
+            if (child.type === 'list') {
                 this.ui.scannerBtns.addClass('hide');
             }
         },
@@ -47,6 +50,6 @@ define([
         saveModel: function () {
             this.model.save();
         },
-        
+
     })
 })

@@ -1,8 +1,7 @@
 define([
     'backbone',
     'app/scanner/autocomplete/autocomplete.Model',
-    'backboneLocalstorage',
-], function(Bb, Model, Store) {
+], function(Bb, Model) {
     'use strict';
     
     return Bb.Collection.extend({

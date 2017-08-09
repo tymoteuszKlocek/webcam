@@ -10,7 +10,5 @@ define([
             name: 'default name',
             code: 'default code'
         },
-        initialize: function() {
-        },
     })
 });

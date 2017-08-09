@@ -6,14 +6,14 @@ define([
 ], function (Mn, tpl, Model, WeatherSession) {
     'use strict';
 
-    var model = new Model();
-    var weather = new WeatherSession();
+    
     
     return Mn.View.extend({
-        model: model,
+        model: new Model(),
         template: _.template(tpl),
 
         initialize: function (options) {
+            this.weather = new WeatherSession();
             this.prepareCoords(options.position);
         },
 
@@ -24,7 +24,7 @@ define([
             var lng = arr[1].slice(0, 2);
             var self = this;
 
-            weather.searchByCoordinates(lat, lng).then(function (resp) {
+            this.weather.searchByCoordinates(lat, lng).then(function (resp) {
                 self.model.set("temp", resp.main.temp);
                 self.model.set("pressure", resp.main.pressure);
                 self.model.set("humidity", resp.main.humidity);

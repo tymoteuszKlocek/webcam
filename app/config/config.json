@@ -1,0 +1,26 @@
+{
+    "webcamSearch": {
+        "SRC": "https://webcamstravel.p.mashape.com/webcams/list/",
+        "PARAMS": "/limit=70?show=webcams:location,image,url,statistics",
+        "API_KEY": "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA",
+        "RANGE": "100"
+    },
+    "weather": {
+        "SRC": "http://api.openweathermap.org/data/2.5/weather?",
+        "LAT": "lat=",
+        "LNG": "&lon=",
+        "API_KEY": "&APPID=f3d32423aef9fd1c0faab94c6767a59f",
+        "METRIC": "&units=metric"
+    },
+    "map": {
+        "LAT": "51.2379945",
+        "LNG": "22.5269071",
+        "API_KEY": "?key=AIzaSyB7ppMoa2FbrcxYVRuwFdm9e5UEb281t9o",
+        "MODE": "view",
+        "POSITION": "&center=",
+        "LOCALISATION": "51.2379945,22.5269071",
+        "ZOOM": "&zoom=18",
+        "SRC": "https://www.google.com/maps/embed/v1/",
+        "TYPE": "&maptype=satellite"
+    }
+}

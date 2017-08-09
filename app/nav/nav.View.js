@@ -5,28 +5,28 @@ define([
     'app/common/localisation/localisation.Service'
 ], function (Mn, tpl, Model, LocalisationService) {
     'use strict';
-
-    var localisationService = new LocalisationService();
+ 
     return Mn.View.extend({
         template: _.template(tpl),
         model: new Model(),
         ui: {
             scanner: '#scanner'
         },
+
         modelEvents: {
             'change': 'render'
         },
-        initialize: function () {
+
+        initialize: function (options) {
             var self = this;
-            localisationService.getLocalisation().then(function (response) {
+            this.localisationService = new LocalisationService();
+            this.localisationService.getLocalisation().then(function (response) {
                 self.model.set('position', response);
             });
+            this.vent = options.vent;
         },
-        events: {
-            'click @ui.scanner': 'setUpAutcomplete'
+        triggers: {
+            'click @ui.scanner': 'scanner:clicked'
         },
-        onSetUpAutcomplete: function() {
-            this.trigger('show:autocomplete');
-        }
     })
 })

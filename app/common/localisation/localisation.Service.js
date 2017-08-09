@@ -5,15 +5,10 @@ define([
 
     return Bb.Model.extend({
 
-        defaults: {
-            lat: 51.237923,
-            lng: 22.527440
-        },
-
         getLocalisation: function () {
             return new Promise(function(resolve, reject) {
                 navigator.geolocation.getCurrentPosition(function(response) {
-                    var position = response.coords.latitude.toFixed(6) + ',' + response.coords.longitude.toFixed(6);
+                    var position = response.coords.latitude.toFixed(5) + ',' + response.coords.longitude.toFixed(5);
                     resolve(position);
                 }, function(error) {
                     console.log(error);
