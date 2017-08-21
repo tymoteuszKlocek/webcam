@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var models = require('./models');
-var requestCORSChecker = require('./middleware/middleware');
+//var requestCORSChecker = require('./middleware/middleware');
 
 //routes in separate files (what is best practice?)
 var routes = require('./routes');

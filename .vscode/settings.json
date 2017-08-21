@@ -1,0 +1,12 @@
+{
+    "eslint.enable": true,
+
+    "eslint.validate": [
+        "javascript"
+    ],
+    "eslint.options": {
+        "configFile": "C:/Users/tklocek/intern projects/webcam/.eslintrc.json"
+    },
+    "window.zoomLevel": 0,
+    "git.ignoreLimitWarning": true
+}
