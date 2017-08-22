@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
+    
     var Webcams = sequelize.define('Webcams', {
         city: DataTypes.STRING,
         country: DataTypes.STRING,
@@ -16,7 +17,8 @@ module.exports = function (sequelize, DataTypes) {
     }, {
             classMethods: {
                 associate: function (models) {
-                    Wbcams.belongsTo(models.User);
+                    console.log(12121212)
+                   Webcams.belongsToMany(models.WebcamsCollections);
                 }
             }
         });

@@ -34,7 +34,7 @@ define([
                 self.collection = new WebcamCol(data);
                 self.displayColView();
             });
-            // this.collection = new WebcamCol();
+            // this.collection = new WebcamCol({id: 1});
             // this.collection.fetch().done(function (data) {
             //     console.log('fdata', data)
             //     self.displayColView();

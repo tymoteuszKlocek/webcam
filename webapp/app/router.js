@@ -4,8 +4,9 @@ define([
     'app/scanner/scanner.View',
     'app/webcams-list/list.View',
     'app/map/localWebcams.View',
-    'app/common/localisation/localisation.Service'
-], function (Bb, Mn, Scanner, List, LocalMapView, LocalisationService) {
+    'app/common/localisation/localisation.Service',
+    'app/login/login.View'
+], function (Bb, Mn, Scanner, List, LocalMapView, LocalisationService, Login) {
     'use strict';
 
     return Mn.AppRouter.extend({
@@ -17,6 +18,7 @@ define([
             'map/:*position': 'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
             '/#/*default': 'showScanner',
+            'login': 'showLogin'
         },
 
         initialize: function () {
@@ -41,6 +43,10 @@ define([
 
         showWebcamOnMap: function (position, country) {
             this.filterChannel.request('filterState', new LocalMapView({ position: position, country: country }));
+        },
+
+        showLogin: function() {
+            this.filterChannel.request('filterState', new Login());
         }
     });
 

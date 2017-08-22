@@ -4,12 +4,9 @@ define([
     'app/landing-page/landingPage.Model',
 ], function (Mn, tpl, Model) {
     'use strict';
-
-    var model = new Model();
-    var widget;
     
     return Mn.View.extend({
-        model: model,
+        model: new Model(),
         template: _.template(tpl),
         className: 'outer-box',
     })

@@ -1,14 +1,40 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const models = require('../models');
 
-/* GET webcams. */
-router.get('/webcams', function (req, res, next) {
-    debuger;
-    res.type(text/html);
-    res.status(200);
-    res.send(<p>HELLO F#$%!</p>);
-    console.log('I send some data');
-    res.send('data from webcams');
+router.get('/', function (req, res, next) {
+        models.Webcams.findAll()
+        .then(collection => {
+            console.log('Collection: ', collection)
+            res.send(200, collection);
+        }).catch(function(err) {
+            // print the error details
+            console.log(err);
+        });
+    
+    });
+
+router.put('/', function (req, res, next) {
+    models.Webcams.create(req.body).then(resp => {
+        console.log(', I created webcam');
+        res.send(200, resp.body);
+    }).catch(function(err) {
+        // print the error details
+        console.log(err);
+    });
+});
+
+router.delete('/', function (req, res, next) {
+    models.Webcams.findAll().then(all => {
+        console.log('for delete', all);
+        all.destroy({where: {
+            id: 1
+        }})
+        res.sendStatus(200).send(body);
+    }).catch(function(err) {
+        // print the error details
+        console.log(err.errors);
+    });;
 });
 
 module.exports = router;

@@ -6,8 +6,9 @@ define([
 
     return Bb.Collection.extend({
         model: Model,
+        //url: 'http://127.0.0.1:3000/webcams-collections',
         parse: function (response) {
-            return response.results; 
+            return response.results;
         }
     });
 })

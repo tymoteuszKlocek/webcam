@@ -7,7 +7,6 @@ define([
 ], function (Bb, Mn, tpl, Model, WebcamCol) {
     'use strict';
 
-    var webcamChannel = Bb.Radio.channel('buttonDisplay');
     return Mn.View.extend({
 
         template: _.template(tpl),
@@ -37,6 +36,7 @@ define([
 
         initialize: function (options) {
             this.type = options.type;
+            this.collection = new WebcamCol();
         },
 
         onRender: function (child) {
@@ -49,15 +49,15 @@ define([
         },
 
         deleteModel: function () {
-            this.model.destroy();
-        },
+            this.model.destroy(); // is teher better way?
 
-        // sendAuthentication: function (req) {
-        //     
-        // },
+        },
 
         saveModel: function () {
             this.model.save();
+            //this.collection.add(this.model);
+            //this.collection.create(this.model);
+            //console.log(this.collection)
         },
 
     })
