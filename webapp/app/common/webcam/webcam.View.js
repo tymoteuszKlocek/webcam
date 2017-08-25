@@ -36,7 +36,6 @@ define([
 
         initialize: function (options) {
             this.type = options.type;
-            this.collection = new WebcamCol();
         },
 
         onRender: function (child) {

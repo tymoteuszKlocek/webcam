@@ -17,7 +17,6 @@ module.exports = function (sequelize, DataTypes) {
     }, {
             classMethods: {
                 associate: function (models) {
-                    console.log(12121212)
                    Webcams.belongsToMany(models.WebcamsCollections);
                 }
             }

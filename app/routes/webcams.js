@@ -3,22 +3,23 @@ const router = express.Router();
 const models = require('../models');
 
 router.get('/', function (req, res, next) {
-        models.Webcams.findAll()
+    models.Webcams.findAll()
         .then(collection => {
             console.log('Collection: ', collection)
             res.send(200, collection);
-        }).catch(function(err) {
+        }).catch(function (err) {
             // print the error details
             console.log(err);
         });
-    
-    });
+
+});
 
 router.put('/', function (req, res, next) {
+    console.log('req webcam: ', req)
     models.Webcams.create(req.body).then(resp => {
         console.log(', I created webcam');
         res.send(200, resp.body);
-    }).catch(function(err) {
+    }).catch(function (err) {
         // print the error details
         console.log(err);
     });
@@ -27,11 +28,13 @@ router.put('/', function (req, res, next) {
 router.delete('/', function (req, res, next) {
     models.Webcams.findAll().then(all => {
         console.log('for delete', all);
-        all.destroy({where: {
-            id: 1
-        }})
+        all.destroy({
+            where: {
+                id: 1
+            }
+        })
         res.sendStatus(200).send(body);
-    }).catch(function(err) {
+    }).catch(function (err) {
         // print the error details
         console.log(err.errors);
     });;

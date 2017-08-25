@@ -2,15 +2,45 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var Sequelize = require('sequelize')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+var session = require('express-session');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sqlite3 = require('sqlite3').verbose();
 
 var index = require('./routes/index');
+var login = require('./routes/login');
 var users = require('./routes/users');
 var webcams = require('./routes/webcams');
 var webcamsCollections = require('./routes/webcamsCollections');
+var collectionForm = require('./routes/collectionForm');
+
+var sequelize = new Sequelize(
+    "webcams-test",
+    "tymoteusz",
+    "tymoteusztymoteusz1", {
+        "dialect": "sqlite",
+        "storage": "./session.sqlite"
+    });
+var sess = {
+    secret: 'tymonolololo',
+    saveUninitialized: true,
+    resave: false,
+};
 
 var app = express();
+// store for session
+// app.use(session({
+//     secret: 'tymontrololo',
+//     store: new SequelizeStore({
+//       db: sessions
+//     }),
+//     saveUninitialized: true,
+//     resave: false, // we support the touch method so per the express-session docs this should be set to false 
+//     proxy: true // if you do SSL outside of node.
+//   }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,24 +49,27 @@ app.set('view engine', 'jade');
 // CORS
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sess));
 
+// routes
 app.use('/', index);
+app.use('/login', login);
 app.use('/webcams', webcams);
 app.use('/webcams/:id', webcams);
-app.use('/users', users);
-app.use('/webcams-collections', webcamsCollections);
-//app.use('8080/#/list-of-my-webcams', webcams);
+app.use('/create-user', users);
+app.use('/collections', webcamsCollections);
+app.use('/create-collection', collectionForm);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,38 +87,6 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-});
-
-app.get('/qwerty', function (req, res, next) {
-    console.log('webcams works - router')
-    res.send('hello qwerty');
-
-    //app.use(routes.index);
-    res.end();
-});
-
-app.post('/webcams', function (req, res) {
-    console.log(req.body);
-    //models.Webcams.create({webcam: req.body})
-    // .then(function() {
-    //     console.log('webcam saved');
-    //     //res.send('Got a POST request');
-    // })
-
-});
-
-app.put('/webcams', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.send(200);
-    console.log(req.body);
-    //models.Webcams.create({webcam: req.body})
-    // .then(function() {
-    //     console.log('webcam saved');
-    //     //res.send('Got a POST request');
-    // })
-
 });
 
 module.exports = app;

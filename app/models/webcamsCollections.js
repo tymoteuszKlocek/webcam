@@ -3,7 +3,8 @@
 module.exports = function (sequelize, DataTypes) {
 
     var WebcamsCollections = sequelize.define('WebcamsCollections', {
-        title: DataTypes.STRING
+        title: DataTypes.STRING,
+        userID: DataTypes.STRING
     }, {
             classMethods: {
                 associate: function (models) {

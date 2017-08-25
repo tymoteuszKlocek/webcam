@@ -27,7 +27,7 @@ define([
         },
    
         initialize: function () {
-            // work in progress unknown issue with fetching data from localStorage
+
             var self = this;
             this.model = new WebcamModel();
             this.model.fetch().done(function(data){

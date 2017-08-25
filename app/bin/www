@@ -9,7 +9,6 @@ var debug = require('debug')('test2:server');
 var http = require('http');
 var models = require('../models');
 
-models.WebcamsCollections.create({title: 'my collection'});
 models.sequelize.sync().then(function () {
   server.listen(port);
   server.on('error', onError);

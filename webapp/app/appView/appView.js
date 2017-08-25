@@ -46,8 +46,5 @@ define([
             }
         },
 
-        getTime: function () {
-        }
-
     });
 });

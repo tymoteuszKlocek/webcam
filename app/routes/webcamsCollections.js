@@ -6,19 +6,16 @@ const models = require('../models');
 router.get('/', function (req, res, next) {
 
     models.WebcamsCollections.findAll()
-    .then(collection => {
-        console.log('Collection: ', collection)
-        res.send(200, collection);
+    .then(collections => {
+        res.send(200, collections);
     }).catch(function(err) {
-        // print the error details
         console.log(err);
     });
-
 });
 
-router.put('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
 
-    console.log('opt from bb', req);
+    console.log('req from collections', req.body);
 
     models.WebcamsCollections.findOrCreate({
         title: req.body.title
@@ -26,8 +23,7 @@ router.put('/', function (req, res, next) {
         console.log('Collections created', resp)
         res.send(200, resp);
     }).catch(function(err) {
-        // print the error details
-        console.log(err);
+        console.log('Collections not created', err);
     });
 });
 
