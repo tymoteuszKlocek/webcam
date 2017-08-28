@@ -1,7 +1,8 @@
 define([
     'backbone',
-    'app/scanner/scanner.View'
-], function (Bb, Scanner) {
+    'app/scanner/scanner.View',
+    'app/controller/sessionCtrl'
+], function (Bb, Scanner, Session) {
     'use strict';
 
     return Bb.Model.extend({
@@ -15,6 +16,7 @@ define([
 
         initialize: function () {
             this.filterChannel = Bb.Radio.channel('filter');
+            this.session = new Session();
         },
 
         sendRequest: function (opt) {
@@ -22,34 +24,29 @@ define([
             var self = this;
             if (opt === 'create-user') {
                 return Backbone.ajax(_.extend({
-                    url: 'http://127.0.0.1:3000/create-user',
+                    url: 'http://127.0.0.1:3000/register',
                     method: "POST",
                     data: this.attributes,
                     dataType: "json",
                 })).then(function (resp) {
-                    try {
-                        console.log(resp);
+                        console.log(11, resp);
                         if (resp.success) {
+                            console.log('i ste cred', resp.userID);
+                            self.session.setCredentials(resp.userID);
                             self.filterChannel.request('filterState', new Scanner());
                         } else {
-                            
+                            console.log('fuck');
                         }
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
                 });
             } else if (opt === 'login') {
-                console.log('attr', this.attributes);
                 return this.save().then(function (resp) {
-                    try {
-                        console.log(resp);
-                        if (resp.success) {
-                            self.filterChannel.request('filterState', new Scanner());
-                        }
-                    }
-                    catch (e) {
-                        console.log(e);
+                    console.log(11, resp);
+                    if (resp.success) {
+                        console.log('i set cred', resp.userID);
+                        self.session.setCredentials(resp.userID);
+                        self.filterChannel.request('filterState', new Scanner());
+                    } else {
+                        console.log('fuck');
                     }
                 })
             }

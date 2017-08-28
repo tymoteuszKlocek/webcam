@@ -31,21 +31,15 @@ router.post('/', (req, res, next) => {
         try {
             result.throw();
             models.User.create(req.body).then(resp => {
-                req.session.userID = 1//resp.user.id
-                console.log('session', resp);
-                console.log('session', req.session.userID);
-                res.send(200, req.session.userID);
+                res.status(200).send({ success: true });
             }).catch(function (err) {
-                // print the error details
                 console.log(err);
             });
-            res.send({ success: true });
         } catch (errors) {
             req.session.errors = errors.array();
-            res.send({ success: false, errors: req.session.errors });
-            req.session.errors = null;
+            res.status(200).send({ success: false, errors: req.session.errors });
+            //req.session.errors = null;
         }
-
     });
 });
 

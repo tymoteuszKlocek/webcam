@@ -10,10 +10,11 @@ define([
     return Mn.View.extend({
         model: new Model(),
         template: _.template(tpl),
-        className: 'card',
+        className: 'alert alert-success',
         ui: {
             submit: '#create-account',
-            title: '#input-collection-title'
+            title: '#input-collection-title',
+            form: "#form"
         },
         regions: {
             list: {
@@ -29,16 +30,17 @@ define([
             var self = this;
             if (this.ui.title.val() !== '') {
                 this.model.set('title', this.ui.title.val());
-                this.model.createNewCollection().done(function (success) {
+                this.model.requestNewCollection().done(function (success) {
                     if (success) {
-                        self.render();
+                        self.triggerMethod('hide:form');
                         self.showChildView('info', new Info({ text: 'Great! New collection was created.' }))
                     } else {
                         self.showChildView('info', new Info({ text: 'Ups... The title is already used.' }))
                     }
                 });
+            } else {
+                alert('You need to write a title.')
             }
-
         }
     })
 });

@@ -6,10 +6,20 @@ define([
     'use strict';
 
     return Mn.View.extend({
+
         model: new Model(),
+
         template: _.template(tpl),
+
         tagname: 'li',
-        className: 'media',
+
+        ui: {
+            removeItem: '#remove-item'
+        },
+
+        triggers: {
+            'click @ui.removeItem': 'remove:item'
+        }
     })
 
 });

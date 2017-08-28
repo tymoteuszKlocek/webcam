@@ -28,30 +28,49 @@ define([
             },
         },
 
+        ui: {
+            addNew: '#add-new-btn'
+        },
+
+        events: {
+            'click @ui.addNew': 'showForm'
+        },
+
         initialize: function () {
-            // work in progress unknown issue with fetching data from localStorage
-            // var self = this;
-            // this.model = new WebcamModel();
-            // this.model.fetch().done(function(data){
-            //     self.collection = new WebcamCol(data);
-            //     self.displayColView();
-            // });
             var self = this;
             this.collection = new ListCol();
+            //TODO is only fetch enough?
             this.collection.fetch().done(function (data) {
-                console.log('fdata', data)
-                //collection = new ListCol(data);
                 self.displayColView(data);
             });
         },
 
         onRender: function () {
-            this.showChildView('form', new CreateCollectionForm())
+            
         },
 
         displayColView: function(data) {
             this.showChildView('list', new CollectionList({ collection: this.collection }));
         },
+
+        showForm: function() {
+            this.showChildView('form', new CreateCollectionForm());
+            this.ui.addNew.addClass('hide');
+        }, 
+
+        onChildviewHideForm: function() {
+            var self = this;
+            this.collection.fetch();
+            this.detachChildView('form');
+            this.ui.addNew.removeClass('hide');
+        },
+
+        onChildviewFetchCollection: function() {
+            console.log(1)
+            var self = this;
+            this.collection.fetch();
+            this.detachChildView('form');
+        }
 
     })
 

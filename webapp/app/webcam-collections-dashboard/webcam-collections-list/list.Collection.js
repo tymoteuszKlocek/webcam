@@ -6,9 +6,6 @@ define([
 
     return Bb.Collection.extend({
         url: "http://127.0.0.1:3000/collections",
-        model: Model,
-        initialize: function() {
-            console.log('model', this.model)
-        }
+        model: Model
     });
 })

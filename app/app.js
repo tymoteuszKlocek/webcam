@@ -50,7 +50,7 @@ app.set('view engine', 'jade');
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Auth-Token");
     next();
 });
 
@@ -67,7 +67,7 @@ app.use('/', index);
 app.use('/login', login);
 app.use('/webcams', webcams);
 app.use('/webcams/:id', webcams);
-app.use('/create-user', users);
+app.use('/register', users);
 app.use('/collections', webcamsCollections);
 app.use('/create-collection', collectionForm);
 

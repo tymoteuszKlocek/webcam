@@ -9,7 +9,7 @@ define([
             userID: '',
             title: ''
         },
-        createNewCollection: function () {
+        requestNewCollection: function () {
             
             return Bb.ajax(_.extend({
                 url: "http://127.0.0.1:3000/create-collection",
@@ -18,6 +18,8 @@ define([
                 dataType: "json",
             }));
         },
+
+        //TODO ?
         // fetchCollection: function () {
         //     this.fetch().done(function (resp) {
         //         console.log('fetched coll', resp);

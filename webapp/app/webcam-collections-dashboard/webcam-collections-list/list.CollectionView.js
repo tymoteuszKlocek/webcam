@@ -16,13 +16,18 @@ define([
 
         tagName: 'ul',
 
-        className: 'media-list',
+        className: 'list-group',
 
         childView: ListView,
 
-        onRender: function() {
-            console.log('collection list rendred')
+        childViewEvents: {
+            'remove:item': 'removeItem'
+        },
 
+        removeItem: function(childView) {
+        // TODO why not promise???
+            childView.model.removeItem();
+            childView.destroy();
         }
     
     });

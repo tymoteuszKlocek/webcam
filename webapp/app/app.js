@@ -5,9 +5,10 @@ define([
     'app/appView/appView',
     'app/scanner/scanner.View',
     'app/router',
+    'app/auth',
     'css!app/css/style',
     'css!node_modules/bootstrap/dist/css/bootstrap.min.css'
-], function (Bb, Mn, LandingPage, AppView, Scanner, Router) {
+], function (Bb, Mn, LandingPage, AppView, Scanner, Router, Auth) {
     'use strict';
 
     var App = new Mn.Application({
@@ -17,8 +18,11 @@ define([
 
             this.filterChannel = Bb.Radio.channel('filter');
             this.router = new Router();
+            this.auth = new Auth();
             this.landingPage = new LandingPage();
             this.appView = new AppView();
+
+            
             this.showView(this.landingPage);
 
             this.filterChannel.reply('filterState', function (view) {
