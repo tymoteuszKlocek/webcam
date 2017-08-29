@@ -1,8 +1,6 @@
 define([
-    'backbone',
-    'app/scanner/scanner.View',
-    'app/controller/sessionCtrl'
-], function (Bb, Scanner, Session) {
+    'backbone'
+], function (Bb) {
     'use strict';
 
     return Bb.Model.extend({
@@ -14,13 +12,7 @@ define([
             email: null
         },
 
-        initialize: function () {
-            this.filterChannel = Bb.Radio.channel('filter');
-            this.session = new Session();
-        },
-
         sendRequest: function (opt) {
-            console.log('i send req', opt)
             var self = this;
             if (opt === 'create-user') {
                 return Backbone.ajax(_.extend({
@@ -29,32 +21,39 @@ define([
                     data: this.attributes,
                     dataType: "json",
                 })).then(function (resp) {
-                        console.log(11, resp);
-                        if (resp.success) {
-                            console.log('i ste cred', resp.userID);
-                            self.session.setCredentials(resp.userID);
-                            self.filterChannel.request('filterState', new Scanner());
-                        } else {
-                            console.log('fuck');
-                        }
+
+                    if (resp.success) {
+                        this.render();
+                    } else {
+                        console.log('sth is wrong in registr');
+                    }
                 });
+
             } else if (opt === 'login') {
                 return this.save().then(function (resp) {
-                    console.log(11, resp);
-                    if (resp.success) {
-                        console.log('i set cred', resp.userID);
-                        self.session.setCredentials(resp.userID);
-                        self.filterChannel.request('filterState', new Scanner());
+                    console.log(resp);
+                    if(resp.success) {
+                        return resp;
                     } else {
-                        console.log('fuck');
+                        console.log(resp);
                     }
                 })
             }
-            // for anything more complex, make a custom call.
 
         },
 
-        logout: function () { /*...*/ },
+        logout: function () {
+            return Backbone.ajax(_.extend({
+                url: 'http://127.0.0.1:3000/logout',
+                method: "POST",
+                data: this.attributes,
+                dataType: "json",
+            })).then(function(resp, w, e) {
+                console.log(resp, w)
+            
+            })
+        },
+
         isAuthenticated: function () { /*...*/ }
     })
 })

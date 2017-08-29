@@ -16,11 +16,9 @@ const schema = {
 router.post('/', function (req, res, next) {
 
     models.User.findOne({ where: { username: req.body.username }, raw: true }).then(user => {
-        console.log('session', req.session)
-        let username = req.body.username;
-        let password = req.body.password;
+        console.log('session cookie', req.session.cookie)
         if (!user) {
-            return res.status(404).send();
+            return res.status(404).send({msg: "User not found. Create account."});
         }
         if (user) {
             req.checkBody(schema);
@@ -28,8 +26,9 @@ router.post('/', function (req, res, next) {
             req.getValidationResult().then((result) => {
                 try {
                     result.throw();
-                    req.session.userID = user.id;
-                    res.status(200).send({success: true, userID: req.session.userID});
+                    req.session.user = user;
+                    console.log('session id', req.session.id)
+                    res.status(200).send({success: true, sessionID: req.session.id});
                 } catch (errors) {
                     //req.session.errors = errors.array();
                     res.status(200).send({ success: false });

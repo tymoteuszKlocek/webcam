@@ -4,17 +4,17 @@ const models = require('../models');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    console.log('req.session', req.session);
-    console.log('req.session.userID 1', req.session.userID);
-    if(req.session.userID) {
+    // console.log('req.session from webcamsCol', req.session);
+    // console.log('req', req.session.id);
+    if(req.session.id) {
         models.WebcamsCollections.findAll()
         .then(collections => {
-            res.send(200, collections);
+            res.status(200).send(collections);
         }).catch(function (err) {
             console.log(err);
         });
     }
-    res.send(200);
+    res.status(401);
 });
 
 router.post('/', function (req, res, next) {

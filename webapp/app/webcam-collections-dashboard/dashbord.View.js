@@ -53,7 +53,8 @@ define([
             this.showChildView('list', new CollectionList({ collection: this.collection }));
         },
 
-        showForm: function() {
+        showForm: function(e) {
+            e.preventDefault();
             this.showChildView('form', new CreateCollectionForm());
             this.ui.addNew.addClass('hide');
         }, 
@@ -66,7 +67,6 @@ define([
         },
 
         onChildviewFetchCollection: function() {
-            console.log(1)
             var self = this;
             this.collection.fetch();
             this.detachChildView('form');

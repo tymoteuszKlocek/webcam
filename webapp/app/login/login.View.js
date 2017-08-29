@@ -1,8 +1,10 @@
 define([
+    'backbone',
     'marionette',
     'text!app/login/login.View.html',
     'app/login/login.Model',
-], function (Mn, tpl, Model) {
+    'app/scanner/scanner.View'
+], function (Bb, Mn, tpl, Model, Scanner) {
     'use strict';
 
     var model = new Model();
@@ -27,19 +29,25 @@ define([
             inputReqType: '#input-request-type',
             loginForm: '#login-form',
             newAccountForm: '#new-account-form',
+            logout: '#logout'
         },
 
         events: {
             'click @ui.submitLogin': 'sendLoginReq',
             'click @ui.submitNewUser': 'createNewAccountReq',
-            'click @ui.inputReqType': 'changeView'
+            'click @ui.inputReqType': 'changeView',
+            'click @ui.logout': 'logout'
         },
 
-        initialize: function () {
+        initialize: function (opt) {
+            this.session = opt;
+            console.log('opt in logibn', this.session)
             this.requestType = 'login';
+            this.filterChannel = Bb.Radio.channel('filter');
         },
 
-        changeView: function () {
+        changeView: function (e) {
+            e.preventDefault();
             if (this.ui.newAccountForm.hasClass('hide')) {
                 this.ui.loginForm.addClass('hide');
                 this.ui.newAccountForm.removeClass('hide');
@@ -49,22 +57,34 @@ define([
                 this.ui.loginForm.removeClass('hide');
                 this.requestType = 'login';
             }
-            console.log('change view', this.requestType)
         },
 
-        sendLoginReq: function () {
+        sendLoginReq: function (e) {
+            e.preventDefault();
+            var self = this;
             this.model.set('username', this.ui.inputUser.val());
             this.model.set('password', this.ui.inputPass.val()); // should I hash this now?
-            this.model.sendRequest(this.requestType);
+            this.model.sendRequest(this.requestType).then(function(resp) {
+                self.session.set('sessionID', resp.sessionId);
+                self.filterChannel.request('access ok');
+            });
         },
 
-        createNewAccountReq: function() {
+        createNewAccountReq: function(e) {
+            e.preventDefault();
             this.model.set('username', this.ui.inputNewUser.val());
             this.model.set('password', this.ui.inputNewPass.val()); // should I hash this now?
             this.model.set('confirmPassword', this.ui.inputConfirmPass.val());
             this.model.set('email', this.ui.inputEmail.val());
             this.model.sendRequest(this.requestType);
-        }
+        }, 
+
+        logout: function(e) {
+            e.preventDefault();
+            this.model.logout().then(function(resp) {
+                console.log('logout', resp)
+            });
+        } 
 
     })
 });

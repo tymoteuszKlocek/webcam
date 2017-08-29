@@ -12,7 +12,7 @@ var sqlite3 = require('sqlite3').verbose();
 
 var index = require('./routes/index');
 var login = require('./routes/login');
-var users = require('./routes/users');
+var register = require('./routes/register');
 var webcams = require('./routes/webcams');
 var webcamsCollections = require('./routes/webcamsCollections');
 var collectionForm = require('./routes/collectionForm');
@@ -25,24 +25,15 @@ var sequelize = new Sequelize(
         "storage": "./session.sqlite"
     });
 var sess = {
+    cookieName: 'session',
+    cookie: { domain: "http://127.0.0.1:8080"},
     secret: 'tymonolololo',
     saveUninitialized: true,
     resave: false,
 };
 
 var app = express();
-// store for session
-// app.use(session({
-//     secret: 'tymontrololo',
-//     store: new SequelizeStore({
-//       db: sessions
-//     }),
-//     saveUninitialized: true,
-//     resave: false, // we support the touch method so per the express-session docs this should be set to false 
-//     proxy: true // if you do SSL outside of node.
-//   }))
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -65,11 +56,17 @@ app.use(session(sess));
 // routes
 app.use('/', index);
 app.use('/login', login);
-app.use('/webcams', webcams);
-app.use('/webcams/:id', webcams);
-app.use('/register', users);
-app.use('/collections', webcamsCollections);
-app.use('/create-collection', collectionForm);
+app.use('/webcams',  requireLogin, webcams);
+app.use('/webcams/:id', requireLogin, webcams);
+app.use('/register', register);
+app.use('/collections', requireLogin, webcamsCollections);
+app.use('/create-collection', requireLogin, collectionForm);
+
+app.post('/logout', function(req, res) {
+    console.log('session id to destroy', req.session.id);
+    req.session.destroy();
+    res.status(200).send({user: undefined});
+  });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -88,5 +85,16 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+function requireLogin(req, res, next) {
+    console.log('requireLogin', req.session.cookie, res)
+    if (req.session === undefined) {
+        console.log('u r out', req.session.cookie)
+        res.status(401).send();
+    } else {
+        console.log('cookie2', req.session.cookie)
+        next();
+    }
+};
 
 module.exports = app;

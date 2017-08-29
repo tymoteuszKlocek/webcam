@@ -26,7 +26,8 @@ define([
         events: {
             'click @ui.submit': 'createNewCollection'
         },
-        createNewCollection: function () {
+        createNewCollection: function (e) {
+            e.preventDefault();
             var self = this;
             if (this.ui.title.val() !== '') {
                 this.model.set('title', this.ui.title.val());

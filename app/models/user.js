@@ -2,10 +2,10 @@
 
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-        username: { type: DataTypes.STRING, unique: true },
-        password: DataTypes.STRING,
-        email: DataTypes.STRING,
-        webcamscollectionsId: DataTypes.STRING
+        username: { type: DataTypes.STRING, unique: true, validate: {notNull: true, notEmpyt: true} },
+        password: { type: DataTypes.STRING, validate: {notNull: true, notEmpyt: true} },
+        email: { type: DataTypes.STRING, validate: {notNull: true, notEmpyt: true} },
+        webcamscollectionsId: { type: DataTypes.STRING, validate: {notNull: true, notEmpyt: true} }
     }, {
             classMethods: {
                 associate: function (models) {
