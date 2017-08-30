@@ -46,8 +46,6 @@ define([
             
             })
         },
-
-        isAuthenticated: function () { /*...*/ }
     })
 })
 

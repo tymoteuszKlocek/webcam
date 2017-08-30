@@ -16,23 +16,22 @@ define([
         region: '#app-container',
         
         onStart: function () {
-
             this.filterChannel = Bb.Radio.channel('filter');
-            this.auth = new Auth();
-            this.router = new Router(this.auth);
+            this.auth = Auth;
+            this.router = new Router();
             this.landingPage = new LandingPage();
-            this.login = new Login(this.auth);
+            this.login = new Login();
             this.appView = new AppView();
             var self = this;
             this.showView(this.landingPage);
-            this.auth.getAuth();
+            //this.showView(App.login);
             this.filterChannel.reply('filterState', function (view) {
                 App.appView.showChildView('main', view);
                 App.showView(App.appView);
             });
 
             this.filterChannel.reply('access ok', function () {
-                App.appView.showChildView('main', new Scanner(this.session));
+                App.appView.showChildView('main', new Scanner());
                 App.showView(App.appView);
             });
 

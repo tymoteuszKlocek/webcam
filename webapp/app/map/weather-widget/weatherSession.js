@@ -13,9 +13,9 @@ define([
                 data: {},
                 dataType: 'json',
                 success: function (resp) {
-                    //console.log('weather', resp);
+                    console.log('weather', resp);
                 },
-                error: function (err) { alert(err); },
+                error: function (err) { alert('this is error form watherSession',err)},
             })
         }
         

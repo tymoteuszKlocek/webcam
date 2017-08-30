@@ -5,14 +5,13 @@ define([
     'app/login/login.Model',
     'app/scanner/scanner.View',
     'app/router',
-], function (Bb, Mn, tpl, Model, Scanner, Router) {
+    'app/auth',
+], function (Bb, Mn, tpl, Model, Scanner, Router, Auth) {
     'use strict';
-
-    var model = new Model();
 
     return Mn.View.extend({
 
-        model: model,
+        model:  new Model(),
 
         template: _.template(tpl),
 
@@ -40,12 +39,11 @@ define([
             'click @ui.logout': 'logout'
         },
 
-        initialize: function (opt) {
-            this.session = opt;
-            this.router = 
-            console.log('opt in logibn', this.session)
+        initialize: function () {
+            this.auth = Auth;
             this.requestType = 'login';
             this.filterChannel = Bb.Radio.channel('filter');
+            this.router = new Router();
         },
 
         changeView: function (e) {
@@ -67,12 +65,9 @@ define([
             this.model.set('username', this.ui.inputUser.val());
             this.model.set('password', this.ui.inputPass.val()); // should I hash this now?
             this.model.sendRequest(this.requestType).then(function(resp) {
-                self.session.set('sessionID', resp.sessionID);
-                self.session.set('userID', resp.userID);
-                self.router.navigate('#/tasks/', {trigger: true})
-                //self.session.login();
-                console.log('i get this', self.session.get('userID'))
-                self.filterChannel.request('access ok');
+                self.auth.set('logged', resp.success);
+                console.log('i get this', self.auth.get('logged'));
+                self.router.navigate('#/scanner', {trigger: true})
             });
         },
 
@@ -88,9 +83,10 @@ define([
         logout: function(e) {
             e.preventDefault();
             this.model.logout().then(function(resp) {
+                self.auth.set('logged', false);
                 console.log('logout', resp)
             });
         } 
 
-    })
+    });
 });
