@@ -16,10 +16,11 @@ const schema = {
 router.post('/', function (req, res, next) {
 
     models.User.findOne({ where: { username: req.body.username }, raw: true }).then(user => {
-        console.log('session cookie', req.session.cookie)
+
         if (!user) {
             return res.status(404).send({msg: "User not found. Create account."});
         }
+
         if (user) {
             req.checkBody(schema);
             req.check('password', "Wrong password").equals(user.password);
@@ -27,13 +28,10 @@ router.post('/', function (req, res, next) {
                 try {
                     result.throw();
                     req.session.user = user;
-                    console.log('session id', req.session.id)
-                    res.status(200).send({success: true, sessionID: req.session.id});
+                    res.status(200).send({success: true, userID: user.id});
                 } catch (errors) {
-                    //req.session.errors = errors.array();
-                    res.status(200).send({ success: false });
+                    res.status(200).send({ success: false, errors: errors});
                     res.send();
-                    req.session.errors = null;
                 }
                 
             }).catch(err => {

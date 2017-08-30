@@ -3,8 +3,9 @@ define([
     'marionette',
     'text!app/login/login.View.html',
     'app/login/login.Model',
-    'app/scanner/scanner.View'
-], function (Bb, Mn, tpl, Model, Scanner) {
+    'app/scanner/scanner.View',
+    'app/router',
+], function (Bb, Mn, tpl, Model, Scanner, Router) {
     'use strict';
 
     var model = new Model();
@@ -41,6 +42,7 @@ define([
 
         initialize: function (opt) {
             this.session = opt;
+            this.router = 
             console.log('opt in logibn', this.session)
             this.requestType = 'login';
             this.filterChannel = Bb.Radio.channel('filter');
@@ -65,7 +67,11 @@ define([
             this.model.set('username', this.ui.inputUser.val());
             this.model.set('password', this.ui.inputPass.val()); // should I hash this now?
             this.model.sendRequest(this.requestType).then(function(resp) {
-                self.session.set('sessionID', resp.sessionId);
+                self.session.set('sessionID', resp.sessionID);
+                self.session.set('userID', resp.userID);
+                self.router.navigate('#/tasks/', {trigger: true})
+                //self.session.login();
+                console.log('i get this', self.session.get('userID'))
                 self.filterChannel.request('access ok');
             });
         },

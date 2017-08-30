@@ -13,59 +13,59 @@ define([
 
     //var filterChannel = Bb.Radio.channel('filter');
 
-    var AuthCtrl = {
+    // var AuthCtrl = {
 
-        initialize: function () {
+    //     initialize: function () {
 
-            this.sessionID = this.session.model.get('user');
-            this.filterChannel = Bb.Radio.channel('filter');
-            this.session = new Session();
-            this.logged = this.session.getAuth()
-            //this.session.getAuth();
-            console.log('ctrl', this.session.model.get('user'))
-            this.checkAuth();
-        },
-        getAuthorised: function() {
-            console.log('ctrl works')
-        },
+    //         this.sessionID = this.session.model.get('user');
+    //         this.filterChannel = Bb.Radio.channel('filter');
+    //         this.session = new Session();
+    //         this.logged = this.session.getAuth()
+    //         //this.session.getAuth();
+    //         console.log('ctrl', this.session.model.get('user'))
+    //         this.checkAuth();
+    //     },
+    //     getAuthorised: function() {
+    //         console.log('ctrl works')
+    //     },
 
-        showScanner: function () {
-            this.checkAuth();
-            filterChannel.request('filterState', new Scanner());
-        },
+    //     showScanner: function () {
+    //         this.checkAuth();
+    //         filterChannel.request('filterState', new Scanner());
+    //     },
 
-        useScanner: function (mode, params) {
-            filterChannel.request('filterState', new Scanner({ mode: mode, params: params }));
-        },
+    //     useScanner: function (mode, params) {
+    //         filterChannel.request('filterState', new Scanner({ mode: mode, params: params }));
+    //     },
 
-        showMyList: function () {
-            filterChannel.request('filterState', new List());
-        },
+    //     showMyList: function () {
+    //         filterChannel.request('filterState', new List());
+    //     },
 
-        showMeOnMap: function (position) {
-            filterChannel.request('filterState', new LocalMapView({ position: position, country: "Poland" }));
-        },
+    //     showMeOnMap: function (position) {
+    //         filterChannel.request('filterState', new LocalMapView({ position: position, country: "Poland" }));
+    //     },
 
-        showWebcamOnMap: function (position, country) {
-            filterChannel.request('filterState', new LocalMapView({ position: position, country: country }));
-        },
+    //     showWebcamOnMap: function (position, country) {
+    //         filterChannel.request('filterState', new LocalMapView({ position: position, country: country }));
+    //     },
 
-        showLogin: function() {
-            filterChannel.request('filterState', new Login());
-        },
+    //     showLogin: function() {
+    //         filterChannel.request('filterState', new Login());
+    //     },
 
-        showCollectionsDashboard: function() {
-            filterChannel.request('filterState', new CollectionsDashboard());
-        },
+    //     showCollectionsDashboard: function() {
+    //         filterChannel.request('filterState', new CollectionsDashboard());
+    //     },
 
-        onRoute: function(n,p,a) {
-            console.log(1, n, 2, p, 3, a)
-        }
-    }
+    //     onRoute: function(n,p,a) {
+    //         console.log(1, n, 2, p, 3, a)
+    //     }
+    // }
 
     return Mn.AppRouter.extend({
 
-        controller: AuthCtrl,
+        //controller: AuthCtrl,
         routes: {
             'scanner': 'showScanner',
             'scanner/:mode/:*filter': 'useScanner',
@@ -81,23 +81,25 @@ define([
             this.filterChannel = Bb.Radio.channel('filter');
             this.session = opt;
             this.logged = this.session.get('sessionID');
-
+            this.test = 2;
             console.log('this.session in router', opt)
         },
 
         checkAuth: function () {
-            console.log('checkAuth', this.contrller.sessionID)
+            //this.logged = this.session.get('sessionID');
+            console.log('logged', this.logged, this.test)
             if (this.logged === undefined) {
-                this.filterChannel.request('filterState', new Login(this.session));
+                this.navigate('#/login')
             }
-            return false;
+            return true;
         },
 
         showScanner: function () {
-            if(this.checkAuth()){
-                this.filterChannel.request('filterState', new Scanner());
-                console.log('this.session in router', this.session)
-            }
+            this.session.getAuth(this.filterChannel.request('filterState', new Scanner()));
+            // if(this.checkAuth()){
+            //     this.filterChannel.request('filterState', new Scanner());
+            //     console.log('this.session in router', this.session)
+            // }
         },
 
         useScanner: function (mode, params) {
@@ -120,7 +122,8 @@ define([
         },
 
         showLogin: function () {
-            this.filterChannel.request('login');
+            this.filterChannel.request('filterState', new Login(this.session));
+            //this.filterChannel.request('login');
         },
 
         showCollectionsDashboard: function () {

@@ -3,16 +3,16 @@ const router = express.Router();
 const models = require('../models');
 
 router.put('/', function (req, res, next) {
-    models.WebcamsCollections.findOrCreate({ where: { title: req.body.title } })
+    if(!req.session.user) {
+        return res.status(401).send();
+    }
+    models.WebcamsCollections.findOrCreate({ where: { title: req.body.title, userID: req.session.user.id } })
         .spread((collection, created) => {
-            console.log(collection.get({
-                plain: true
-            }))
             if (created) {
-                res.send(200, created);
+                res.status(200).send(created);
             } else {
                 var msg = !created;
-                res.send(200, msg);
+                res.status(200).send(msg);
             }
         }).catch(function (err) {
             console.log(err);

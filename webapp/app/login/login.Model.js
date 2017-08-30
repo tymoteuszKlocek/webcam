@@ -20,14 +20,7 @@ define([
                     method: "POST",
                     data: this.attributes,
                     dataType: "json",
-                })).then(function (resp) {
-
-                    if (resp.success) {
-                        this.render();
-                    } else {
-                        console.log('sth is wrong in registr');
-                    }
-                });
+                }));
 
             } else if (opt === 'login') {
                 return this.save().then(function (resp) {
@@ -48,7 +41,7 @@ define([
                 method: "POST",
                 data: this.attributes,
                 dataType: "json",
-            })).then(function(resp, w, e) {
+            })).then(function(resp, w) {
                 console.log(resp, w)
             
             })
