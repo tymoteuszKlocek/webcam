@@ -21,13 +21,18 @@ define([
         childView: ListView,
 
         childViewEvents: {
-            'remove:item': 'removeItem'
+            'remove:item': 'removeItem',
+            'get:collection': 'getCollection'
         },
 
         removeItem: function(childView) {
-        // TODO why not promise???
             childView.model.removeItem();
             childView.destroy();
+        },
+
+        getCollection: function(childView) {
+
+            childView.model.getCollection(childView)
         }
     
     });

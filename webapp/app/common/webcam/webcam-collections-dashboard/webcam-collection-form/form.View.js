@@ -1,7 +1,7 @@
 define([
     'marionette',
-    'text!app/webcam-collections-dashboard/webcam-collection-form/form.View.html',
-    'app/webcam-collections-dashboard/webcam-collection-form/form.Model',
+    'text!app/common/webcam/webcam-collections-dashboard/webcam-collection-form/form.View.html',
+    'app/common/webcam/webcam-collections-dashboard/webcam-collection-form/form.Model',
     'app/common/webcam/webcam.CollectionView',
     'app/common/info/info.View'
 ], function (Mn, tpl, Model, WebcamColView, Info) {

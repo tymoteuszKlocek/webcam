@@ -92,7 +92,7 @@ app.use(function (err, req, res, next) {
 });
 
 function requireLogin(req, res, next) {
-    console.log(req.session.user)
+    console.log(req.session.id)
     // if (!req.session.user) {
     //     return res.status(401).send({Msg: "you must login"});
     // }

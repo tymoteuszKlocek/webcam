@@ -16,7 +16,8 @@ define([
             thumbnail: '',
             type: 'scanner',
             title: 'name unknown',
-            link: ''
+            link: '',
+            collectionID: ''
         },
     })
 })

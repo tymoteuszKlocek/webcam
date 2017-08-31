@@ -1,15 +1,15 @@
 define([
     'marionette',
-    'text!app/webcam-collections-dashboard/dashboard.View.html',
-    'app/webcam-collections-dashboard/dashboard.Model',
-    'app/webcam-collections-dashboard/webcam-collections-list/list.CollectionView',
-    'app/webcam-collections-dashboard/webcam-collection-form/form.View',
-    'app/webcam-collections-dashboard/webcam-collections-list/list.Collection'
+    'text!app/common/webcam/webcam-collections-dashboard/dashboard.View.html',
+    'app/common/webcam/webcam-collections-dashboard/dashboard.Model',
+    'app/common/webcam/webcam-collections-dashboard/webcam-collections-list/list.CollectionView',
+    'app/common/webcam/webcam-collections-dashboard/webcam-collection-form/form.View',
+    'app/common/webcam/webcam-collections-dashboard/webcam-collections-list/list.Collection'
 ], function (Mn, tpl, Model, CollectionList, CreateCollectionForm, ListCol) {
     'use strict';
 
     return Mn.View.extend({
-        
+
         model: new Model(),
 
         template: _.template(tpl),
@@ -45,30 +45,35 @@ define([
         },
 
         onRender: function () {
-            
+
         },
 
-        displayColView: function(data) {
+        displayColView: function (data) {
             this.showChildView('list', new CollectionList({ collection: this.collection }));
         },
 
-        showForm: function(e) {
+        showForm: function (e) {
             e.preventDefault();
             this.showChildView('form', new CreateCollectionForm());
             this.ui.addNew.addClass('hide');
-        }, 
+        },
 
-        onChildviewHideForm: function() {
+        onChildviewHideForm: function () {
             var self = this;
             this.collection.fetch();
             this.detachChildView('form');
             this.ui.addNew.removeClass('hide');
         },
 
-        onChildviewFetchCollection: function() {
+        onChildviewFetchCollection: function () {
             var self = this;
             this.collection.fetch();
             this.detachChildView('form');
+        },
+
+        onChildviewSetCollectionID: function (collectionID) {
+            console.log('collectionID ' + collectionID);
+            this.triggerMethod('set:collectionID', collectionID);
         }
 
     })

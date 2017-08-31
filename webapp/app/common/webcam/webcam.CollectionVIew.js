@@ -29,9 +29,9 @@ define([
             }
         },
 
-        onChildviewSaveModel: function (view) {
-            this.removeChildView(view);
-        }
+        // onChildviewSaveModel: function (view) {
+        //     this.removeChildView(view);
+        // }
 
     });
 });

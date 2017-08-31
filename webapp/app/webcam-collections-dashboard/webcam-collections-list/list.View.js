@@ -14,11 +14,13 @@ define([
         tagname: 'li',
 
         ui: {
-            removeItem: '#remove-item'
+            removeItem: '#remove-item',
+            collection: '#collection-item'
         },
 
         triggers: {
-            'click @ui.removeItem': 'remove:item'
+            'click @ui.removeItem': 'remove:item',
+            'click @ui.collection': 'get:collection'
         }
     })
 
