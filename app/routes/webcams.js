@@ -5,7 +5,6 @@ const models = require('../models');
 router.get('/', function (req, res, next) {
     models.Webcams.findAll()
         .then(collection => {
-            console.log('Collection: ', collection)
             res.send(200, collection);
         }).catch(function (err) {
             // print the error details
@@ -15,7 +14,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.put('/', function (req, res, next) {
-    console.log('req webcam: ', req)
     models.Webcams.create(req.body).then(resp => {
         console.log(', I created webcam');
         res.send(200, resp.body);
@@ -27,7 +25,6 @@ router.put('/', function (req, res, next) {
 
 router.delete('/', function (req, res, next) {
     models.Webcams.findAll().then(all => {
-        console.log('for delete', all);
         all.destroy({
             where: {
                 id: 1

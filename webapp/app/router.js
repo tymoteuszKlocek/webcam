@@ -20,7 +20,7 @@ define([
             'list-of-my-webcams': 'showMyList',
             'map/:*position':'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
-            '/#/*default': 'showScanner',
+            //'/#/*default': 'showScanner',
             'list-of-my-collections': 'showCollectionsDashboard',
             
             // public routes
@@ -29,6 +29,7 @@ define([
 
         initialize: function () {
             this.filterChannel = Bb.Radio.channel('filter');
+            this.accessChannel = Bb.Radio.channel('access');
             this.auth = Auth;
         },
 
@@ -49,7 +50,6 @@ define([
         },
 
         showWebcamOnMap: function (position, country) {
-            
             this.filterChannel.request('filterState', new LocalMapView({ position: position, country: country }));
         },
 
@@ -63,18 +63,22 @@ define([
 
         route: function(route, name, callback) {
             var router = this;
+            
             if (!callback) { 
                 callback = this[name];
             };
-            console.log(this.logged)
+
             var f = function() {
-                if (this.logged !== true) {
-                    this.navigate('#/login');
+                var logged = Auth.get('logged');
+                if (logged !== true) {
+                    router.accessChannel.trigger('access:denied');
                     return;
                 }
                 callback.apply(router, arguments);
-            };
-            return Bb.Router.prototype.route.call(this, route, name, f);
+                
+            }
+
+            return Mn.AppRouter.prototype.route.call(this, route, name, f);
         }
     });
 

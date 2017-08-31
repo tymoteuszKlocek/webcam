@@ -24,7 +24,6 @@ define([
 
             } else if (opt === 'login') {
                 return this.save().then(function (resp) {
-                    console.log(resp);
                     if(resp.success) {
                         return resp;
                     } else {
@@ -35,17 +34,6 @@ define([
 
         },
 
-        logout: function () {
-            return Backbone.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/logout',
-                method: "POST",
-                data: this.attributes,
-                dataType: "json",
-            })).then(function(resp, w) {
-                console.log(resp, w)
-            
-            })
-        },
     })
 })
 

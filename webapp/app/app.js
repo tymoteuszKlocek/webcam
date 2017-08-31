@@ -17,26 +17,27 @@ define([
         
         onStart: function () {
             this.filterChannel = Bb.Radio.channel('filter');
+            this.accessChannel = Bb.Radio.channel('access');
             this.auth = Auth;
             this.router = new Router();
             this.landingPage = new LandingPage();
-            this.login = new Login();
             this.appView = new AppView();
-            var self = this;
+            this.scanner = new Scanner();
+
             this.showView(this.landingPage);
-            //this.showView(App.login);
+
             this.filterChannel.reply('filterState', function (view) {
                 App.appView.showChildView('main', view);
                 App.showView(App.appView);
             });
 
-            this.filterChannel.reply('access ok', function () {
-                App.appView.showChildView('main', new Scanner());
-                App.showView(App.appView);
+            this.accessChannel.on('access:denied', function () {
+                App.router.navigate('#/login');
+                App.showView(new Login());
             });
 
-            this.filterChannel.reply('login', function () {
-                App.showView(App.login);
+            this.accessChannel.on('access:allowed', function () {
+                App.router.navigate('#/scanner');
             });
 
             if (Backbone.history) {

@@ -16,7 +16,6 @@ var register = require('./routes/register');
 var webcams = require('./routes/webcams');
 var webcamsCollections = require('./routes/webcamsCollections');
 var collectionForm = require('./routes/collectionForm');
-var sessions = require('./routes/session');
 var passport = require('passport');
 
 var sequelize = new Sequelize(
@@ -71,9 +70,8 @@ app.use('/create-collection', requireLogin, collectionForm);
 //app.use('/session', sessions);
 
 app.post('/logout', function(req, res) {
-    console.log('session id to destroy', req.session.id);
     req.session.destroy();
-    res.status(200).send({user: undefined});
+    res.status(200).send({logged: false});
   });
 
 // catch 404 and forward to error handler
@@ -94,14 +92,11 @@ app.use(function (err, req, res, next) {
 });
 
 function requireLogin(req, res, next) {
-    console.log('requireLogin', req.session.id)
-    if (req.session.id === undefined) {
-        console.log('u r out', req.session.id)
-        res.status(401).send();
-    } else {
-        console.log('u r in', req.session.id)
-        next();
-    }
+    console.log(req.session.user)
+    // if (!req.session.user) {
+    //     return res.status(401).send({Msg: "you must login"});
+    // }
+    next();
 };
 
 module.exports = app;

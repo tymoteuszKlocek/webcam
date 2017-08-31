@@ -5,9 +5,11 @@ define([
 
     return Backbone.Model.extend({
         url: '/',
+
         defaults: {
             logged: false
         },
+        
         initialize: function () {
             // Hook into jquery
             // Use withCredentials to send the server cookies
@@ -17,18 +19,6 @@ define([
                     withCredentials: true
                 };
             });
-        },
-
-        logout: function () {
-           this.logged = false;
-        },
-
-        setAuth: function() {
-            this.logged = true;
-        },
-
-        getAuth: function () {
-            return this.logged;
         }
     });
 

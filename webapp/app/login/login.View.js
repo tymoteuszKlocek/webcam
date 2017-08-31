@@ -3,10 +3,8 @@ define([
     'marionette',
     'text!app/login/login.View.html',
     'app/login/login.Model',
-    'app/scanner/scanner.View',
-    'app/router',
     'app/auth',
-], function (Bb, Mn, tpl, Model, Scanner, Router, Auth) {
+], function (Bb, Mn, tpl, Model, Auth) {
     'use strict';
 
     return Mn.View.extend({
@@ -28,22 +26,20 @@ define([
             inputEmail: '#email',
             inputReqType: '#input-request-type',
             loginForm: '#login-form',
-            newAccountForm: '#new-account-form',
-            logout: '#logout'
+            newAccountForm: '#new-account-form'
         },
 
         events: {
             'click @ui.submitLogin': 'sendLoginReq',
             'click @ui.submitNewUser': 'createNewAccountReq',
-            'click @ui.inputReqType': 'changeView',
-            'click @ui.logout': 'logout'
+            'click @ui.inputReqType': 'changeView'
         },
 
         initialize: function () {
             this.auth = Auth;
             this.requestType = 'login';
-            this.filterChannel = Bb.Radio.channel('filter');
-            this.router = new Router();
+            this.accessChannel = Bb.Radio.channel('access');
+            //this.router = new Router();
         },
 
         changeView: function (e) {
@@ -65,9 +61,12 @@ define([
             this.model.set('username', this.ui.inputUser.val());
             this.model.set('password', this.ui.inputPass.val()); // should I hash this now?
             this.model.sendRequest(this.requestType).then(function(resp) {
-                self.auth.set('logged', resp.success);
-                console.log('i get this', self.auth.get('logged'));
-                self.router.navigate('#/scanner', {trigger: true})
+                if(resp.success) {
+                    self.auth.set('logged', resp.success);
+                    self.accessChannel.trigger('access:allowed');
+                } else {
+                    self.accessChannel.trigger('access:denied');
+                }
             });
         },
 
@@ -78,15 +77,7 @@ define([
             this.model.set('confirmPassword', this.ui.inputConfirmPass.val());
             this.model.set('email', this.ui.inputEmail.val());
             this.model.sendRequest(this.requestType);
-        }, 
-
-        logout: function(e) {
-            e.preventDefault();
-            this.model.logout().then(function(resp) {
-                self.auth.set('logged', false);
-                console.log('logout', resp)
-            });
-        } 
+        }
 
     });
 });

@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
         },
         'password': {
             notEmpty: true,
-            errorMessage: 'Password must be repeated.' 
+            errorMessage: 'Password must be repeated.'
         },
     };
 
@@ -34,13 +34,14 @@ router.post('/', (req, res, next) => {
                 res.status(200).send({ success: true });
             }).catch(function (err) {
                 console.log(err);
+                res.status(200).send({ error: err });
             });
         } catch (errors) {
             req.session.errors = errors.array();
             res.status(200).send({ success: false, errors: req.session.errors });
-            //req.session.errors = null;
+            req.session.errors = null;
         }
     });
 });
 
-    module.exports = router;
+module.exports = router;

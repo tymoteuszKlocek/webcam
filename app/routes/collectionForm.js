@@ -3,7 +3,7 @@ const router = express.Router();
 const models = require('../models');
 
 router.put('/', function (req, res, next) {
-    if(!req.session.user) {
+    if (!req.session.user) {
         return res.status(401).send();
     }
     models.WebcamsCollections.findOrCreate({ where: { title: req.body.title, userID: req.session.user.id } })
