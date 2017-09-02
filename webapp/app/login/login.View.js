@@ -90,7 +90,9 @@ define([
             this.model.set('email', this.ui.inputEmail.val());
 
             this.model.sendRequest(this.requestType).then(function (resp) {
-                if (resp.success) {
+
+                if (resp.success === true) {
+                    self.detachChildView('info');
                     self.ui.newAccountForm.addClass('hide');
                     self.ui.loginForm.removeClass('hide');
                     self.requestType = 'login';

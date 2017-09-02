@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
     if (!req.session.user) {
         return res.status(401).send();
     }
-    req.session.collectionID = req.id;
+    req.session.collectionID = req.body.id;
     models.Webcams.findAll({
         where: {
             collectionID: req.query.id
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
     }).then(collection => {
         res.status(200).send(collection);
     }).catch(function (error) {
-        res.status(200).send({error: error});
+        res.status(200).send({ error: error });
     });
 
 });
@@ -24,27 +24,28 @@ router.put('/', function (req, res, next) {
         return res.status(401).send();
     }
     models.Webcams.create(req.body).then(resp => {
-        res.status(200).send();
+        res.status(200).send({ success: true });
     }).catch(function (error) {
-        res.status(200).send({error: error});
+        res.status(200).send({ success: false, error: error });
     });
 });
 
 router.delete('/', function (req, res, next) {
-    console.log(req.query.id)
-    models.Webcams.findAll({
+    console.log('del', req.body.id);
+    if (!req.session.user) {
+        return res.status(401).send();
+    }
+    models.Webcams.findOne({
         where: {
-            collectionID: req.session.collectionID
+            collectionID: req.body.collectionID,
+            id: req.body.id
         }
     }).then(webcam => {
-        webcam.destroy({
-            where: {
-                id: req.query.id
-            }
+        webcam.destroy().then(resp => {
+            res.status(200).send({ success: true, msg: 'Webcam deleted!' });
         })
-        res.status(200).send({msg: 'Webcam deleted!'});
     }).catch(function (error) {
-        res.status(200).send({error: error});
+        res.status(200).send({success: false, error: error });
     });;
 });
 

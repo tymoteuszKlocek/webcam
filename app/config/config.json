@@ -1,8 +1,8 @@
 {
     "development": {
         "username": "tymoteusz",
-        "password": "tymoteusztymoteusz1",
-        "database": "webcam-test",
+        "password": "tymon2010",
+        "database": "webcams-db",
         "host": "127.0.0.1",
         "dialect": "mysql"
     }

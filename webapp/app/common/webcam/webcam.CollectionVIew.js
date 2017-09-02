@@ -4,7 +4,7 @@ define([
     'text!app/common/webcam/webcam.Collection.html',
     'app/common/webcam/webcam.Collection',
     'app/common/webcam/webcam.View'
-], function (Mn, Bb, tpl, WebcamCol, WebcamColView) {
+], function (Mn, Bb, tpl, WebcamCol, WebcamView) {
     'use strict';
 
     return Mn.CollectionView.extend({
@@ -17,7 +17,7 @@ define([
 
         className: 'media-list',
 
-        childView: WebcamColView,
+        childView: WebcamView,
 
         initialize: function (options) {
             this.type = options.type;
@@ -29,9 +29,9 @@ define([
             }
         },
 
-        // onChildviewSaveModel: function (view) {
-        //     this.removeChildView(view);
-        // }
+        onChildviewHide: function (view) {
+            this.removeChildView(view);
+        }
 
     });
 });

@@ -41,13 +41,13 @@ define([
                 this.model.requestNewCollection().done(function (resp) {
                     if (resp.success === true) {
                         self.triggerMethod('hide:form');
-                        self.showChildView('info', new Info({ text: 'Great! New collection was created.' }))
+                        self.showChildView('info', new Info({ text: 'Great! New collection was created.' }));
                     } else {
-                        self.showChildView('info', new Info({ text: 'Ups... The title is already used.' }))
+                        self.showChildView('info', new Info({ text: 'Ups... The title is already used.' }));
                     }
                 });
             } else {
-                alert('You need to write a title.')
+                self.showChildView('info', new Info({ text: 'You need to write a title.' }));
             }
         }
     })

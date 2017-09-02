@@ -6,16 +6,19 @@ router.put('/', function (req, res, next) {
     if (!req.session.user) {
         return res.status(401).send();
     }
-    models.WebcamsCollections.findOrCreate({ where: { title: req.body.title, userID: req.session.user.id } })
-        .spread((collection, created) => {
+    models.WebcamsCollections.findOrCreate({ 
+        where: { 
+            title: req.body.title, 
+            userID: req.session.user.id 
+        } 
+    }).spread((collection, created) => {
             if (created) {
-                res.status(200).send(created);
+                res.status(200).send({ success: true, msg: 'New collection created.' });
             } else {
-                var msg = !created;
-                res.status(200).send(msg);
+                res.status(200).send({ success: false, error: 'Collection already exists.' });
             }
-        }).catch(function (err) {
-            console.log(err);
+        }).catch(function (error) {
+            console.log({ success: false, error: error });
         });
 });
 

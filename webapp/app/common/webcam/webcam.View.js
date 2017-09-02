@@ -4,8 +4,9 @@ define([
     'text!app/common/webcam/webcam.View.html',
     'app/common/webcam/webcam.Model',
     'app/common/webcam/webcam.Collection',
-    'app/common/webcam/webcam-dashboard/dashboard.View'
-], function (Bb, Mn, tpl, Model, WebcamCol, WebcamDashboard) {
+    'app/common/webcam/webcam-dashboard/dashboard.View',
+    'app/common/info/info.View'
+], function (Bb, Mn, tpl, Model, WebcamCol, WebcamDashboard, Info) {
     'use strict';
 
     return Mn.View.extend({
@@ -25,16 +26,16 @@ define([
 
         ui: {
             save: '#save',
-            deleteFromView: '#delete',
-            deleteFromList: '#deleteFromList',
+            hide: '#hide',
+            delete: '#delete',
             scannerBtns: '#btn-scanner',
             listBtns: '#btn-list',
         },
 
         events: {
-            'click @ui.deleteFromView': 'deleteModel',
+            'click @ui.hide': 'hideView',
             'click @ui.save': 'saveModel',
-            'click @ui.deleteFromList': 'deleteModel',
+            'click @ui.delete': 'deleteModel',
             'click @ui.showOnMap': 'showOnMap'
         },
 
@@ -55,20 +56,42 @@ define([
             }
         },
 
-        deleteModel: function () {
-            this.model.destroy(); // is teher better way?
-
-        },
-
         saveModel: function () {
             this.ui.scannerBtns.addClass('hide');
             this.ui.listBtns.addClass('hide');
             this.showChildView('dashboard', new WebcamDashboard());
         },
+        
+        deleteModel: function () {
+            var self = this;
+
+            this.model.destroy().then(function(resp) {
+                self.detachChildView('dashboard');
+                if (resp.error) {
+                    self.showChildView('dashboard', new Info({ text: resp.error }));
+                }
+                if (resp.success === true) {
+                    self.showChildView('dashboard', new Info({ text: resp.msg }));
+                }
+            });
+        },
+
+        hideView: function () {     
+           this.triggerMethod('hide', this);
+        },
 
         onChildviewSetCollectionID: function (collectionID) {
+            var self = this;
+
             this.model.set('collectionID', collectionID);
-            this.model.save();
+            this.model.save().then(function (resp) {
+                self.detachChildView('dashboard');
+                if (resp.success === true) {
+                    self.showChildView('dashboard', new Info({ text: "Webcam saved!" }));
+                } else {
+                    self.showChildView('dashboard', new Info({ text: resp.error + "You have already added the webcam to this collection." }));
+                }
+            });
         }
 
     })
