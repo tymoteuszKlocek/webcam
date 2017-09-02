@@ -1,8 +1,8 @@
 <div class="jumbotron">
     <div class="container">
-
+            <div id="info"></div>
         <!-- create new account -->
-        <div class="col-xs-10 col-sm-6 col-md-4 ">
+        <div class="col-xs-10 col-sm-6 col-md-6">
             <form id="new-account-form" class="hide">
                 <p>Create account</p>
                 <div class="form-group">
@@ -22,12 +22,14 @@
                     <input type="password" class="form-control" id="input-confirm-password" placeholder="Password">
                 </div>
                 <button id="submit-new-user" type="button" class="btn btn-primary">Create new account</button>
-                <button type="button" id="input-request-type" class="btn btn-default">Login</button>
+                <button type="button" id="input-request-type" class="btn btn-default">Back</button>
             </form>
 
             <!-- login to existing account -->
             <form id="login-form">
-                <p>/username: "user", password: "pass"/</p>
+                <h3>Please login or create new account</h4>
+                <h5>username: "user"</h5>
+                <h5>password: "pass"</h5>
                 <div class="form-group">
                     <label for="InputEmail">Username</label>
                     <input type="text" class="form-control" id="input-username" placeholder="Enter username" required>
@@ -37,7 +39,7 @@
                     <input type="password" class="form-control" id="input-password" placeholder="Password" required>
                 </div>
                 <button id="submit-login" class="btn btn-primary">Login</button>
-                <button type="button" id="input-request-type" class="btn btn-default">Create New Account</button>
+                <button type="button" id="input-request-type" class="btn btn-default">Sign up</button>
             </form>
         </div>
     </div>

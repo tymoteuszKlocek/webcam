@@ -3,11 +3,11 @@ define([
     'backbone',
     'text!app/webcam-collections-dashboard/webcam-collections-list/list.CollectionView.html',
     'app/webcam-collections-dashboard/webcam-collections-list/list.Collection',
-    'app/webcam-collections-dashboard/webcam-collections-list/list.View'
-], function (Mn, Bb, tpl, ListCol, ListView) {
+    'app/webcam-collections-dashboard/webcam-collections-list/list.View',
+    'app/webcams-list/list.View'
+], function (Mn, Bb, tpl, ListCol, ListView, WebcamsListView) {
     'use strict';
-    
-    var arr = [{title: 1}, {title: 2}]
+  
     return Mn.CollectionView.extend({
 
         collection: ListCol,
@@ -25,14 +25,20 @@ define([
             'get:collection': 'getCollection'
         },
 
+        initialize: function() {
+            this.filterChannel = Bb.Radio.channel('filter');
+        },
+
         removeItem: function(childView) {
             childView.model.removeItem();
             childView.destroy();
         },
 
         getCollection: function(childView) {
-
-            childView.model.getCollection(childView)
+            var self = this;
+            childView.model.getCollection(childView).done(function(collection) {
+                self.filterChannel.request('filterState', new WebcamsListView(collection));
+            })
         }
     
     });

@@ -38,14 +38,9 @@ define([
         initialize: function () {
             var self = this;
             this.collection = new ListCol();
-            //TODO is only fetch enough?
             this.collection.fetch().done(function (data) {
                 self.displayColView(data);
             });
-        },
-
-        onRender: function () {
-
         },
 
         displayColView: function (data) {
@@ -72,8 +67,9 @@ define([
         },
 
         onChildviewSetCollectionID: function (collectionID) {
-            console.log('collectionID ' + collectionID);
             this.triggerMethod('set:collectionID', collectionID);
+            this.detachChildView('list');
+            this.detachChildView('form');
         }
 
     })

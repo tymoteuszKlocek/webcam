@@ -15,7 +15,7 @@ define([
 
         ui: {
             removeItem: '#remove-item',
-            collection: '#collection-item'
+            collection: 'a'
         },
 
         triggers: {

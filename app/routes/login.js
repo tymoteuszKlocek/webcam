@@ -18,7 +18,7 @@ router.post('/', function (req, res, next) {
     models.User.findOne({ where: { username: req.body.username }, raw: true }).then(user => {
 
         if (!user) {
-            return res.status(404).send({msg: "User not found. Create account."});
+            return res.status(200).send({success: false, error: "User not found. Create account."});
         }
 
         if (user) {
@@ -29,12 +29,12 @@ router.post('/', function (req, res, next) {
                     result.throw();
                     req.session.user = user;
                     res.status(200).send({success: true, userID: user.id});
-                } catch (errors) {
-                    res.status(200).send({ success: false, errors: 'Invalid username or password'});
+                } catch (error) {
+                    res.status(200).send({ success: false, error: 'Invalid username or password'});
                 }
                 
-            }).catch(err => {
-                res.status(200).send({ success: false, errors: 'Invalid username' });
+            }).catch(error => {
+                res.status(200).send({ success: false, error: 'Invalid username' });
             });
 
         };

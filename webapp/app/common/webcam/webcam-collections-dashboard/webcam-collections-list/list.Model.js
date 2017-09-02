@@ -21,7 +21,7 @@ define([
                 data: this.attributes,
                 dataType: "json",
             })).then(function(resp) {
-                console.log('webcams', resp) 
+                console.log('webcams', resp);
             });
         },
 

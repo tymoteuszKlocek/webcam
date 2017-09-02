@@ -1,6 +1,6 @@
 define([
     'marionette',
-    'text!app/appView/appView.html',
+    'text!app/app-view/appView.html',
     'app/nav/nav.View',
     'app/scanner/scanner.View',
     'app/webcams-list/list.View',
@@ -11,7 +11,7 @@ define([
 
     return Mn.View.extend({
         template: _.template(tpl),
-        className: 'app-view',
+        className: 'appView',
         regions: {
             nav: {
                 el: '#nav',

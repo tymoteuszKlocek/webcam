@@ -20,15 +20,13 @@ define([
                     method: "POST",
                     data: this.attributes,
                     dataType: "json",
-                }));
+                })).then(function (resp) {
+                    return resp;
+                });
 
             } else if (opt === 'login') {
                 return this.save().then(function (resp) {
-                    if(resp.success) {
-                        return resp;
-                    } else {
-                        console.log(resp);
-                    }
+                    return resp;
                 })
             }
 

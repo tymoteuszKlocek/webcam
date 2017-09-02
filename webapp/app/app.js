@@ -3,7 +3,7 @@ define([
     'marionette',
     'app/landing-page/landingPage.View',
     'app/login/login.View',
-    'app/appView/appView',
+    'app/app-view/appView',
     'app/scanner/scanner.View',
     'app/router',
     'app/auth',

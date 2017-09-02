@@ -3,7 +3,6 @@ const router = express.Router();
 const models = require('../models');
 
 router.get('/', function (req, res, next) {
-    console.log('webcam coll id', req.query);
     if (!req.session.user) {
         return res.status(401).send();
     }
@@ -13,57 +12,39 @@ router.get('/', function (req, res, next) {
             collectionID: req.query.id
         }
     }).then(collection => {
-        res.send(200, collection);
-    }).catch(function (err) {
-        // print the error details
-        console.log(err);
+        res.status(200).send(collection);
+    }).catch(function (error) {
+        res.status(200).send({error: error});
     });
 
 });
 
-// router.put('/', function (req, res, next) {
-//     if (!req.session.user) {
-//         return res.status(401).send();
-//     }
-
-//     models.Webcams.create({ where: { collectionID: req.body.collectionID, userID: req.session.user.id } })
-//         .spread((collection, created) => {
-//             if (created) {
-//                 res.status(200).send(created);
-//             } else {
-//                 var msg = !created;
-//                 res.status(200).send(msg);
-//             }
-//         }).catch(function (err) {
-//             console.log(err);
-//         });
-// });
-
 router.put('/', function (req, res, next) {
-    console.log('webcam session id', req.session.id);
     if (!req.session.user) {
         return res.status(401).send();
     }
     models.Webcams.create(req.body).then(resp => {
-        console.log(', I created webcam');
         res.status(200).send();
-    }).catch(function (err) {
-        // print the error details
-        console.log(err);
+    }).catch(function (error) {
+        res.status(200).send({error: error});
     });
 });
 
 router.delete('/', function (req, res, next) {
-    models.Webcams.findAll().then(all => {
-        all.destroy({
+    console.log(req.query.id)
+    models.Webcams.findAll({
+        where: {
+            collectionID: req.session.collectionID
+        }
+    }).then(webcam => {
+        webcam.destroy({
             where: {
-                id: 1
+                id: req.query.id
             }
         })
-        res.status(200).send();
-    }).catch(function (err) {
-        // print the error details
-        console.log(err.errors);
+        res.status(200).send({msg: 'Webcam deleted!'});
+    }).catch(function (error) {
+        res.status(200).send({error: error});
     });;
 });
 

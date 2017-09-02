@@ -5,7 +5,7 @@ define([
     'app/common/webcam/webcam.Collection',
     'app/common/webcam/webcam.CollectionView',
     'app/common/webcam/webcam.Model',
-], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel) {
+], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel, Router) {
     'use strict';
 
     return Mn.View.extend({
@@ -25,27 +25,15 @@ define([
             'click @ui.sortByMostPop': 'sort',
             'click @ui.sortByLessPop': 'sort'
         },
-   
-        initialize: function () {
 
-            var self = this;
-            this.model = new WebcamModel();
-            this.model.fetch().done(function(data){
-                self.collection = new WebcamCol(data);
-                self.displayColView();
-            });
-            // this.collection = new WebcamCol({id: 1});
-            // this.collection.fetch().done(function (data) {
-            //     console.log('fdata', data)
-            //     self.displayColView();
-            // });
+         
+        initialize: function (collection) {
+            var data = _.map(collection, function (val) { return val; });
+            this.collection = new WebcamCol(data)
+            this.displayColView();
         },
 
-        onRender: function () {
-            this.showChildView('list', new WebcamColView({ collection: this.collection, type: 'list' }));
-        },
-
-        displayColView: function() {
+        displayColView: function () {
             this.showChildView('list', new WebcamColView({ collection: this.collection, type: 'list' }));
         },
 

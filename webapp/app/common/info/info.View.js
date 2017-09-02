@@ -9,10 +9,7 @@ define([
         model: new Model(),
         template: _.template(tpl),
         initialize: function(opt) {
-            this.model.set('info', opt.text) // add edit
+            this.model.set('info', opt.text);
         },
-        // onRender: function(opt) {
-        //     this.model.set('info', opt.text);
-        // },
-    })
+    });
 });

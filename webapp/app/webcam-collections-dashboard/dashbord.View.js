@@ -44,10 +44,6 @@ define([
             });
         },
 
-        onRender: function () {
-            
-        },
-
         displayColView: function(data) {
             this.showChildView('list', new CollectionList({ collection: this.collection }));
         },

@@ -20,7 +20,7 @@ define([
             'list-of-my-webcams': 'showMyList',
             'map/:*position':'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
-            //'/#/*default': 'showScanner',
+            //TODO '/#/*default': 'showScanner',
             'list-of-my-collections': 'showCollectionsDashboard',
             
             // public routes

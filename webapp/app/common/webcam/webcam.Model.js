@@ -19,5 +19,7 @@ define([
             link: '',
             collectionID: ''
         },
+
+        // destroy here
     })
 })

@@ -38,8 +38,8 @@ define([
             var self = this;
             if (this.ui.title.val() !== '') {
                 this.model.set('title', this.ui.title.val());
-                this.model.requestNewCollection().done(function (success) {
-                    if (success) {
+                this.model.requestNewCollection().done(function (resp) {
+                    if (resp.success === true) {
                         self.triggerMethod('hide:form');
                         self.showChildView('info', new Info({ text: 'Great! New collection was created.' }))
                     } else {
