@@ -58,16 +58,25 @@ app.use(session(sess));
 // routes
 app.use('/', index);
 app.use('/login', login);
-app.use('/webcams',  requireLogin, webcams);
-app.use('/webcams/:id',  requireLogin, webcams);
+app.use('/webcams', requireLogin, webcams);
+app.use('/webcams/:id', requireLogin, webcams);
 app.use('/register', register);
 app.use('/collections', requireLogin, webcamsCollections);
 app.use('/create-collection', requireLogin, collectionForm);
 
-app.post('/logout', function(req, res) {
+app.post('/logout', function (req, res) {
     req.session.destroy();
-    res.status(200).send({logged: false});
-  });
+    res.status(200).send({ logged: false });
+});
+
+app.post('/refresh', function (req, res) {
+    console.log('ref', req.session.user);
+    if (!req.session.user) {
+        return res.status(401).send({ Msg: "you must login" });
+    } else {
+        return res.status(200).send({ success: true });
+    }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

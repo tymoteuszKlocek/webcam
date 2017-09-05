@@ -43,9 +43,17 @@ define([
         },
 
         initialize: function () {
+            var self = this;
+
             this.auth = Auth;
             this.requestType = 'login';
             this.accessChannel = Bb.Radio.channel('access');
+            this.model.refreshAccess().then(function (resp) {
+                if (resp.success === true) {
+                    self.auth.set('logged', resp.success);
+                    self.accessChannel.trigger('access:allowed');
+                }
+            });
         },
 
         changeToRegisterForm: function (e) {

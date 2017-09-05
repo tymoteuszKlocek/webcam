@@ -30,6 +30,17 @@ define([
 
         },
 
+        refreshAccess: function() {
+            return Bb.ajax(_.extend({
+                url: 'http://127.0.0.1:3000/refresh',
+                method: 'POST',
+                data: '',
+                dataType: 'json',
+            })).then(function (resp) {
+                return resp;
+            });
+        }
+
     });
 });
 

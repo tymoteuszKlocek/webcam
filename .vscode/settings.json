@@ -5,7 +5,7 @@
         "javascript"
     ],
     "eslint.options": {
-        "configFile": "C:/Users/tklocek/intern projects/webcam/.eslintrc.json"
+        "configFile": "C:/Users/tymoteusz/Documents/webcam/webapp/.eslintrc.json"
     },
     "window.zoomLevel": 0,
     "git.ignoreLimitWarning": true

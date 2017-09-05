@@ -44,7 +44,7 @@ define([
 
         logout: function() {
             var self = this;
-            this.model.logout().then(function() {
+            this.model.logout().done(function() {
                 Auth.set('logged', false);
                 self.accessChannel.trigger('access:denied');
                 window.location.reload();
