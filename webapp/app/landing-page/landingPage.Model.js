@@ -5,7 +5,7 @@ define([
 
     return Bb.Model.extend({
         defaults: {
-            url: "",
+            url: '',
         },
-    })
-})
+    });
+});

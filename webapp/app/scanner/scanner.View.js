@@ -42,7 +42,7 @@ define([
             this.localisationService = new LocalisationService();
             this.countryCollection = new CountryCollection();
             this.countryCollection.fetch();
-            this.typeahead = new Backbone.Typeahead({ collection: this.countryCollection, key: 'name', itemTemplate: itemTemplate });
+            this.typeahead = new Bb.Typeahead({ collection: this.countryCollection, key: 'name', itemTemplate: itemTemplate });
             this.model.set('size', 0);
             this.localisationService.getLocalisation().then(function (response) {
                 self.model.set('position', response);
@@ -50,20 +50,20 @@ define([
 
             if (_.keys(options).length > 0) {
                 switch (options.mode) {
-                    case 'near':
-                        var category = 'nearby='
-                        this.sendRequest(category, options.params);
-                        break;
-                    case 'tag':
-                        var category = 'category='
-                        this.sendRequest(category, options.params);
-                        break;
-                    case 'country':
-                        var category = 'country=';
-                        this.sendRequest(category, options.params);
-                        break;
-                    default:
-                        break;
+                case 'near':
+                    var category = 'nearby=';
+                    this.sendRequest(category, options.params);
+                    break;
+                case 'tag':
+                    category = 'category=';
+                    this.sendRequest(category, options.params);
+                    break;
+                case 'country':
+                    category = 'country=';
+                    this.sendRequest(category, options.params);
+                    break;
+                default:
+                    break;
                 }
             }
         },

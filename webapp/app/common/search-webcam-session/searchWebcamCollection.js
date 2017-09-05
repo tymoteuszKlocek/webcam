@@ -8,17 +8,16 @@ define([
     'use strict';
 
     return Bb.Collection.extend({
-        url: '/choose-webcam',
+        url: '/',
         model: WebcamModel,
 
         parse: function (data) {
-            
-            var self = this;
+
             var arr = [];
 
             _.each(data.result.webcams, function (obj) {
                 var newModel = new WebcamModel({
-                    id: obj.id,
+                    webcamID: obj.id,
                     city: obj.location.city,
                     country: obj.location.country,
                     countryCode: obj.location.country_code,

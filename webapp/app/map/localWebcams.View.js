@@ -22,8 +22,8 @@ define([
             this.model.set('country', options.country);
         },
 
-        onRender: function (obj) {
+        onRender: function () {
             this.showChildView('widgetRegion', this.widget);
         },
-    })
+    });
 });

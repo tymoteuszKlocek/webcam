@@ -1,25 +1,35 @@
 define([
     'backbone',
-], function (Bb) {
+    'app/common/localisation/localisation.Service',
+], function (Bb, LocalisationService) {
     'use strict';
 
     return Bb.Model.extend({
 
-        url: "http://127.0.0.1:3000/login",
+        url: 'http://127.0.0.1:3000/login',
 
         defaults: {
-            position: 'unknown position',
+            position: '51.23776,22.52807', // default position is Lublin
+        },
+
+        initialize: function () {
+            var self = this;
+            this.position = '';
+            this.localisationService = new LocalisationService();
+            this.localisationService.getLocalisation().then(function (response) {
+                self.position = response;
+            });
         },
 
         logout: function () {
-            console.log('logout nav')
-            return Backbone.ajax(_.extend({
+
+            return Bb.ajax(_.extend({
                 url: 'http://127.0.0.1:3000/logout',
-                method: "POST",
-                dataType: "json",
+                method: 'POST',
+                dataType: 'json',
             })).then(function(resp) {
                 return resp;
-            })
+            });
         },
-    })
-})
+    });
+});

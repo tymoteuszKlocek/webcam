@@ -2,23 +2,27 @@ define([
     'marionette',
     'backbone',
     'text!app/webcams-list/list.View.html',
+    'app/common/webcam/webcam.Model',
     'app/common/webcam/webcam.Collection',
     'app/common/webcam/webcam.CollectionView',
-    'app/common/webcam/webcam.Model',
-], function (Mn, Bb, tpl, WebcamCol, WebcamColView, WebcamModel, Router) {
+], function (Mn, Bb, tpl, WebcamModel, WebcamCol, WebcamColView) {
     'use strict';
 
     return Mn.View.extend({
+        
         template: _.template(tpl),
+
         regions: {
             list: '#list'
         },
+
         ui: {
             sortByCountry: '#sortByCountry',
             sortByCity: '#sortByCity',
             sortByMostPop: '#sortByMostPop',
             sortByLessPop: '#sortByLessPop'
         },
+
         events: {
             'click @ui.sortByCountry': 'sort',
             'click @ui.sortByCity': 'sort',
@@ -26,11 +30,14 @@ define([
             'click @ui.sortByLessPop': 'sort'
         },
 
-         
-        initialize: function (collection) {
-            var data = _.map(collection, function (val) { return val; });
-            this.collection = new WebcamCol(data)
-            this.displayColView();
+        initialize: function (opt) {
+            var self = this;
+
+            this.webcamModel = new WebcamModel();
+            this.webcamModel.getCollection(opt.collectionID).done(function(resp) {
+                self.collection = new WebcamCol(resp);
+                self.displayColView();
+            });
         },
 
         displayColView: function () {
@@ -50,5 +57,5 @@ define([
             this.showChildView('list', new WebcamColView({ collection: sortedCol, type: 'list' }));
         }
 
-    })
+    });
 });

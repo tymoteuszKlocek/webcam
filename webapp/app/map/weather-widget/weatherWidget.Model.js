@@ -8,7 +8,8 @@ define([
             temp: 0,
             pressure: 0,
             humidity: 0,
-            clouds: 0
+            clouds: 0,
+            description: 'no descritption'
         },
-    })
-})
+    });
+});

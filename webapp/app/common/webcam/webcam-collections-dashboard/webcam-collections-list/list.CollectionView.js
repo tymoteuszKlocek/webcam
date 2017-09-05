@@ -7,7 +7,6 @@ define([
 ], function (Mn, Bb, tpl, ListCol, ListView) {
     'use strict';
     
-    var arr = [{title: 1}, {title: 2}]
     return Mn.CollectionView.extend({
 
         collection: ListCol,
@@ -21,10 +20,10 @@ define([
         childView: ListView,
 
         childViewEvents: {
-            'save:collection': 'saveInCollection'
+            'save:collection': 'saveCollection'
         },
 
-        saveInCollection: function(childView) {
+        saveCollection: function(childView) {
             var collectionID = childView.model.attributes.id;
             this.triggerMethod('set:collectionID', collectionID);
         }

@@ -21,15 +21,16 @@ define([
         },
 
         ui: {
-            submitLogin: '#submit-login',
-            submitNewUser: '#submit-new-user',
-            inputUser: '#input-username',
-            inputPass: '#input-password',
-            inputNewUser: '#input-new-username',
-            inputNewPass: '#input-new-password',
-            inputConfirmPass: '#input-confirm-password',
-            inputEmail: '#email',
-            inputReqType: '#input-request-type',
+            submitLogin: 'input[name=submit-login]',
+            submitNewUser: 'input[name=submit-register]',
+            inputUser: 'input[name=username]',
+            inputPass: 'input[name=password]',
+            inputNewUser: 'input[name=new-username]',
+            inputNewPass: 'input[name=new-password]',
+            inputConfirmPass: 'input[name=confirm-password]',
+            inputEmail: 'input[name=email]',
+            inputRegister: 'input[name=inputregister]',
+            inputLogin: 'input[name=input-login]',
             loginForm: '#login-form',
             newAccountForm: '#new-account-form'
         },
@@ -37,7 +38,8 @@ define([
         events: {
             'click @ui.submitLogin': 'sendLoginReq',
             'click @ui.submitNewUser': 'createNewAccountReq',
-            'click @ui.inputReqType': 'changeView'
+            'click @ui.inputRegister': 'changeToRegisterForm',
+            'click @ui.inputLogin': 'changeToLoginForm'
         },
 
         initialize: function () {
@@ -46,24 +48,33 @@ define([
             this.accessChannel = Bb.Radio.channel('access');
         },
 
-        changeView: function (e) {
-
+        changeToRegisterForm: function (e) {
             e.preventDefault();
+            e.stopPropagation();
+
             this.detachChildView('info');
-            if (this.ui.newAccountForm.hasClass('hide')) {
-                this.ui.loginForm.addClass('hide');
-                this.ui.newAccountForm.removeClass('hide');
-                this.requestType = 'create-user';
-            } else {
-                this.ui.newAccountForm.addClass('hide');
-                this.ui.loginForm.removeClass('hide');
-                this.requestType = 'login';
-            }
+
+            this.ui.loginForm.addClass('hide');
+            this.ui.newAccountForm.removeClass('hide');
+            this.requestType = 'create-user';
         },
+
+        changeToLoginForm: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            this.detachChildView('info');
+
+            this.ui.newAccountForm.addClass('hide');
+            this.ui.loginForm.removeClass('hide');
+            this.requestType = 'login';
+        },
+
 
         sendLoginReq: function (e) {
 
             e.preventDefault();
+            e.stopPropagation();
             var self = this;
 
             this.model.set('username', this.ui.inputUser.val());
@@ -81,9 +92,9 @@ define([
         createNewAccountReq: function (e) {
 
             e.preventDefault();
-
+            e.stopPropagation();
             var self = this;
-
+            console.log('okok')
             this.model.set('username', this.ui.inputNewUser.val());
             this.model.set('password', this.ui.inputNewPass.val()); // should I hash this now?
             this.model.set('confirmPassword', this.ui.inputConfirmPass.val());
@@ -97,9 +108,9 @@ define([
                     self.ui.loginForm.removeClass('hide');
                     self.requestType = 'login';
                 } else {
-                    if (typeof resp.error === "object") {
+                    if (typeof resp.error === 'object') {
                         var msg = 'Errors: ';
-                        _.each(resp.error, function (val, key) {
+                        _.each(resp.error, function (val) {
                             msg += val.msg + '! ';
                         });
                         resp.error = msg;

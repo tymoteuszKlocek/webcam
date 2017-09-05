@@ -14,14 +14,13 @@ define([
 
         saveInCollection: function (collectionID) {
 
-            this.collectionID = collectionID;
             return Bb.ajax(_.extend({
-                url: "http://127.0.0.1:3000/webcams",
+                url: "http://127.0.0.1:3000/webcams/" + collectionID,
                 method: "PUT",
-                data: this.attributes,
+                data: "",
                 dataType: "json",
-            })).then(function(resp) {
-                console.log('webcams', resp);
+            })).then(function (resp) {
+                return resp;
             });
         },
 

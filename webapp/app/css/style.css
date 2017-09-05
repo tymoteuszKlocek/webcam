@@ -53,3 +53,9 @@
 #enter-box:hover {
     opacity: 0.7;
 }
+
+/* nav */
+
+#logout{
+    float: right;
+}

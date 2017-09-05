@@ -9,6 +9,7 @@
     "backbone.typeahead.js": "^0.3.0",
     "bootstrap": "^3.3.7",
     "bootstrap-3-typeahead": "^4.0.2",
+    "eslint-config-defaults": "^9.0.0",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "jquery": "^3.2.1",
@@ -18,7 +19,9 @@
     "requirejs-plugins": "^1.0.2",
     "requirejs-text": "^2.0.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^7.2.3"
+  },
   "scripts": {
     "start": "http-server"
   },

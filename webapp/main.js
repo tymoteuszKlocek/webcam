@@ -5,7 +5,7 @@ require.config({
         underscore: './node_modules/underscore/underscore',
         jquery: './node_modules/jquery/dist/jquery',
         'backbone.radio': './node_modules/backbone.radio/build/backbone.radio',
-        text: "./node_modules/requirejs-text/text",
+        text: './node_modules/requirejs-text/text',
         css: './node_modules/require-css/css',
         json: './node_modules/requirejs-plugins/src/json',
         bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min',

@@ -11,19 +11,10 @@ define([
                     var position = response.coords.latitude.toFixed(5) + ',' + response.coords.longitude.toFixed(5);
                     resolve(position);
                 }, function(error) {
-                    console.log(error);
                     reject(error);
                 });
             });
         },
 
-    })
-})
-
-
-
-
-
-
-
-
+    });
+});

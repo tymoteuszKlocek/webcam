@@ -5,7 +5,7 @@ define([
     'use strict';
 
     return Bb.Model.extend({
-        url: '/map',
+        url: '/',
         defaults: {
             url: conf.map.SRC + conf.map.MODE + conf.map.API_KEY,
             position: conf.map.POSITION,
@@ -14,5 +14,5 @@ define([
             type: conf.map.TYPE,
             country: 'unknown country'
         },
-    })
-})
+    });
+});

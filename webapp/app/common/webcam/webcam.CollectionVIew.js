@@ -23,10 +23,10 @@ define([
             this.type = options.type;
         },
 
-        childViewOptions: function (model) {
+        childViewOptions: function () {
             return {
                 type: this.type,
-            }
+            };
         },
 
         onChildviewHide: function (view) {

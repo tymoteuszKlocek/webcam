@@ -7,5 +7,5 @@ define([
         defaults: {
             info: 'info for user'
         }
-    })
-})
+    });
+});

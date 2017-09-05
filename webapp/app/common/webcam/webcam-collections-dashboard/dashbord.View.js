@@ -55,21 +55,21 @@ define([
 
         onChildviewHideForm: function () {
             var self = this;
-            this.collection.fetch();
-            this.detachChildView('form');
-            this.ui.addNew.removeClass('hide');
+            this.collection.fetch().done(function () {
+                self.detachChildView('form');
+                self.ui.addNew.removeClass('hide');
+            });
         },
 
         onChildviewFetchCollection: function () {
             var self = this;
-            this.collection.fetch();
-            this.detachChildView('form');
+            this.collection.fetch().done(function () {
+                self.detachChildView('form');
+            });
         },
 
         onChildviewSetCollectionID: function (collectionID) {
             this.triggerMethod('set:collectionID', collectionID);
-            this.detachChildView('list');
-            this.detachChildView('form');
         }
 
     })

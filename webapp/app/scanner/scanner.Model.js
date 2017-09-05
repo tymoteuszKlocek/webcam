@@ -34,7 +34,6 @@ define([
                 sportarea: 'SportArea',
                 square: 'Square',
                 traffic: 'Street',
-                traffic: 'Traffic',
                 water: 'Water',
 
             }
@@ -44,10 +43,10 @@ define([
             var localisationService = new LocalisationService();
             var self = this;
             localisationService.getLocalisation().then(function (response) {
-                self.position = response
+                self.position = response;
             });
         },
 
-    })
-})
+    });
+});
 

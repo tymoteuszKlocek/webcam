@@ -50,5 +50,5 @@ define([
                 alert('You need to write a title.')
             }
         }
-    })
+    });
 });

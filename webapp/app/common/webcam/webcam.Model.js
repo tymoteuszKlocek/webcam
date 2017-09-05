@@ -15,17 +15,18 @@ define([
             position: '',
             thumbnail: '',
             type: 'scanner',
-            title: 'name unknown',
+            title: '',
             link: '',
+            webcamID: '',
             collectionID: ''
         },
 
         save: function(){
             return Bb.ajax(_.extend({
-                url: "http://127.0.0.1:3000/webcams",
-                method: "PUT",
+                url: 'http://127.0.0.1:3000/webcams',
+                method: 'PUT',
                 data: this.attributes,
-                dataType: "json",
+                dataType: 'json',
             })).then(function(resp) {
                 return resp;
             });
@@ -33,13 +34,25 @@ define([
 
         destroy: function(){
             return Bb.ajax(_.extend({
-                url: "http://127.0.0.1:3000/webcams",
-                method: "DELETE",
+                url: 'http://127.0.0.1:3000/webcams',
+                method: 'DELETE',
                 data: this.attributes,
-                dataType: "json",
+                dataType: 'json',
             })).then(function(resp) {
                 return resp;
             });
-        }
-    })
-})
+        },
+
+        getCollection: function (collectionid) {
+        
+            return Bb.ajax(_.extend({
+                url: 'http://127.0.0.1:3000/webcams/' + collectionid,
+                method: 'GET',
+                data: '',
+                dataType: 'json',
+            })).then(function(resp) {
+                return resp;
+            });
+        },
+    });
+});

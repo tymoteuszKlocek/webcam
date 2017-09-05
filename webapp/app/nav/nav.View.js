@@ -15,29 +15,40 @@ define([
         model: new Model(),
 
         ui: {
-            logout: '#logout'
+            logout: '#logout',
+            position: '#my-position'
         },
         
         events: {
-            'click @ui.logout': 'logout'
+            'click @ui.logout': 'logout',
+            'click @ui.position': 'checkMyPosition'
         },
 
-        initialize: function (options) {
+        modelEvent: {
+            'change:attribute': 'checkMyPosition'
+        },
+
+        initialize: function () {
             var self = this;
+            this.position = '';
             this.localisationService = new LocalisationService();
             this.localisationService.getLocalisation().then(function (response) {
+                self.position = response;
                 self.model.set('position', response);
             });
-            this.accessChannel = Bb.Radio.channel('access');
+        },
+
+        checkMyPosition: function() {
+            this.model.set('position', this.position);
         },
 
         logout: function() {
             var self = this;
-            this.model.logout().then(function(resp) {
+            this.model.logout().then(function() {
                 Auth.set('logged', false);
                 self.accessChannel.trigger('access:denied');
                 window.location.reload();
             });
         } 
-    })
-})
+    });
+});

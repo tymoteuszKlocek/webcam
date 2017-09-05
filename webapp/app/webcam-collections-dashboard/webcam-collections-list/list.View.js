@@ -15,13 +15,11 @@ define([
 
         ui: {
             removeItem: '#remove-item',
-            collection: 'a'
         },
 
         triggers: {
             'click @ui.removeItem': 'remove:item',
-            'click @ui.collection': 'get:collection'
         }
-    })
+    });
 
 });

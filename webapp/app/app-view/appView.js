@@ -6,7 +6,7 @@ define([
     'app/webcams-list/list.View',
     'app/map/localWebcams.View',
     'bootstrap',
-], function (Mn, tpl, Nav, Scanner, List, LocalView) {
+], function (Mn, tpl, Nav) {
     'use strict';
 
     return Mn.View.extend({
@@ -43,7 +43,7 @@ define([
             var time = new Date();
             return {
                 contextKey: time.toISOString().substring(0, 10)
-            }
+            };
         },
 
     });

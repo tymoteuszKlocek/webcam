@@ -38,7 +38,7 @@ define([
             var self = this;
             childView.model.getCollection(childView).done(function(collection) {
                 self.filterChannel.request('filterState', new WebcamsListView(collection));
-            })
+            });
         }
     
     });

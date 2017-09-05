@@ -9,5 +9,5 @@ define([
         model: new Model(),
         template: _.template(tpl),
         className: 'outer-box',
-    })
+    });
 });

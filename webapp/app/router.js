@@ -7,7 +7,7 @@ define([
     'app/webcam-collections-dashboard/dashbord.View',
     'app/auth',
     'app/login/login.View'
-], function (Bb, Mn, Scanner, List, LocalMapView, CollectionsDashboard, Auth, Login) {
+], function (Bb, Mn, Scanner, WebcamsListView, LocalMapView, CollectionsDashboard, Auth, Login) {
     'use strict';
 
     return Mn.AppRouter.extend({
@@ -22,6 +22,7 @@ define([
             'show-map/:*position/:*country': 'showWebcamOnMap',
             //TODO '/#/*default': 'showScanner',
             'list-of-my-collections': 'showCollectionsDashboard',
+            'list-of-my-collections/:collectionID': 'showMyList',
             
             // public routes
             'login': 'showLogin'
@@ -41,12 +42,12 @@ define([
             this.filterChannel.request('filterState', new Scanner({ mode: mode, params: params }));
         },
 
-        showMyList: function () {
-            this.filterChannel.request('filterState', new List());
+        showMyList: function (collectionID) {
+            this.filterChannel.request('filterState', new WebcamsListView({collectionID: collectionID}));
         },
 
         showMeOnMap: function (position) {
-            this.filterChannel.request('filterState', new LocalMapView({ position: position, country: "Poland" }));
+            this.filterChannel.request('filterState', new LocalMapView({ position: position, country: 'Poland' }));
         },
 
         showWebcamOnMap: function (position, country) {
@@ -66,7 +67,7 @@ define([
             
             if (!callback) { 
                 callback = this[name];
-            };
+            }
 
             var f = function() {
                 var logged = Auth.get('logged');
@@ -75,8 +76,7 @@ define([
                     return;
                 }
                 callback.apply(router, arguments);
-                
-            }
+            };
 
             return Mn.AppRouter.prototype.route.call(this, route, name, f);
         }

@@ -61,11 +61,11 @@ define([
             this.ui.listBtns.addClass('hide');
             this.showChildView('dashboard', new WebcamDashboard());
         },
-        
+
         deleteModel: function () {
             var self = this;
 
-            this.model.destroy().then(function(resp) {
+            this.model.destroy().then(function (resp) {
                 self.detachChildView('dashboard');
                 if (resp.error) {
                     self.showChildView('dashboard', new Info({ text: resp.error }));
@@ -76,8 +76,8 @@ define([
             });
         },
 
-        hideView: function () {     
-           this.triggerMethod('hide', this);
+        hideView: function () {
+            this.triggerMethod('hide', this);
         },
 
         onChildviewSetCollectionID: function (collectionID) {
@@ -87,12 +87,12 @@ define([
             this.model.save().then(function (resp) {
                 self.detachChildView('dashboard');
                 if (resp.success === true) {
-                    self.showChildView('dashboard', new Info({ text: "Webcam saved!" }));
+                    self.showChildView('dashboard', new Info({ text: 'Webcam saved!' }));
                 } else {
-                    self.showChildView('dashboard', new Info({ text: resp.error + "You have already added the webcam to this collection." }));
+                    self.showChildView('dashboard', new Info({ text: resp.error }));
                 }
             });
         }
 
-    })
-})
+    });
+});

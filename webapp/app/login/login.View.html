@@ -6,23 +6,23 @@
             <form id="new-account-form" class="hide">
                 <p>Create account</p>
                 <div class="form-group">
-                    <label for="InputEmail">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="email">Email address</label>
+                    <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="InputUsername">Username</label>
-                    <input type="text" class="form-control" id="input-new-username" placeholder="Enter username">
+                    <label for="new-username">Username</label>
+                    <input name="new-username" type="text" class="form-control" placeholder="Enter username">
                 </div>
                 <div class="form-group">
-                    <label for="InputPassword">Password</label>
-                    <input type="password" class="form-control" id="input-new-password" placeholder="Password" name="password">
+                    <label for="new-password">Password</label>
+                    <input name="new-password" type="password" class="form-control" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label for="InputPassword">Repeat password</label>
-                    <input type="password" class="form-control" id="input-confirm-password" placeholder="Password">
+                    <label for="confirm-password">Repeat password</label>
+                    <input name="confirm-password" type="password" class="form-control" placeholder="reapeat password">
                 </div>
-                <button id="submit-new-user" type="button" class="btn btn-primary">Create new account</button>
-                <button type="button" id="input-request-type" class="btn btn-default">Back</button>
+                <input type="submit" name="submit-register" class="btn btn-primary" calue="Create new account"/>
+                <input type="button" name="input-login" class="btn btn-default" value="Back"/>
             </form>
 
             <!-- login to existing account -->
@@ -31,15 +31,15 @@
                 <h5>username: "user"</h5>
                 <h5>password: "pass"</h5>
                 <div class="form-group">
-                    <label for="InputEmail">Username</label>
-                    <input type="text" class="form-control" id="input-username" placeholder="Enter username" required>
+                    <label for="username">Username</label>
+                    <input name="username" class="form-control" placeholder="Username" required>
                 </div>
                 <div class="form-group">
-                    <label for="InputPassword">Password</label>
-                    <input type="password" class="form-control" id="input-password" placeholder="Password" required>
+                    <label for="password">Password</label>
+                    <input name="password" type="password" class="form-control" placeholder="Password" required>
                 </div>
-                <button id="submit-login" class="btn btn-primary">Login</button>
-                <button type="button" id="input-request-type" class="btn btn-default">Sign up</button>
+                <input type="submit" name="submit-login" class="btn btn-primary submit-login" value="Login" />
+                <input type="button" name="inputregister" class="btn btn-default" value="Sign Up"/>
             </form>
         </div>
     </div>

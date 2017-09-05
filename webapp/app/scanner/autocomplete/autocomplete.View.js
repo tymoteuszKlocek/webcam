@@ -10,5 +10,5 @@ define([
         model: new Model(),
         template: _.template(tpl),
         className: 'input-group'
-    })
-})
+    });
+});

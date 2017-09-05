@@ -1,8 +1,9 @@
 const express = require('express');
+
 const router = express.Router();
 const models = require('../models');
 
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
 
     const schema = {
         'email': {
@@ -21,7 +22,11 @@ router.post('/', (req, res, next) => {
         },
         'password': {
             notEmpty: true,
-            errorMessage: 'Password must be repeated.'
+            isLength: {
+                options: [{ min: 4, max: 10 }],
+                errorMessage: 'Password must be between 2 and 10 chars long'
+            },
+            errorMessage: 'Invalid Password'
         },
     };
 
@@ -30,10 +35,9 @@ router.post('/', (req, res, next) => {
     req.getValidationResult().then((result) => {
         try {
             result.throw();
-            models.User.create(req.body).then(resp => {
+            models.User.create(req.body).then(() => {
                 res.status(200).send({ success: true });
             }).catch(function (error) {
-                console.log(error);
                 res.status(200).send({ success: false, error: error });
             });
         } catch (error) {

@@ -38,13 +38,12 @@ define([
         initialize: function () {
             var self = this;
             this.collection = new ListCol();
-            //TODO is only fetch enough?
             this.collection.fetch().done(function (data) {
                 self.displayColView(data);
             });
         },
 
-        displayColView: function(data) {
+        displayColView: function() {
             this.showChildView('list', new CollectionList({ collection: this.collection }));
         },
 
@@ -56,17 +55,19 @@ define([
 
         onChildviewHideForm: function() {
             var self = this;
-            this.collection.fetch();
-            this.detachChildView('form');
-            this.ui.addNew.removeClass('hide');
+            this.collection.fetch().done(function(){
+                self.detachChildView('form');
+                self.ui.addNew.removeClass('hide');
+            });
         },
 
         onChildviewFetchCollection: function() {
             var self = this;
-            this.collection.fetch();
-            this.detachChildView('form');
+            this.collection.fetch().done(function(){
+                self.detachChildView('form');
+            });
         }
 
-    })
+    });
 
 });

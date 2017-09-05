@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var Sequelize = require('sequelize')
+var Sequelize = require('sequelize');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
@@ -16,7 +16,6 @@ var register = require('./routes/register');
 var webcams = require('./routes/webcams');
 var webcamsCollections = require('./routes/webcamsCollections');
 var collectionForm = require('./routes/collectionForm');
-var passport = require('passport');
 
 var sequelize = new Sequelize(
     "webcams-test",
@@ -56,18 +55,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // session
 app.use(session(sess));
 
-// passport
-app.use(passport.initialize());
-app.use(passport.session());
-
 // routes
 app.use('/', index);
 app.use('/login', login);
 app.use('/webcams',  requireLogin, webcams);
+app.use('/webcams/:id',  requireLogin, webcams);
 app.use('/register', register);
 app.use('/collections', requireLogin, webcamsCollections);
 app.use('/create-collection', requireLogin, collectionForm);
-//app.use('/session', sessions);
 
 app.post('/logout', function(req, res) {
     req.session.destroy();

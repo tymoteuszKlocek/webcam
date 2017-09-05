@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const models = require('../models');
 
@@ -13,17 +14,17 @@ const schema = {
     },
 };
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 
     models.User.findOne({ where: { username: req.body.username }, raw: true }).then(user => {
 
         if (!user) {
-            return res.status(200).send({success: false, error: "User not found. Create account."});
+            return res.status(200).send({success: false, error: 'User not found. Create account.'});
         }
 
         if (user) {
             req.checkBody(schema);
-            req.check('password', "Wrong password").equals(user.password);
+            req.check('password', 'Wrong password').equals(user.password);
             req.getValidationResult().then((result) => {
                 try {
                     result.throw();
@@ -37,7 +38,7 @@ router.post('/', function (req, res, next) {
                 res.status(200).send({ success: false, error: 'Invalid username' });
             });
 
-        };
+        }
     });
 
 });

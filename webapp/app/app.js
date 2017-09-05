@@ -40,8 +40,8 @@ define([
                 App.router.navigate('#/scanner');
             });
 
-            if (Backbone.history) {
-                Backbone.history.start();
+            if (Bb.history) {
+                Bb.history.start();
             }
         },
     });
