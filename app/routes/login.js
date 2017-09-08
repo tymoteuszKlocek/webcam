@@ -29,12 +29,12 @@ router.post('/', function (req, res) {
                 try {
                     result.throw();
                     req.session.user = user;
-                    res.status(200).send({success: true, userID: user.id});
+                    res.status(200).send({success: true, username: req.body.username});
                 } catch (error) {
                     res.status(200).send({ success: false, error: 'Invalid username or password'});
                 }
                 
-            }).catch(error => {
+            }).catch(() => {
                 res.status(200).send({ success: false, error: 'Invalid username' });
             });
 

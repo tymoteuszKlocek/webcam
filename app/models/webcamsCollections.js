@@ -3,15 +3,13 @@
 module.exports = function (sequelize, DataTypes) {
 
     const WebcamsCollections = sequelize.define('WebcamsCollections', {
-        title: DataTypes.STRING,
-        userID: DataTypes.STRING
-    }, {
-        classMethods: {
-            associate: function (models) {
-                WebcamsCollections.hasMany(models.Webcams);
-            }
-        }
+        title: DataTypes.STRING
     });
+
+    WebcamsCollections.associate = function (models) {
+        WebcamsCollections.belongsTo(models.User, {as: 'owner'}), 
+        WebcamsCollections.hasMany(models.Webcams, {as: 'webcam'});
+    };
 
     return WebcamsCollections;
 };

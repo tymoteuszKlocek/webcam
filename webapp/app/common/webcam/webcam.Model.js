@@ -16,9 +16,7 @@ define([
             thumbnail: '',
             type: 'scanner',
             title: '',
-            link: '',
-            webcamID: '',
-            collectionID: ''
+            link: ''
         },
 
         save: function(){

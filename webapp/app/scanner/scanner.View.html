@@ -12,24 +12,24 @@
         <div class="btn-group btn-group-sm" role="group" aria-label="tags">
             <% _.each(tags, function(name) { %>
                 <a href="#/scanner/tag/:<%= name %>">
-                    <button class="btn btn-default" id="tagName" ><%= name %></button>
+                    <button class="btn btn-default tagName"><%= name %></button>
                 </a>
                 <% }); %>
         </div>
 
     </div>
 </div>
-<!-- /.col-lg-6 -->
+
 <br/>
 <div>
     <p>You can also quickly find webcams in range of 100km from your current localisation. Just press the button below.</p>
     <a href="#/scanner/near/:<%= position %>">
-        <button id="findMe" type="button" class="btn btn-info">
+        <button type="button" class="btn btn-info findMe">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Find near me
         </button>
     </a>
 </div>
-<!-- /.row -->
+
 <br>
 
 <div class="panel panel-info">

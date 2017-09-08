@@ -3,64 +3,55 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 
-router.get('/', function (req, res, next) {
-
-    if (!req.session.user) {
-        return res.status(401).send();
-    }
-    
-    req.session.collectionID = req.body.id;
-
-    models.Webcams.findAll({
-        where: {
-            collectionID: req.query.id
-        }
-    }).then(collection => {
-        res.status(200).send(collection);
-    }).catch(function (error) {
-        res.status(200).send({ error: error });
-    });
-
-});
-
 router.get('/:id', function (req, res) {
-    
-    if (!req.session.user) {
-        return res.status(401).send();
-    }
 
     req.session.collectionID = req.params.id;
-    
+
     models.Webcams.findAll({
         where: {
-            collectionID: req.params.id
+            userID: req.session.user.id,
+            $and: [
+                { collectionID: req.params.id }
+            ]
         }
     }).then(collection => {
         res.status(200).send(collection);
     }).catch(function (error) {
         res.status(200).send({ error: error });
     });
-    
+
 });
 
 router.put('/', function (req, res) {
-
-    if (!req.session.user) {
-        return res.status(401).send();
-    }
 
     models.Webcams.find({
         where: {
             webcamID: req.body.webcamID,
             $and: [
-                { collectionID: req.body.collectionID }
+                { collectionID: req.body.collectionID },
+                { userID: req.session.user.id }
             ]
         }
     }).then((webcam) => {
         if (webcam) {
             res.status(200).send({ success: false, error: 'Webcam already saved in this collection.' });
         } else {
-            models.Webcams.create(req.body).then(() => {
+            models.Webcams.create({
+                city: req.body.city,
+                country: req.body.country,
+                countryCode: req.body.countryCode,
+                views: req.body.views,
+                lat: req.body.lat,
+                lng: req.body.lng,
+                position: req.body.position,
+                thumbnail: req.body.thumbnail,
+                type: req.body.type,
+                title: req.body.title,
+                link: req.body.link,
+                webcamID: req.body.webcamID,
+                collectionID: req.body.collectionID,
+                userID: req.session.user.id
+            }).then(() => {
                 res.status(200).send({ success: true, msg: 'New webcam saved.' });
             });
         }
@@ -71,17 +62,13 @@ router.put('/', function (req, res) {
 
 router.delete('/', function (req, res) {
 
-    if (!req.session.user) {
-        return res.status(401).send();
-    }
-    
     models.Webcams.findOne({
         where: {
             collectionID: req.body.collectionID,
             id: req.body.id
         }
     }).then(webcam => {
-        webcam.destroy().then(resp => {
+        webcam.destroy().then(() => {
             res.status(200).send({ success: true, msg: 'Webcam deleted!' });
         });
     }).catch(function (error) {

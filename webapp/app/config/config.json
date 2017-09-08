@@ -1,7 +1,7 @@
 {
     "webcamSearch": {
         "SRC": "https://webcamstravel.p.mashape.com/webcams/list/",
-        "PARAMS": "/limit=70?show=webcams:location,image,url,statistics",
+        "PARAMS": "/limit=30?show=webcams:location,image,url,statistics",
         "API_KEY": "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA",
         "RANGE": "100"
     },
@@ -22,5 +22,9 @@
         "ZOOM": "&zoom=18",
         "SRC": "https://www.google.com/maps/embed/v1/",
         "TYPE": "&maptype=satellite"
+    },
+    "requests": {
+        "sessionUrl": "http://localhost:8000/",
+        "createCollectionForm": "http://127.0.0.1:3000/collections"
     }
 }

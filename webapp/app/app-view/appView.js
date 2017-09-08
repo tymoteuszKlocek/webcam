@@ -5,7 +5,7 @@ define([
     'app/scanner/scanner.View',
     'app/webcams-list/list.View',
     'app/map/localWebcams.View',
-    'bootstrap',
+    'bootstrap'
 ], function (Mn, tpl, Nav) {
     'use strict';
 
@@ -23,7 +23,7 @@ define([
             },
         },
         ui: {
-            backTop: '#top-link',
+            backTop: '.top-link',
         },
 
         events: {
@@ -41,8 +41,9 @@ define([
         templateContext: function () {
 
             var time = new Date();
+
             return {
-                contextKey: time.toISOString().substring(0, 10)
+                time: time.toISOString().substring(0, 10),
             };
         },
 

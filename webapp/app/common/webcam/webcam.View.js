@@ -4,9 +4,10 @@ define([
     'text!app/common/webcam/webcam.View.html',
     'app/common/webcam/webcam.Model',
     'app/common/webcam/webcam.Collection',
-    'app/common/webcam/webcam-dashboard/dashboard.View',
-    'app/common/info/info.View'
-], function (Bb, Mn, tpl, Model, WebcamCol, WebcamDashboard, Info) {
+    'app/common/info/info.View',
+    //'app/common/lists/gallery/list.View',
+    'app/dashboard/dashboard.View'
+], function (Bb, Mn, tpl, Model, WebcamCol, Info, GalleryList) {
     'use strict';
 
     return Mn.View.extend({
@@ -39,6 +40,10 @@ define([
             'click @ui.showOnMap': 'showOnMap'
         },
 
+        childViewEvents: {
+            'save:webcam3': 'onSaveWebcam'
+        },
+
         triggers: {
             'click @ui.save': 'save:model',
         },
@@ -54,12 +59,13 @@ define([
             if (child.type === 'list') {
                 this.ui.scannerBtns.addClass('hide');
             }
+            
         },
 
         saveModel: function () {
             this.ui.scannerBtns.addClass('hide');
             this.ui.listBtns.addClass('hide');
-            this.showChildView('dashboard', new WebcamDashboard());
+            this.showChildView('dashboard', new GalleryList({opt: 'mini'}));
         },
 
         deleteModel: function () {
@@ -80,9 +86,8 @@ define([
             this.triggerMethod('hide', this);
         },
 
-        onChildviewSetCollectionID: function (collectionID) {
+        onSaveWebcam: function (collectionID) {
             var self = this;
-
             this.model.set('collectionID', collectionID);
             this.model.save().then(function (resp) {
                 self.detachChildView('dashboard');

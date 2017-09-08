@@ -10,6 +10,7 @@ define([
 
         defaults: {
             position: '51.23776,22.52807', // default position is Lublin
+            username: 'Josh'
         },
 
         initialize: function () {

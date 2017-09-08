@@ -26,7 +26,6 @@ define([
                     lng: obj.location.longitude,
                     position: obj.location.latitude.toFixed(3) + ',' + obj.location.longitude.toFixed(3),
                     thumbnail: obj.image.current.preview || '',
-                    state: 'scanner',
                     title: obj.title || 'name unknown',
                     link: obj.url.current.desktop || ''
                 });

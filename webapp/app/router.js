@@ -1,13 +1,13 @@
 define([
     'backbone',
     'marionette',
+    'app/dashboard/dashboard.View',
     'app/scanner/scanner.View',
-    'app/webcams-list/list.View',
+    'app/common/lists/webcam/list.View',
     'app/map/localWebcams.View',
-    'app/webcam-collections-dashboard/dashbord.View',
     'app/auth',
     'app/login/login.View'
-], function (Bb, Mn, Scanner, WebcamsListView, LocalMapView, CollectionsDashboard, Auth, Login) {
+], function (Bb, Mn, Dashboard, Scanner, WebcamsListView, LocalMapView, Auth, Login) {
     'use strict';
 
     return Mn.AppRouter.extend({
@@ -15,14 +15,13 @@ define([
         routes: {
 
             // private routes
+            'dashboard': 'showDashboard',
+            'dashboard/:id': 'showMyList',
             'scanner': 'showScanner',
             'scanner/:mode/:*filter': 'useScanner',
             'list-of-my-webcams': 'showMyList',
             'map/:*position':'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
-            //TODO '/#/*default': 'showScanner',
-            'list-of-my-collections': 'showCollectionsDashboard',
-            'list-of-my-collections/:collectionID': 'showMyList',
             
             // public routes
             'login': 'showLogin'
@@ -32,6 +31,10 @@ define([
             this.filterChannel = Bb.Radio.channel('filter');
             this.accessChannel = Bb.Radio.channel('access');
             this.auth = Auth;
+        },
+
+        showDashboard: function() {
+            this.filterChannel.request('filterState', new Dashboard());
         },
 
         showScanner: function () {
@@ -62,6 +65,7 @@ define([
             this.filterChannel.request('filterState', new CollectionsDashboard());
         },
 
+        // checks authorisation for routes
         route: function(route, name, callback) {
             var router = this;
             

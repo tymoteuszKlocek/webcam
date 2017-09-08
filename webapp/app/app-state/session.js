@@ -1,13 +1,15 @@
 define([
-    'backbone'
-], function (Backbone) {
+    'backbone',
+    'json!app/config/config.json',
+], function (Backbone, conf) {
     'use strict';
 
     return Backbone.Model.extend({
-        url: 'http://localhost:8000/',
+        url: conf.requests.sessionUrl,
 
         defaults: {
-            logged: false
+            logged: false,
+            username: ''
         },
         
         initialize: function () {

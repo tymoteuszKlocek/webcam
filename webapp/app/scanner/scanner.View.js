@@ -18,23 +18,29 @@ define([
     return Mn.View.extend({
 
         model: new Model(),
+
         template: _.template(tpl),
+
         ui: {
-            tagName: '#tagName',
-            findMe: '#findMe',
-            input: '#autocomplet-input',
+            tagName: '.tagName',
+            findMe: '.findMe',
+            input: 'input[name=autocomplet]',
         },
+
         regions: {
             webcamRegion: '#webcam-collection',
             autocplRegion: '#autocomplete',
         },
+
         modelEvents: {
             'change': 'render'
         },
+
         events: {
             'mouseover @ui.input': 'showAutocomplete',
             'click li': 'showAutocomplete'
         },
+        
         initialize: function (options) {
 
             var self = this;

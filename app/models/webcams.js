@@ -14,14 +14,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         title: DataTypes.STRING,
         link: DataTypes.STRING,
-        webcamID: DataTypes.STRING,
-        collectionID: DataTypes.STRING,
-    }, {
-        classMethods: {
-            associate: function (models) {
-                Webcams.belongsToMany(models.WebcamsCollections);
-            }
-        }
+        webcamID: DataTypes.INTEGER,
+        userID: DataTypes.INTEGER,
+        collectionID:DataTypes.INTEGER,
     });
+    
+    Webcams.associate = function(models) {
+        Webcams.belongsTo(models.WebcamsCollections);
+    };
+ 
     return Webcams;
 };

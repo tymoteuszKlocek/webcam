@@ -12,25 +12,29 @@ define([
             email: null
         },
 
-        sendRequest: function (opt) {
-            if (opt === 'create-user') {
-                return Bb.ajax(_.extend({
-                    url: 'http://127.0.0.1:3000/register',
-                    method: 'POST',
-                    data: this.attributes,
-                    dataType: 'json',
-                })).then(function (resp) {
-                    return resp;
-                });
-            } else if (opt === 'login') {
-                return this.save().then(function (resp) {
-                    return resp;
-                });
-            }
+        register: function () {
+            return Bb.ajax(_.extend({
+                url: 'http://127.0.0.1:3000/register',
+                method: 'POST',
+                data: this.attributes,
+                dataType: 'json',
+            })).then(function (resp) {
+                return resp;
+            }).catch((error) => {
+                return error;
+            });
 
         },
 
-        refreshAccess: function() {
+        login: function () {
+            return this.save().then(function (resp) {
+                return resp;
+            }).catch((error) => {
+                return error;
+            });
+        },
+
+        refreshAccess: function () {
             return Bb.ajax(_.extend({
                 url: 'http://127.0.0.1:3000/refresh',
                 method: 'POST',
@@ -38,6 +42,8 @@ define([
                 dataType: 'json',
             })).then(function (resp) {
                 return resp;
+            }).catch((error) => {
+                return error;
             });
         }
 
