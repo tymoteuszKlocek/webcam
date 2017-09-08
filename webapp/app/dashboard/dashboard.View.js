@@ -3,11 +3,8 @@ define([
     'text!app/dashboard/dashboard.View.html',
     'app/dashboard/dashboard.Model',
     'app/common/lists/gallery/list.View',
-    'app/common/lists/webcam/list.View',
     'app/common/gallery-form/form.View',
-    'app/common/gallery/gallery.Collection',
-    'app/common/gallery/gallery.View',
-], function (Mn, tpl, Model, GalleryList, WebcamList, GalleryForm) {
+], function (Mn, tpl, Model, GalleryList, GalleryForm) {
     'use strict';
 
     return Mn.View.extend({

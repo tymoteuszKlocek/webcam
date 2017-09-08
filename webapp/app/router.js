@@ -19,7 +19,6 @@ define([
             'dashboard/:id': 'showMyList',
             'scanner': 'showScanner',
             'scanner/:mode/:*filter': 'useScanner',
-            'list-of-my-webcams': 'showMyList',
             'map/:*position':'showMeOnMap',
             'show-map/:*position/:*country': 'showWebcamOnMap',
             
@@ -59,10 +58,6 @@ define([
 
         showLogin: function () {
             this.filterChannel.request('filterState', new Login());
-        },
-
-        showCollectionsDashboard: function () {
-            this.filterChannel.request('filterState', new CollectionsDashboard());
         },
 
         // checks authorisation for routes
