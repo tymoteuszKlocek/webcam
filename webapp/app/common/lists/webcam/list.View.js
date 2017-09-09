@@ -1,7 +1,7 @@
 define([
     'marionette',
     'backbone',
-    'text!app/webcams-list/list.View.html',
+    'text!app/common/lists/webcam/list.View.html', 
     'app/common/webcam/webcam.Model',
     'app/common/webcam/webcam.Collection',
     'app/common/webcam/webcam.CollectionView',

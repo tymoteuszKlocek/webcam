@@ -39,8 +39,7 @@ define([
         },
 
         initialize: function (options) {
-
-            // type is for mini dashbord in webcams view or normal in dashbord tab
+            // this.type is used as 'mini' for dashbord in webcams panel or 'normal' in dashbord panel
             this.type = options.opt || 'normal';
             this.showChildView('list', new GalleryList({opt: this.type}));
         },

@@ -47,5 +47,5 @@ define([
             return Bb.Collection.prototype.fetch.call(this, { url: url, headers: { 'X-Mashape-Authorization': config.webcamSearch.API_KEY } });
         },
         
-    })
+    });
 });

@@ -19,36 +19,46 @@ define([
             link: ''
         },
 
-        save: function(){
+        save: function () {
             return Bb.ajax(_.extend({
                 url: 'http://127.0.0.1:3000/webcams',
                 method: 'PUT',
                 data: this.attributes,
                 dataType: 'json',
-            })).then(function(resp) {
+            })).then(function (resp) {
                 return resp;
             });
         },
 
-        destroy: function(){
-            return Bb.ajax(_.extend({
+        destroy: function () {
+            return Bb.Collection.prototype.fetch.call(this, {
                 url: 'http://127.0.0.1:3000/webcams',
                 method: 'DELETE',
                 data: this.attributes,
                 dataType: 'json',
-            })).then(function(resp) {
+            }).then(function (resp) {
                 return resp;
             });
         },
 
+        //     return Bb.ajax(_.extend({
+        //         url: 'http://127.0.0.1:3000/webcams',
+        //         method: 'DELETE',
+        //         data: this.attributes,
+        //         dataType: 'json',
+        //     })).then(function(resp) {
+        //         return resp;
+        //     });
+
+
         getCollection: function (collectionid) {
-        
+
             return Bb.ajax(_.extend({
                 url: 'http://127.0.0.1:3000/webcams/' + collectionid,
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            })).then(function(resp) {
+            })).then(function (resp) {
                 return resp;
             });
         },

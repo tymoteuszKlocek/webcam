@@ -2,16 +2,14 @@ define([
     'marionette',
     'text!app/app-view/appView.html',
     'app/nav/nav.View',
-    'app/scanner/scanner.View',
-    'app/webcams-list/list.View',
-    'app/map/localWebcams.View',
-    'bootstrap'
 ], function (Mn, tpl, Nav) {
     'use strict';
 
     return Mn.View.extend({
         template: _.template(tpl),
+
         className: 'appView',
+
         regions: {
             nav: {
                 el: '#nav',
@@ -22,6 +20,7 @@ define([
                 replaceElement: true
             },
         },
+        
         ui: {
             backTop: '.top-link',
         },

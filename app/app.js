@@ -1,47 +1,36 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var Sequelize = require('sequelize');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
-var session = require('express-session');
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-var sqlite3 = require('sqlite3').verbose();
+// module dependencies
+import express from 'express';
+import http from 'http';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
 
-var index = require('./routes/index');
-var login = require('./routes/login');
-var register = require('./routes/register');
-var webcams = require('./routes/webcams');
-var webcamsCollections = require('./routes/webcamsCollections');
-var collectionForm = require('./routes/collectionForm');
+import models from './models';
+// routes
+import index from './routes/index';
+import login from './routes/login';
+import logout from './routes/logout';
+import register from './routes/register';
+import webcams from './routes/webcams';
+import webcamsCollections from './routes/webcamsCollections';
 
-var sequelize = new Sequelize(
-    "webcams-test",
-    "tymoteusz",
-    "tymoteusztymoteusz1", {
-        "dialect": "sqlite",
-        "storage": "./session.sqlite"
-    });
-
-var sess = {
+const app = express();
+const port = normalizePort(process.env.PORT || '3000');
+let sess = {
     secret: 'tymonolololo',
     saveUninitialized: true,
     resave: false,
 };
 
-var app = express();
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 // CORS
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
-    res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Auth-Token");
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+    res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Auth-Token');
     next();
 });
 
@@ -57,50 +46,72 @@ app.use(session(sess));
 
 // routes
 app.use('/', index);
+app.use('/register', register);
 app.use('/login', login);
+app.use('/logout', logout);
+app.use('/collections', requireLogin, webcamsCollections);
 app.use('/webcams', requireLogin, webcams);
 app.use('/webcams/:id', requireLogin, webcams);
-app.use('/register', register);
-app.use('/collections', requireLogin, webcamsCollections);
-app.use('/create-collection', requireLogin, collectionForm);
 
-app.post('/logout', function (req, res) {
-    req.session.destroy();
-    res.status(200).send({ logged: false });
-});
+// when page refresh in browser check the access
+app.post('/refresh', (req, res) => {
 
-app.post('/refresh', function (req, res) {
-    console.log('ref', req.session.user);
     if (!req.session.user) {
-        return res.status(401).send({ Msg: "you must login" });
+        return res.status(401).send({ msg: 'Please login' });
     } else {
-        return res.status(200).send({ success: true });
+        return res.status(200).send({ success: true, username: req.session.user.username });
     }
 });
 
+// sequelize sync
+models.sequelize.sync().then( () => {
+    server.listen(port);
+});
+
+
+// Get port from environment and store in Express.
+app.set('port', port);
+
+
+// Create HTTP server.
+let server = http.createServer(app);
+
+// Listen on provided port, on all network interfaces.
+server.listen(port);
+
+
+// Normalize a port into a number, string, or false.
+function normalizePort(val) {
+    let port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+app.use( (req, res) => {
+    let err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    res.status(err.status || 500).send();
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
-
+// check if user is logged in and has session
 function requireLogin(req, res, next) {
-    console.log(req.session.id)
-    // if (!req.session.user) {
-    //     return res.status(401).send({Msg: "you must login"});
-    // }
-    next();
-};
+    if (req.session.id) {
+        return next();
+    } else {
+        return res.status(401).send({ msg: 'Looks like you are logout' });
+    }
+}
 
 module.exports = app;

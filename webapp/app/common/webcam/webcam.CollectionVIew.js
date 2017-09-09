@@ -31,6 +31,10 @@ define([
 
         onChildviewHide: function (view) {
             this.removeChildView(view);
+        },
+
+        onChildviewDelete: function (view) {
+            this.removeChildView(view);
         }
 
     });

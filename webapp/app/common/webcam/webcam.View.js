@@ -77,7 +77,7 @@ define([
                     self.showChildView('dashboard', new Info({ text: resp.error }));
                 }
                 if (resp.success === true) {
-                    self.showChildView('dashboard', new Info({ text: resp.msg }));
+                    self.triggerMethod('delete', self);
                 }
             });
         },

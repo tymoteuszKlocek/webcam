@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import md5 from 'md5';
+import models from '../models';
 
 const router = express.Router();
-const models = require('../models');
 
 router.post('/', (req, res) => {
 
@@ -35,29 +36,42 @@ router.post('/', (req, res) => {
             username: req.body.username
         }
     }).then((user) => {
+
         if (user) {
+
             res.status(200).send({ success: false, error: 'Username is already used.' });
             return;
+
         } else {
+
             req.checkBody(schema);
             req.check('password', 'Password not confirmed - repeat the same password!').equals(req.body.confirmPassword);
             req.getValidationResult().then((result) => {
+
                 try {
                     result.throw();
-                    models.User.create(req.body).then(() => {
+
+                    let hashPass = md5(req.body.password);
+
+                    models.User.create({
+                        username: req.body.username,
+                        password: hashPass,
+                        email: req.body.email
+                    }).then(() => {
                         res.status(200).send({ success: true });
-                    }).catch(function (error) {
+                    }).catch( (error) => {
                         res.status(200).send({ success: false, error: error });
                     });
+
                 } catch (error) {
                     req.session.error = error.array();
                     res.status(200).send({ success: false, error: req.session.error });
                     req.session.error = null;
                 }
+
             });
         }
     });
-
 
 });
 

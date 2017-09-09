@@ -1,7 +1,6 @@
 'use strict';
-//const bcrypt = require('bcryptjs');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         username: { type: DataTypes.STRING, unique: true, notNull: true, notEmpyt: true },
         password: { type: DataTypes.STRING,  notNull: true, notEmpyt: true },
@@ -9,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
         webcamscollectionsId: { type: DataTypes.STRING, notNull: true, notEmpyt: true }
     });
     
-    User.associate = function(models) {
+    User.associate = (models) => {
         User.hasMany(models.WebcamsCollections, {as: 'collection'});
     };
 

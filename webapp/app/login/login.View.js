@@ -49,6 +49,7 @@ define([
             this.accessChannel = Bb.Radio.channel('access');
 
             this.model.refreshAccess().then(function (resp) {
+
                 if (resp.success === true) {
                     self.auth.set('logged', resp.success);
                     self.auth.set('username', resp.username);
@@ -77,13 +78,12 @@ define([
         },
 
         sendLoginReq: function (e) {
-
             e.preventDefault();
             e.stopPropagation();
             var self = this;
 
             this.model.set('username', this.ui.inputUser.val());
-            this.model.set('password', this.ui.inputPass.val()); // should I hash this now?
+            this.model.set('password', this.ui.inputPass.val());
             this.model.login().then(function (resp) {
                 if (resp.success === true) {
                     self.auth.set('logged', resp.success);
@@ -96,13 +96,12 @@ define([
         },
 
         createNewAccountReq: function (e) {
-
             e.preventDefault();
             e.stopPropagation();
             var self = this;
 
             this.model.set('username', this.ui.inputNewUser.val());
-            this.model.set('password', this.ui.inputNewPass.val()); // should I hash this now?
+            this.model.set('password', this.ui.inputNewPass.val());
             this.model.set('confirmPassword', this.ui.inputConfirmPass.val());
             this.model.set('email', this.ui.inputEmail.val());
 
@@ -115,7 +114,7 @@ define([
                 } else {
                     var msg = 'Errors: ';
                     if (typeof resp.error === 'object') {
-                        
+
                         _.each(resp.error, function (val) {
                             msg += val.msg + '! ';
                         });
@@ -126,7 +125,7 @@ define([
             });
         }
 
-        // for LOGOUT please see: webcam\webapp\app\nav\nav.View.js
+        // for LOGOUT please see: ..\webcam\webapp\app\nav\nav.View.js
 
     });
 });

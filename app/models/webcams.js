@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
 
     const Webcams = sequelize.define('Webcams', {
         city: DataTypes.STRING,
@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         collectionID:DataTypes.INTEGER,
     });
     
-    Webcams.associate = function(models) {
+    Webcams.associate = (models) => {
         Webcams.belongsTo(models.WebcamsCollections);
     };
  

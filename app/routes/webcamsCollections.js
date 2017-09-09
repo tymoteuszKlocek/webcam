@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
+import models from '../models';
 
 const router = express.Router();
-const models = require('../models');
 
 /* GET user collections. */
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
 
     models.WebcamsCollections.findAll({
         where: {
@@ -12,13 +12,13 @@ router.get('/', function (req, res) {
         }
     }).then(collections => {
         res.status(200).send(collections);
-    }).catch(function (error) {
+    }).catch((error) => {
         res.status(200).send(error);
     });
 });
 
 /* CREATE user collection */
-router.put('/', function (req, res) {
+router.put('/', (req, res) => {
 
     models.WebcamsCollections.findOrCreate({
         where: {
@@ -33,7 +33,7 @@ router.put('/', function (req, res) {
 });
 
 /* DELETE user collection */
-router.delete('/', function (req, res) {
+router.delete('/', (req, res) => {
 
     models.WebcamsCollections.findOne({
         where: {
@@ -43,7 +43,7 @@ router.delete('/', function (req, res) {
         }
     }).then(collection => {
         collection.destroy();
-    }).catch(function (error) {
+    }).catch((error) => {
         res.status(200).send(error);
     });
 
