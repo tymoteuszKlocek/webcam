@@ -25,6 +25,8 @@ define([
             tagName: '.tagName',
             findMe: '.findMe',
             input: 'input[name=autocomplet]',
+            inputPosition: 'input[name=searchPosition]',
+            searchPosition: '.searchPosition'
         },
 
         regions: {
@@ -38,7 +40,8 @@ define([
 
         events: {
             'mouseover @ui.input': 'showAutocomplete',
-            'click li': 'showAutocomplete'
+            'click li': 'showAutocomplete',
+            'click @ui.searchPosition': 'searchPosition'
         },
         
         initialize: function (options) {
@@ -93,6 +96,12 @@ define([
         showAutocomplete: function () {
             this.typeahead.setElement('#autocomplete').render();
         },
+
+        searchPosition: function() {
+            var category = 'nearby=';
+            var position = this.ui.inputPosition.val().trim();
+            this.sendRequest(category, position);
+        }
 
     });
 });

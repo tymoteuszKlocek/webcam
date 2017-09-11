@@ -1,10 +1,13 @@
 define([
-    'backbone'
-], function (Bb) {
+    'backbone',
+    'json!app/config/config.json'
+], function (Bb, conf) {
     'use strict';
 
     return Bb.Model.extend({
-        url: 'http://127.0.0.1:3000/login',
+
+        url: conf.req.apiUrl + conf.req.login,
+        
         defaults: {
             username: null,
             password: null,
@@ -14,7 +17,7 @@ define([
 
         register: function () {
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/register',
+                url: conf.req.apiUrl + conf.req.register,
                 method: 'POST',
                 data: this.attributes,
                 dataType: 'json',
@@ -36,9 +39,8 @@ define([
 
         refreshAccess: function () {
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/refresh',
+                url: conf.req.apiUrl + conf.req.refresh,
                 method: 'POST',
-                data: '',
                 dataType: 'json',
             })).then(function (resp) {
                 return resp;

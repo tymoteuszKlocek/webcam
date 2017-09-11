@@ -1,11 +1,12 @@
 define([
     'backbone',
-], function (Bb) {
+    'json!app/config/config.json'
+], function (Bb, conf) {
     'use strict';
 
     return Bb.Model.extend({
 
-        url: 'http://127.0.0.1:3000/collections',
+        url: conf.req.apiUrl + conf.req.webcamcollections,
 
         defaults: {
             title: ''
@@ -14,7 +15,7 @@ define([
         submit: function () {
             
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/collections',
+                url: conf.req.apiUrl + conf.req.webcamcollections,
                 method: 'PUT',
                 data: this.attributes,
                 dataType: 'json',

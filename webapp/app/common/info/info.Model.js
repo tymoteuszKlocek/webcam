@@ -5,7 +5,7 @@ define([
 
     return Bb.Model.extend({
         defaults: {
-            info: 'info for user'
+            info: 'Info from server.'
         }
     });
 });

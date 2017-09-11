@@ -6,8 +6,6 @@ define([
 
     return Bb.Model.extend({
 
-        url: 'http://127.0.0.1:8080/',
-
         searchByCoordinates: function (lat, lng) {
             
             return Bb.ajax(_.extend({

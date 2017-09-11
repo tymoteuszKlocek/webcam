@@ -3,7 +3,7 @@
         "SRC": "https://webcamstravel.p.mashape.com/webcams/list/",
         "PARAMS": "/limit=30?show=webcams:location,image,url,statistics",
         "API_KEY": "27CJ6JXzDAmshqOhSle85KVk4Edfp1Rmd4PjsnrmJNbw20YsyA",
-        "RANGE": "100"
+        "RANGE": "200"
     },
     "weather": {
         "SRC": "http://api.openweathermap.org/data/2.5/weather?",
@@ -21,10 +21,16 @@
         "LOCALISATION": "51.2379945,22.5269071",
         "ZOOM": "&zoom=18",
         "SRC": "https://www.google.com/maps/embed/v1/",
-        "TYPE": "&maptype=satellite"
+        "TYPE": "&maptype=satellite",
+        "POS": "51.23776,22.52807"
     },
-    "requests": {
-        "sessionUrl": "http://localhost:8000/",
-        "createCollectionForm": "http://127.0.0.1:3000/collections"
+    "req": {
+        "apiUrl": "http://127.0.0.1:3000",
+        "webcamcollections": "/webcamcollections",
+        "webcams":  "/webcams",
+        "login": "/login",
+        "register": "/register",
+        "refresh" : "/refresh",
+        "logout": "/logout"
     }
 }

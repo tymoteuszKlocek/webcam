@@ -1,11 +1,12 @@
 define([
     'backbone',
     'app/common/gallery/gallery.Model',
-], function (Bb, Model) {
+    'json!app/config/config.json'
+], function (Bb, Model, conf) {
     'use strict';
 
     return Bb.Collection.extend({
-        url: 'http://127.0.0.1:3000/collections',
+        url: conf.req.apiUrl + conf.req.webcamcollections,
         model: Model
     });
 });

@@ -1,10 +1,11 @@
 define([
     'backbone',
-], function (Bb) {
+    'json!app/config/config.json'    
+], function (Bb, conf) {
     'use strict';
 
     return Bb.Model.extend({
-        url: 'http://127.0.0.1:3000/webcams',
+        url: conf.req.apiUrl + conf.req.webcams,
         defaults: {
             city: '',
             country: '',
@@ -21,7 +22,7 @@ define([
 
         save: function () {
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/webcams',
+                url: conf.req.apiUrl + conf.req.webcams,
                 method: 'PUT',
                 data: this.attributes,
                 dataType: 'json',
@@ -31,30 +32,19 @@ define([
         },
 
         destroy: function () {
-            return Bb.Collection.prototype.fetch.call(this, {
-                url: 'http://127.0.0.1:3000/webcams',
+            return Bb.ajax(_.extend({
+                url: conf.req.apiUrl + conf.req.webcams,
                 method: 'DELETE',
                 data: this.attributes,
                 dataType: 'json',
-            }).then(function (resp) {
+            })).then(function (resp) {
                 return resp;
             });
         },
 
-        //     return Bb.ajax(_.extend({
-        //         url: 'http://127.0.0.1:3000/webcams',
-        //         method: 'DELETE',
-        //         data: this.attributes,
-        //         dataType: 'json',
-        //     })).then(function(resp) {
-        //         return resp;
-        //     });
-
-
         getCollection: function (collectionid) {
-
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/webcams/' + collectionid,
+                url: conf.req.apiUrl + conf.req.webcams + '/' + collectionid,
                 method: 'GET',
                 data: '',
                 dataType: 'json',

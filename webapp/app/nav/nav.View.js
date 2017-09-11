@@ -43,7 +43,7 @@ define([
         },
 
         logout: function() {
-            this.model.logout().then(function() {
+            this.model.save().done(function() {
                 Auth.set('logged', false);
                 window.location.reload();
             });

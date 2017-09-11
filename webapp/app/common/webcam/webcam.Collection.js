@@ -1,12 +1,13 @@
 define([
     'backbone',
     'app/common/webcam/webcam.Model',
-], function (Bb, Model) {
+    'json!app/config/config.json'
+], function (Bb, Model, conf) {
     'use strict';
 
     return Bb.Collection.extend({
         model: Model,
-        url: 'http://127.0.0.1:3000/webcams-collection',
+        url: conf.req.apiUrl + conf.req.webcamcollections,
         parse: function (response) {
             return response.results;
         }

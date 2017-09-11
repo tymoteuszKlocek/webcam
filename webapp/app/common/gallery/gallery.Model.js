@@ -1,12 +1,12 @@
 define([
     'backbone',
-    'app/common/gallery/gallery.Collection'
-], function (Bb) {
+    'json!app/config/config.json'
+], function (Bb, conf) {
     'use strict';
 
     return Bb.Model.extend({
 
-        url: 'http://127.0.0.1:3000/collections',
+        url: conf.req.apiUrl + conf.req.webcamcollections,
 
         defaults: {
             title: '',
@@ -17,7 +17,7 @@ define([
             this.collectionID = collectionID;
 
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/webcams',
+                url: conf.req.apiUrl + conf.req.webcams,
                 method: 'GET',
                 data: this.attributes,
                 dataType: 'json',
@@ -29,7 +29,7 @@ define([
         removeItem: function () {
 
             return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/collections',
+                url: conf.req.apiUrl + conf.req.webcamcollections,
                 method: 'DELETE',
                 data: this.attributes,
                 dataType: 'json',

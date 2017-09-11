@@ -1,16 +1,17 @@
 define([
     'backbone',
     'app/common/localisation/localisation.Service',
-], function (Bb, LocalisationService) {
+    'json!app/config/config.json'
+], function (Bb, LocalisationService, conf) {
     'use strict';
 
     return Bb.Model.extend({
 
-        url: 'http://127.0.0.1:3000/login',
+        url: conf.req.apiUrl + conf.req.logout,
 
         defaults: {
-            position: '51.23776,22.52807', // default position is Lublin
-            username: 'Josh'
+            position: conf.map.POS, // default position is DataArt Lublin
+            username: ''
         },
 
         initialize: function () {
@@ -23,14 +24,14 @@ define([
         },
 
         logout: function () {
-
-            return Bb.ajax(_.extend({
-                url: 'http://127.0.0.1:3000/logout',
-                method: 'POST',
-                dataType: 'json',
-            })).then(function(resp) {
-                return resp;
-            });
+    
+            // return Bb.ajax(_.extend({
+            //     url: conf.req.logoutUrl,
+            //     method: 'POST',
+            //     dataType: 'json',
+            // })).then(function(resp) {
+            //     return resp;
+            // });
         },
     });
 });

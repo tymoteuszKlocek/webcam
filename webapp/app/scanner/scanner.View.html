@@ -22,18 +22,29 @@
 
 <br/>
 <div>
-    <p>You can also quickly find webcams in range of 100km from your current localisation. Just press the button below.</p>
+    <p>You can also quickly find webcams in range of 200km from your current localisation. Just press the button below.</p>
+
     <a href="#/scanner/near/:<%= position %>">
         <button type="button" class="btn btn-info findMe">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Find near me
         </button>
     </a>
 </div>
+<br/>
+
+<div class="alert alert-success">
+    <p>NEW! For any localistaion just paste latitude and longitude, eg. '24.546648,-81.798183'</p>
+    <div class="input-group">
+        <input class="form-control" name="searchPosition" type="text" placeholder="paste position" />
+        <button type="button" class="btn btn-info searchPosition"> Search</button>
+    </div>
+</div>
 
 <br>
 
 <div class="panel panel-info">
-    <div class="panel-heading">Here you can see available webcams. (There are <%= size %> webcams.)</div>
+    <div class="panel-heading">Here you can see available webcams. (There are
+        <%= size %> webcams.)</div>
     <div class="panel-body" id="webcam-collection">
         No webcams yet...
     </div>

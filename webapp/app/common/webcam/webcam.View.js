@@ -5,7 +5,6 @@ define([
     'app/common/webcam/webcam.Model',
     'app/common/webcam/webcam.Collection',
     'app/common/info/info.View',
-    //'app/common/lists/gallery/list.View',
     'app/dashboard/dashboard.View'
 ], function (Bb, Mn, tpl, Model, WebcamCol, Info, GalleryList) {
     'use strict';
