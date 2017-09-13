@@ -7,7 +7,7 @@
 
     <div class="media-rigth">
 
-        <ul class="list-group">
+        <div class="list-group">
             <li class="list-group-item">
                 <h4 class="media-heading">
                     <%= title %>
@@ -23,12 +23,6 @@
                 <%= views %>
             </li>
             <li class="list-group-item">
-                <a href="#/show-map/:<%= position %>/:<%= country %>">Show</a> map and weather info.
-            </li>
-            <li class="list-group-item">
-                <a href="#/scanner/country/:<%= countryCode %>">Show</a> more from this country.
-            </li>
-            <li class="list-group-item">
 
                 <div id="btn-scanner">
                     <button type="button" class="btn btn-success" id="save">Save</button>
@@ -42,9 +36,15 @@
                 <div id="webcam-dashboard"></div>
 
             </li>
+            <div class="well">
+                <div>
+                    <a href="#/show-map/:<%= position %>/:<%= country %>">Map</a>
+                </div>
+                <div>
+                    <a href="#/scanner/country/:<%= countryCode %>">More from this country</a>
+                </div>
+            </div>
+            </ul>
 
-
-        </ul>
-
+        </div>
     </div>
-</div>

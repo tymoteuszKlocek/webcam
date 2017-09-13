@@ -97,7 +97,10 @@ define([
             this.typeahead.setElement('#autocomplete').render();
         },
 
-        searchPosition: function() {
+        searchPosition: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
             var category = 'nearby=';
             var position = this.ui.inputPosition.val().trim();
             this.sendRequest(category, position);

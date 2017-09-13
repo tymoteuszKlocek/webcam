@@ -11,6 +11,10 @@ define([
 
         template: _.template(tpl),
 
+        ui: {
+            header: '.list-header'
+        },
+
         regions: {
             list: '.list'
         },
@@ -28,6 +32,9 @@ define([
         },
 
         displayView: function (opt) {
+            if(opt.opt === 'mini') {
+                this.ui.header.addClass('hide');
+            }
             this.showChildView('list', new GalleryCollectionView({collection: this.collection, opt}));
         },
 

@@ -25,7 +25,7 @@ router.post('/login', (req, res) => {
         if (!user) {
 
             return res.status(200).send({ success: false, error: 'User not found. Create account.' });
-            
+
         } else if (hashPass === user.password) {
 
             req.checkBody(schema);
@@ -40,7 +40,8 @@ router.post('/login', (req, res) => {
             }).catch(() => {
                 res.status(200).send({ success: false, error: 'Invalid username' });
             });
-
+        } else {
+            res.status(200).send({ success: false, error: 'Invalid password' });
         }
     });
 
@@ -59,16 +60,16 @@ router.post('/register', (req, res) => {
         'username': {
             notEmpty: true,
             isLength: {
-                options: [{ min: 2, max: 10 }],
-                errorMessage: 'Username must be between 2 and 10 chars long'
+                options: [{ min: 2, max: 18 }],
+                errorMessage: 'Username must be between 2 and 18 chars long'
             },
             errorMessage: 'Invalid Username'
         },
         'password': {
             notEmpty: true,
             isLength: {
-                options: [{ min: 4, max: 10 }],
-                errorMessage: 'Password must be between 2 and 10 chars long'
+                options: [{ min: 4 }],
+                errorMessage: 'Password must be longer then 4 chars'
             },
             errorMessage: 'Invalid Password'
         },
@@ -102,7 +103,7 @@ router.post('/register', (req, res) => {
                         email: req.body.email
                     }).then(() => {
                         res.status(200).send({ success: true });
-                    }).catch( (error) => {
+                    }).catch((error) => {
                         res.status(200).send({ success: false, error: error });
                     });
 

@@ -33,7 +33,7 @@ define([
                 meteo: 'Meteo',
                 sportarea: 'SportArea',
                 square: 'Square',
-                traffic: 'Street',
+                traffic: 'Traffic',
                 water: 'Water',
 
             }
